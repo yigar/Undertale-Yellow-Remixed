@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="mooch.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="crying0" x="0" y="0" width="56" height="56"/>
+  <SubTexture name="crying1" x="56" y="0" width="56" height="56"/>
+  <SubTexture name="squint0" x="112" y="0" width="56" height="56"/>
+  <SubTexture name="squint1" x="168" y="0" width="56" height="56"/>
+  <SubTexture name="disappointed0" x="0" y="56" width="56" height="56"/>
+  <SubTexture name="disappointed1" x="56" y="56" width="56" height="56"/>
+  <SubTexture name="stare0" x="112" y="56" width="56" height="56"/>
+  <SubTexture name="stare1" x="168" y="56" width="56" height="56"/>
+  <SubTexture name="default0" x="0" y="112" width="56" height="56"/>
+  <SubTexture name="default1" x="56" y="112" width="56" height="56"/>
+  <SubTexture name="smug0" x="112" y="168" width="56" height="56"/>
+  <SubTexture name="smug1" x="168" y="112" width="56" height="56"/>
+  <SubTexture name="shocked0" x="0" y="168" width="56" height="56"/>
+  <SubTexture name="shocked1" x="56" y="168" width="56" height="56"/>
+</TextureAtlas>

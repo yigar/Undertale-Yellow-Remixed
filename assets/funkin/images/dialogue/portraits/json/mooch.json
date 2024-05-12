@@ -1,0 +1,146 @@
+{ "frames": {
+   "crying0": {
+    "frame": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "crying1": {
+    "frame": { "x": 56, "y": 0, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "squint0": {
+    "frame": { "x": 112, "y": 0, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "squint1": {
+    "frame": { "x": 168, "y": 0, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "disappointed0": {
+    "frame": { "x": 0, "y": 56, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "disappointed1": {
+    "frame": { "x": 56, "y": 56, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "stare0": {
+    "frame": { "x": 112, "y": 56, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "stare1": {
+    "frame": { "x": 168, "y": 56, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "default0": {
+    "frame": { "x": 0, "y": 112, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "default1": {
+    "frame": { "x": 56, "y": 112, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "smug0": {
+    "frame": { "x": 112, "y": 112, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "smug1": {
+    "frame": { "x": 168, "y": 112, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "shocked0": {
+    "frame": { "x": 0, "y": 168, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "shocked1": {
+    "frame": { "x": 56, "y": 168, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   },
+   "smug0": {
+    "frame": { "x": 112, "y": 168, "w": 56, "h": 56 },
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": { "x": 0, "y": 0, "w": 56, "h": 56 },
+    "sourceSize": { "w": 56, "h": 56 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.4-x64",
+  "image": "mooch.png",
+  "format": "RGBA8888",
+  "size": { "w": 224, "h": 224 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "crying", "from": 0, "to": 1, "direction": "forward", "color": "#000000ff" },
+   { "name": "squint", "from": 2, "to": 3, "direction": "forward", "color": "#000000ff" },
+   { "name": "disappointed", "from": 4, "to": 5, "direction": "forward", "color": "#000000ff" },
+   { "name": "stare", "from": 6, "to": 7, "direction": "forward", "color": "#000000ff" },
+   { "name": "default", "from": 8, "to": 9, "direction": "forward", "color": "#000000ff" },
+   { "name": "smug", "from": 10, "to": 11, "direction": "forward", "color": "#000000ff" },
+   { "name": "shocked", "from": 12, "to": 13, "direction": "forward", "color": "#000000ff" },
+   { "name": "smug", "from": 14, "to": 14, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "Sprite Sheet", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

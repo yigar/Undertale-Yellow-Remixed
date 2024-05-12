@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="clover.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="walk_up0000" x="1" y="1" width="20" height="32"/>
+  <SubTexture name="walk_up0001" x="22" y="1" width="20" height="32"/>
+  <SubTexture name="walk_up0002" x="43" y="1" width="20" height="32"/>
+  <SubTexture name="walk_down0000" x="64" y="1" width="20" height="32"/>
+  <SubTexture name="walk_down0001" x="85" y="1" width="20" height="32"/>
+  <SubTexture name="walk_down0002" x="106" y="1" width="20" height="32"/>
+  <SubTexture name="walk_left0000" x="127" y="1" width="20" height="32"/>
+  <SubTexture name="walk_left0001" x="148" y="1" width="20" height="32"/>
+  <SubTexture name="walk_right0000" x="169" y="1" width="20" height="32"/>
+  <SubTexture name="walk_right0001" x="190" y="1" width="20" height="32"/>
+  <SubTexture name="run_up0000" x="211" y="1" width="20" height="32"/>
+  <SubTexture name="run_up0001" x="232" y="1" width="20" height="32"/>
+  <SubTexture name="run_up0002" x="253" y="1" width="20" height="32"/>
+  <SubTexture name="run_up0003" x="274" y="1" width="20" height="32"/>
+  <SubTexture name="run_up0004" x="295" y="1" width="20" height="32"/>
+  <SubTexture name="run_up0005" x="316" y="1" width="20" height="32"/>
+  <SubTexture name="run_down0000" x="337" y="1" width="20" height="32"/>
+  <SubTexture name="run_down0001" x="358" y="1" width="20" height="32"/>
+  <SubTexture name="run_down0002" x="379" y="1" width="20" height="32"/>
+  <SubTexture name="run_down0003" x="400" y="1" width="20" height="32"/>
+  <SubTexture name="run_down0004" x="421" y="1" width="20" height="32"/>
+  <SubTexture name="run_left0000" x="442" y="1" width="20" height="32"/>
+  <SubTexture name="run_left0001" x="463" y="1" width="20" height="32"/>
+  <SubTexture name="run_left0002" x="484" y="1" width="20" height="32"/>
+  <SubTexture name="run_left0003" x="505" y="1" width="20" height="32"/>
+  <SubTexture name="run_left0004" x="526" y="1" width="20" height="32"/>
+  <SubTexture name="run_right0000" x="547" y="1" width="20" height="32"/>
+  <SubTexture name="run_right0001" x="568" y="1" width="20" height="32"/>
+  <SubTexture name="run_right0002" x="589" y="1" width="20" height="32"/>
+  <SubTexture name="run_right0003" x="610" y="1" width="20" height="32"/>
+  <SubTexture name="run_right0004" x="631" y="1" width="20" height="32"/>
+</TextureAtlas>

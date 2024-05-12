@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="moray.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0" x="0" y="0" width="49" height="51"/>
+  <SubTexture name="default1" x="49" y="0" width="49" height="51"/>
+  <SubTexture name="sad0" x="98" y="0" width="49" height="51"/>
+  <SubTexture name="sad1" x="147" y="0" width="49" height="51"/>
+  <SubTexture name="awkward0" x="0" y="51" width="49" height="51"/>
+  <SubTexture name="awkward1" x="49" y="51" width="49" height="51"/>
+  <SubTexture name="angry0" x="98" y="51" width="49" height="51"/>
+  <SubTexture name="angry1" x="147" y="51" width="49" height="51"/>
+  <SubTexture name="frown0" x="0" y="102" width="49" height="51"/>
+  <SubTexture name="frown1" x="49" y="102" width="49" height="51"/>
+  <SubTexture name="sweat0" x="98" y="102" width="49" height="51"/>
+  <SubTexture name="sweat1" x="147" y="102" width="49" height="51"/>
+</TextureAtlas>

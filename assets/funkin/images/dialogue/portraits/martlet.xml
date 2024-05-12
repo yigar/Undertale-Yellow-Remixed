@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="martlet.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="smile0" x="0" y="0" width="53" height="64"/>
+  <SubTexture name="smile1" x="53" y="0" width="53" height="64"/>
+  <SubTexture name="neutral0" x="106" y="0" width="53" height="64"/>
+  <SubTexture name="neutral1" x="159" y="0" width="53" height="64"/>
+  <SubTexture name="gazingSide0" x="212" y="0" width="53" height="64"/>
+  <SubTexture name="gazingSide1" x="265" y="0" width="53" height="64"/>
+  <SubTexture name="happy0" x="318" y="0" width="53" height="64"/>
+  <SubTexture name="happy1" x="371" y="0" width="53" height="64"/>
+  <SubTexture name="happy_eyesClosed0" x="0" y="64" width="53" height="64"/>
+  <SubTexture name="happy_eyesClosed1" x="53" y="64" width="53" height="64"/>
+  <SubTexture name="stars0" x="106" y="64" width="53" height="64"/>
+  <SubTexture name="stars1" x="159" y="64" width="53" height="64"/>
+  <SubTexture name="smug0" x="212" y="64" width="53" height="64"/>
+  <SubTexture name="smug1" x="265" y="64" width="53" height="64"/>
+  <SubTexture name="determined0" x="318" y="64" width="53" height="64"/>
+  <SubTexture name="determined1" x="371" y="64" width="53" height="64"/>
+  <SubTexture name="nervous_smile0" x="0" y="128" width="53" height="64"/>
+  <SubTexture name="nervous_smile1" x="53" y="128" width="53" height="64"/>
+  <SubTexture name="18" x="106" y="128" width="53" height="64"/>
+  <SubTexture name="19" x="159" y="128" width="53" height="64"/>
+  <SubTexture name="nervous0" x="212" y="128" width="53" height="64"/>
+  <SubTexture name="nervous1" x="265" y="128" width="53" height="64"/>
+  <SubTexture name="squint0" x="318" y="128" width="53" height="64"/>
+  <SubTexture name="squint1" x="371" y="128" width="53" height="64"/>
+  <SubTexture name="concern0" x="0" y="192" width="53" height="64"/>
+  <SubTexture name="concern1" x="53" y="192" width="53" height="64"/>
+  <SubTexture name="concern_side0" x="106" y="192" width="53" height="64"/>
+  <SubTexture name="concern_side1" x="159" y="192" width="53" height="64"/>
+  <SubTexture name="confused0" x="212" y="192" width="53" height="64"/>
+  <SubTexture name="confused1" x="265" y="192" width="53" height="64"/>
+  <SubTexture name="confused_side0" x="318" y="192" width="53" height="64"/>
+  <SubTexture name="confused_side1" x="371" y="192" width="53" height="64"/>
+  <SubTexture name="shocked0" x="0" y="256" width="53" height="64"/>
+  <SubTexture name="shocked1" x="53" y="256" width="53" height="64"/>
+  <SubTexture name="intimidated0" x="106" y="256" width="53" height="64"/>
+  <SubTexture name="intimidated1" x="159" y="256" width="53" height="64"/>
+  <SubTexture name="horrified0" x="212" y="256" width="53" height="64"/>
+  <SubTexture name="horrified1" x="265" y="256" width="53" height="64"/>
+  <SubTexture name="sneer0" x="318" y="256" width="53" height="64"/>
+  <SubTexture name="sneer1" x="371" y="256" width="53" height="64"/>
+  <SubTexture name="sneer_side0" x="0" y="320" width="53" height="64"/>
+  <SubTexture name="sneer_side1" x="53" y="320" width="53" height="64"/>
+  <SubTexture name="unamused0" x="106" y="320" width="53" height="64"/>
+  <SubTexture name="unamused1" x="159" y="320" width="53" height="64"/>
+  <SubTexture name="disappointed0" x="212" y="320" width="53" height="64"/>
+  <SubTexture name="disappointed1" x="265" y="320" width="53" height="64"/>
+  <SubTexture name="angry0" x="318" y="320" width="53" height="64"/>
+  <SubTexture name="angry1" x="371" y="320" width="53" height="64"/>
+  <SubTexture name="scowl0" x="0" y="384" width="53" height="64"/>
+  <SubTexture name="scowl1" x="53" y="384" width="53" height="64"/>
+</TextureAtlas>

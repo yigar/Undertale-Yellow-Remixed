@@ -1,0 +1,23 @@
+spritesheet: "ceroba_vitals"
+
+animations:
+ - {name: "idle_up", prefix: "walk_up", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_down", prefix: "walk_down", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_left", prefix: "talk_left", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_right", prefix: "talk_right", fps: 0, loop: false, indices: [0]}
+
+ - {name: "talk_left", prefix: "talk_left", fps: 12, loop: true, indices: [0, 1]}
+ - {name: "talk_right", prefix: "talk_right", fps: 12, loop: true, indices: [0, 1]}
+
+ - {name: "walk_up", prefix: "walk_up", fps: 4, loop: true, indices: [1, 0, 2, 0]}
+ - {name: "walk_down", prefix: "walk_down", fps: 4, loop: true, indices: [1, 0, 2, 0]}
+ - {name: "walk_left", prefix: "walk_left", fps: 4, loop: true, indices: [1, 2, 3, 0]}
+ - {name: "walk_right", prefix: "walk_right", fps: 4, loop: true, indices: [1, 2, 3, 0]}
+
+ - {name: "run_up", prefix: "run_up", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
+ - {name: "run_down", prefix: "run_down", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
+ - {name: "run_left", prefix: "run_left", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
+ - {name: "run_right", prefix: "run_right", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
+
+hitbox: {offsetX: 0, offsetY: -10, width: 70, height: 60}
+ 

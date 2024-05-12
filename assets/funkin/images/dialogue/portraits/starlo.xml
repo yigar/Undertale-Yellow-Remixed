@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="starlo.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="smile_down0" x="0" y="0" width="57" height="61"/>
+  <SubTexture name="smile_down1" x="57" y="0" width="57" height="61"/>
+  <SubTexture name="smile0" x="114" y="0" width="57" height="61"/>
+  <SubTexture name="smile1" x="171" y="0" width="57" height="61"/>
+  <SubTexture name="grin0" x="228" y="0" width="57" height="61"/>
+  <SubTexture name="grin1" x="285" y="0" width="57" height="61"/>
+  <SubTexture name="smug0" x="342" y="0" width="57" height="61"/>
+  <SubTexture name="smug1" x="0" y="61" width="57" height="61"/>
+  <SubTexture name="blush_happy0" x="57" y="61" width="57" height="61"/>
+  <SubTexture name="blush_happy1" x="114" y="61" width="57" height="61"/>
+  <SubTexture name="blush_squint0" x="171" y="61" width="57" height="61"/>
+  <SubTexture name="blush_squint1" x="228" y="61" width="57" height="61"/>
+  <SubTexture name="serious0" x="285" y="61" width="57" height="61"/>
+  <SubTexture name="serious1" x="342" y="61" width="57" height="61"/>
+  <SubTexture name="sneer0" x="0" y="122" width="57" height="61"/>
+  <SubTexture name="sneer1" x="57" y="122" width="57" height="61"/>
+  <SubTexture name="scold0" x="114" y="122" width="57" height="61"/>
+  <SubTexture name="scold1" x="171" y="122" width="57" height="61"/>
+  <SubTexture name="lookingDown0" x="228" y="122" width="57" height="61"/>
+  <SubTexture name="lookingDown1" x="285" y="122" width="57" height="61"/>
+  <SubTexture name="sad0" x="342" y="122" width="57" height="61"/>
+  <SubTexture name="sad1" x="0" y="183" width="57" height="61"/>
+  <SubTexture name="suspicious_glance0" x="57" y="183" width="57" height="61"/>
+  <SubTexture name="suspicious_glance1" x="114" y="183" width="57" height="61"/>
+  <SubTexture name="ashamed0" x="171" y="183" width="57" height="61"/>
+  <SubTexture name="ashamed1" x="228" y="183" width="57" height="61"/>
+  <SubTexture name="blush_awkward0" x="285" y="183" width="57" height="61"/>
+  <SubTexture name="blush_awkward1" x="342" y="183" width="57" height="61"/>
+  <SubTexture name="smallEyes0" x="0" y="244" width="57" height="61"/>
+  <SubTexture name="smallEyes1" x="57" y="244" width="57" height="61"/>
+  <SubTexture name="embarrassed0" x="114" y="244" width="57" height="61"/>
+  <SubTexture name="embarrassed1" x="171" y="244" width="57" height="61"/>
+  <SubTexture name="flustered0" x="228" y="244" width="57" height="61"/>
+  <SubTexture name="flustered1" x="285" y="244" width="57" height="61"/>
+  <SubTexture name="furious0" x="342" y="244" width="57" height="61"/>
+  <SubTexture name="furious1" x="0" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_meek0" x="57" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_meek1" x="114" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_normal0" x="171" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_normal1" x="228" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_happy0" x="285" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_happy1" x="342" y="305" width="57" height="61"/>
+  <SubTexture name="noHat_smile0" x="0" y="366" width="57" height="61"/>
+  <SubTexture name="noHat_smile1" x="57" y="366" width="57" height="61"/>
+</TextureAtlas>

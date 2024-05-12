@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ceroba_vitals.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="walk_down0000" x="0" y="0" width="29" height="56"/>
+  <SubTexture name="walk_down0001" x="29" y="0" width="29" height="56"/>
+  <SubTexture name="walk_down0002" x="58" y="0" width="29" height="56"/>
+  <SubTexture name="run_down0000" x="87" y="0" width="29" height="56"/>
+  <SubTexture name="run_down0001" x="116" y="0" width="29" height="56"/>
+  <SubTexture name="run_down0002" x="145" y="0" width="29" height="56"/>
+  <SubTexture name="run_down0003" x="174" y="0" width="29" height="56"/>
+  <SubTexture name="run_down0004" x="0" y="56" width="29" height="56"/>
+  <SubTexture name="run_down0005" x="29" y="56" width="29" height="56"/>
+  <SubTexture name="walk_up0000" x="58" y="56" width="29" height="56"/>
+  <SubTexture name="walk_up0001" x="87" y="56" width="29" height="56"/>
+  <SubTexture name="walk_up0002" x="116" y="56" width="29" height="56"/>
+  <SubTexture name="run_up0000" x="145" y="56" width="29" height="56"/>
+  <SubTexture name="run_up0001" x="174" y="56" width="29" height="56"/>
+  <SubTexture name="run_up0002" x="0" y="112" width="29" height="56"/>
+  <SubTexture name="run_up0003" x="29" y="112" width="29" height="56"/>
+  <SubTexture name="run_up0004" x="58" y="112" width="29" height="56"/>
+  <SubTexture name="run_up0005" x="87" y="112" width="29" height="56"/>
+  <SubTexture name="talk_left0000" x="116" y="112" width="29" height="56"/>
+  <SubTexture name="talk_left0001" x="145" y="112" width="29" height="56"/>
+  <SubTexture name="walk_left0000" x="174" y="112" width="29" height="56"/>
+  <SubTexture name="walk_left0001" x="0" y="168" width="29" height="56"/>
+  <SubTexture name="walk_left0002" x="29" y="168" width="29" height="56"/>
+  <SubTexture name="walk_left0003" x="58" y="168" width="29" height="56"/>
+  <SubTexture name="run_left0000" x="87" y="168" width="29" height="56"/>
+  <SubTexture name="run_left0001" x="116" y="168" width="29" height="56"/>
+  <SubTexture name="run_left0002" x="145" y="168" width="29" height="56"/>
+  <SubTexture name="run_left0003" x="174" y="168" width="29" height="56"/>
+  <SubTexture name="run_left0004" x="0" y="224" width="29" height="56"/>
+  <SubTexture name="run_left0005" x="29" y="224" width="29" height="56"/>
+  <SubTexture name="talk_right0000" x="58" y="224" width="29" height="56"/>
+  <SubTexture name="talk_right0001" x="87" y="224" width="29" height="56"/>
+  <SubTexture name="walk_right0000" x="116" y="224" width="29" height="56"/>
+  <SubTexture name="walk_right0001" x="145" y="224" width="29" height="56"/>
+  <SubTexture name="walk_right0002" x="174" y="224" width="29" height="56"/>
+  <SubTexture name="walk_right0003" x="0" y="280" width="29" height="56"/>
+  <SubTexture name="run_right0000" x="29" y="280" width="29" height="56"/>
+  <SubTexture name="run_right0001" x="58" y="280" width="29" height="56"/>
+  <SubTexture name="run_right0002" x="87" y="280" width="29" height="56"/>
+  <SubTexture name="run_right0003" x="116" y="280" width="29" height="56"/>
+  <SubTexture name="run_right0004" x="145" y="280" width="29" height="56"/>
+  <SubTexture name="run_right0005" x="174" y="280" width="29" height="56"/>
+</TextureAtlas>

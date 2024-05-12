@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="kanako-sheet.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="smile0" x="0" y="0" width="55" height="53"/>
+  <SubTexture name="smile1" x="55" y="0" width="55" height="53"/>
+  <SubTexture name="happy0" x="110" y="0" width="55" height="53"/>
+  <SubTexture name="happy1" x="165" y="0" width="55" height="53"/>
+  <SubTexture name="warm0" x="220" y="0" width="55" height="53"/>
+  <SubTexture name="warm1" x="0" y="53" width="55" height="53"/>
+  <SubTexture name="frown0" x="55" y="53" width="55" height="53"/>
+  <SubTexture name="frown1" x="110" y="53" width="55" height="53"/>
+  <SubTexture name="frown_side0" x="165" y="53" width="55" height="53"/>
+  <SubTexture name="frown_side1" x="220" y="53" width="55" height="53"/>
+  <SubTexture name="crying_teeth0" x="0" y="106" width="55" height="53"/>
+  <SubTexture name="crying_teeth1" x="55" y="106" width="55" height="53"/>
+  <SubTexture name="crying_frown0" x="110" y="106" width="55" height="53"/>
+  <SubTexture name="crying_frown1" x="165" y="106" width="55" height="53"/>
+  <SubTexture name="crying_headLowered0" x="220" y="106" width="55" height="53"/>
+  <SubTexture name="squint0" x="0" y="159" width="55" height="53"/>
+  <SubTexture name="crying_sweat0" x="55" y="159" width="55" height="53"/>
+  <SubTexture name="crying_sweat1" x="110" y="159" width="55" height="53"/>
+  <SubTexture name="pouty_eyesClosed0" x="165" y="159" width="55" height="53"/>
+  <SubTexture name="pouty0" x="220" y="159" width="55" height="53"/>
+  <SubTexture name="pouty1" x="0" y="212" width="55" height="53"/>
+  <SubTexture name="shocked0" x="55" y="212" width="55" height="53"/>
+</TextureAtlas>

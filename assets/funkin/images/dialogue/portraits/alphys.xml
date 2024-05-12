@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="alphys.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0" x="0" y="0" width="56" height="47"/>
+  <SubTexture name="smug0" x="56" y="0" width="56" height="47"/>
+  <SubTexture name="worried0" x="112" y="0" width="56" height="47"/>
+  <SubTexture name="worried1" x="168" y="0" width="56" height="47"/>
+  <SubTexture name="awkward0" x="224" y="0" width="56" height="47"/>
+  <SubTexture name="awkward1" x="280" y="0" width="56" height="47"/>
+  <SubTexture name="awkward2" x="0" y="47" width="56" height="47"/>
+  <SubTexture name="awkward3" x="56" y="47" width="56" height="47"/>
+  <SubTexture name="awkward4" x="112" y="47" width="56" height="47"/>
+  <SubTexture name="awkward5" x="168" y="47" width="56" height="47"/>
+  <SubTexture name="awkward6" x="224" y="47" width="56" height="47"/>
+  <SubTexture name="awkward7" x="280" y="47" width="56" height="47"/>
+  <SubTexture name="morose0" x="0" y="94" width="56" height="47"/>
+  <SubTexture name="morose1" x="56" y="94" width="56" height="47"/>
+  <SubTexture name="morose2" x="112" y="94" width="56" height="47"/>
+  <SubTexture name="morose3" x="168" y="94" width="56" height="47"/>
+  <SubTexture name="serious0" x="224" y="94" width="56" height="47"/>
+  <SubTexture name="serious1" x="280" y="94" width="56" height="47"/>
+  <SubTexture name="wishful0" x="0" y="141" width="56" height="47"/>
+  <SubTexture name="wishful1" x="56" y="141" width="56" height="47"/>
+  <SubTexture name="wishful2" x="112" y="141" width="56" height="47"/>
+  <SubTexture name="excited0" x="168" y="141" width="56" height="47"/>
+  <SubTexture name="love0" x="224" y="141" width="56" height="47"/>
+  <SubTexture name="flattered0" x="280" y="141" width="56" height="47"/>
+  <SubTexture name="stare0" x="0" y="188" width="56" height="47"/>
+  <SubTexture name="stare1" x="56" y="188" width="56" height="47"/>
+  <SubTexture name="upset0" x="112" y="188" width="56" height="47"/>
+  <SubTexture name="upset1" x="168" y="188" width="56" height="47"/>
+  <SubTexture name="upset2" x="224" y="188" width="56" height="47"/>
+  <SubTexture name="upset3" x="280" y="188" width="56" height="47"/>
+</TextureAtlas>

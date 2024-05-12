@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="ceroba.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0" x="0" y="0" width="55" height="54"/>
+  <SubTexture name="default1" x="55" y="0" width="55" height="54"/>
+  <SubTexture name="stare0" x="110" y="0" width="55" height="54"/>
+  <SubTexture name="stare1" x="165" y="0" width="55" height="54"/>
+  <SubTexture name="smile0" x="220" y="0" width="55" height="54"/>
+  <SubTexture name="smile1" x="275" y="0" width="55" height="54"/>
+  <SubTexture name="shy0" x="330" y="0" width="55" height="54"/>
+  <SubTexture name="shy1" x="0" y="54" width="55" height="54"/>
+  <SubTexture name="happyStare0" x="55" y="54" width="55" height="54"/>
+  <SubTexture name="happyStare1" x="110" y="54" width="55" height="54"/>
+  <SubTexture name="relieved0" x="165" y="54" width="55" height="54"/>
+  <SubTexture name="relieved1" x="220" y="54" width="55" height="54"/>
+  <SubTexture name="grin0" x="275" y="54" width="55" height="54"/>
+  <SubTexture name="grin1" x="330" y="54" width="55" height="54"/>
+  <SubTexture name="snicker0" x="0" y="108" width="55" height="54"/>
+  <SubTexture name="snicker1" x="55" y="108" width="55" height="54"/>
+  <SubTexture name="noMouth0" x="110" y="108" width="55" height="54"/>
+  <SubTexture name="noMouth1" x="165" y="108" width="55" height="54"/>
+  <SubTexture name="pissed0" x="220" y="108" width="55" height="54"/>
+  <SubTexture name="pissed1" x="275" y="108" width="55" height="54"/>
+  <SubTexture name="sad0" x="330" y="108" width="55" height="54"/>
+  <SubTexture name="sad1" x="0" y="162" width="55" height="54"/>
+  <SubTexture name="unamused0" x="55" y="162" width="55" height="54"/>
+  <SubTexture name="unamused1" x="110" y="162" width="55" height="54"/>
+  <SubTexture name="worry0" x="165" y="162" width="55" height="54"/>
+  <SubTexture name="worry1" x="220" y="162" width="55" height="54"/>
+  <SubTexture name="eyesClosed0" x="275" y="162" width="55" height="54"/>
+  <SubTexture name="eyesClosed1" x="330" y="162" width="55" height="54"/>
+  <SubTexture name="scrunch0" x="0" y="216" width="55" height="54"/>
+  <SubTexture name="scrunch1" x="55" y="216" width="55" height="54"/>
+  <SubTexture name="spooked0" x="110" y="216" width="55" height="54"/>
+  <SubTexture name="spooked1" x="165" y="216" width="55" height="54"/>
+  <SubTexture name="panic0" x="220" y="216" width="55" height="54"/>
+  <SubTexture name="panic1" x="275" y="216" width="55" height="54"/>
+  <SubTexture name="crying0" x="330" y="216" width="55" height="54"/>
+  <SubTexture name="crying1" x="0" y="270" width="55" height="54"/>
+  <SubTexture name="annoyed0" x="55" y="270" width="55" height="54"/>
+  <SubTexture name="annoyed1" x="110" y="270" width="55" height="54"/>
+  <SubTexture name="ticked0" x="165" y="270" width="55" height="54"/>
+  <SubTexture name="ticked1" x="220" y="270" width="55" height="54"/>
+  <SubTexture name="angry0" x="275" y="270" width="55" height="54"/>
+  <SubTexture name="angry1" x="330" y="270" width="55" height="54"/>
+  <SubTexture name="angryStare0" x="0" y="324" width="55" height="54"/>
+  <SubTexture name="angryStare1" x="55" y="324" width="55" height="54"/>
+  <SubTexture name="furious0" x="110" y="324" width="55" height="54"/>
+  <SubTexture name="furious1" x="165" y="324" width="55" height="54"/>
+  <SubTexture name="lookingDown0" x="220" y="324" width="55" height="54"/>
+  <SubTexture name="stupid0" x="275" y="324" width="55" height="54"/>
+  <SubTexture name="teary0" x="330" y="324" width="55" height="54"/>
+</TextureAtlas>

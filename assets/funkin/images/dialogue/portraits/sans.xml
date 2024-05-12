@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="sans.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0000" x="0" y="0" width="38" height="34"/>
+  <SubTexture name="side0000" x="38" y="0" width="38" height="34"/>
+  <SubTexture name="grin0000" x="76" y="0" width="38" height="34"/>
+  <SubTexture name="wink0000" x="0" y="34" width="38" height="34"/>
+  <SubTexture name="tired0000" x="38" y="34" width="38" height="34"/>
+  <SubTexture name="eyesClosed0000" x="76" y="34" width="38" height="34"/>
+  <SubTexture name="eyeless0000" x="0" y="68" width="38" height="34"/>
+</TextureAtlas>

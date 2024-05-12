@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="asgore.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0" x="0" y="0" width="47" height="48"/>
+  <SubTexture name="default1" x="47" y="0" width="47" height="48"/>
+  <SubTexture name="default_side0" x="94" y="0" width="47" height="48"/>
+  <SubTexture name="default_side1" x="141" y="0" width="47" height="48"/>
+  <SubTexture name="calm0" x="0" y="48" width="47" height="48"/>
+  <SubTexture name="eyesClosed0" x="47" y="48" width="47" height="48"/>
+  <SubTexture name="sad0" x="94" y="48" width="47" height="48"/>
+  <SubTexture name="upset0" x="141" y="48" width="47" height="48"/>
+  <SubTexture name="morose0" x="0" y="96" width="47" height="48"/>
+  <SubTexture name="mournful0" x="47" y="96" width="47" height="48"/>
+  <SubTexture name="lookDown0" x="94" y="96" width="47" height="48"/>
+  <SubTexture name="shocked0" x="141" y="96" width="47" height="48"/>
+</TextureAtlas>

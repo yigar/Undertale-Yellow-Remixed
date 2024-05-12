@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="dialogue_flowey.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="flowey_rise0000" x="1" y="1" width="41" height="49"/>
+  <SubTexture name="flowey_rise0001" x="43" y="1" width="41" height="49"/>
+  <SubTexture name="flowey_rise0002" x="85" y="1" width="41" height="49"/>
+  <SubTexture name="flowey_rise0003" x="127" y="1" width="41" height="49"/>
+  <SubTexture name="flowey_rise0004" x="169" y="1" width="41" height="49"/>
+  <SubTexture name="flowey_rise0005" x="211" y="1" width="41" height="49"/>
+  <SubTexture name="flowey_rise0006" x="1" y="51" width="41" height="49"/>
+  <SubTexture name="flowey_rise0007" x="43" y="51" width="41" height="49"/>
+  <SubTexture name="flowey_rise0008" x="43" y="51" width="41" height="49"/>
+  <SubTexture name="talk_smile0000" x="43" y="51" width="41" height="49"/>
+  <SubTexture name="talk_smile0001" x="85" y="51" width="41" height="49"/>
+  <SubTexture name="talk_side0000" x="127" y="51" width="41" height="49"/>
+  <SubTexture name="talk_side0001" x="169" y="51" width="41" height="49"/>
+  <SubTexture name="talk_eager0000" x="211" y="51" width="41" height="49"/>
+  <SubTexture name="talk_eager0001" x="1" y="101" width="41" height="49"/>
+  <SubTexture name="worry0000" x="43" y="101" width="41" height="49"/>
+  <SubTexture name="worry_small0000" x="85" y="101" width="41" height="49"/>
+  <SubTexture name="talk_smug0000" x="127" y="101" width="41" height="49"/>
+  <SubTexture name="talk_smug0001" x="169" y="101" width="41" height="49"/>
+  <SubTexture name="talk_pissed0000" x="211" y="101" width="41" height="49"/>
+  <SubTexture name="talk_pissed0001" x="1" y="151" width="41" height="49"/>
+  <SubTexture name="talk_evil0000" x="43" y="151" width="41" height="49"/>
+  <SubTexture name="talk_evil0001" x="85" y="151" width="41" height="49"/>
+  <SubTexture name="talk_grin0000" x="127" y="151" width="41" height="49"/>
+  <SubTexture name="talk_grin0001" x="169" y="151" width="41" height="49"/>
+  <SubTexture name="talk_plain0000" x="211" y="151" width="41" height="49"/>
+  <SubTexture name="talk_plain0001" x="1" y="201" width="41" height="49"/>
+  <SubTexture name="upset0000" x="43" y="201" width="41" height="49"/>
+  <SubTexture name="angry0000" x="85" y="201" width="41" height="49"/>
+  <SubTexture name="scared0000" x="127" y="201" width="41" height="49"/>
+  <SubTexture name="squint0000" x="169" y="201" width="41" height="49"/>
+  <SubTexture name="pleading_smile0000" x="211" y="201" width="41" height="49"/>
+  <SubTexture name="upset_smile0000" x="1" y="251" width="41" height="49"/>
+  <SubTexture name="upset_smile_side0000" x="43" y="251" width="41" height="49"/>
+  <SubTexture name="annoyed0000" x="85" y="251" width="41" height="49"/>
+  <SubTexture name="thinking0000" x="127" y="251" width="41" height="49"/>
+</TextureAtlas>

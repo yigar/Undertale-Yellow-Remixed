@@ -1,0 +1,87 @@
+{
+    "dialogueGroups": 
+    [
+        {
+            "name": "Test Dialogue 1",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue": 
+            [
+                {
+                    "string": "This is narration without a character."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "And this is dialogue with a character!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "star",
+                    "string": "I can change my expression if I want to!"
+                }
+            ]
+        },
+        {
+            "name": "Test Dialogue 2",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "checkCount": 1
+            },
+            "dialogue": 
+            [
+                {
+                    "character": "Starlo",
+                    "emotion": "grin",
+                    "string": "Look at that... it delays on punctuation, too!"
+                },
+                {
+                    "character": "Sans",
+                    "emotion": "smile",
+                    "font": "comic-sans-undertale",
+                    "string": "it can even change fonts, which is kinda cool."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "eyesClosed",
+                    "string": "This is all generated dynamically through json files."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "smileStare",
+                    "string": "Characters, expressions, text..."
+                }
+            ]
+        },
+        {
+            "name": "Test Dialogue 3",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "checkCount": 3
+            },
+            "dialogue": 
+            [
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "This keeps the code clean and saves time!"
+                },
+                {
+                    "character": "Asgore",
+                    "emotion": "default_side",
+                    "string": "Unfortunately, not everything is complete."
+                },
+                {
+                    "character": "Alphys",
+                    "emotion": "awkward0",
+                    "string": "B-but I'd say it's  at least a good start!"
+                }
+            ]
+        }
+    ]  
+}

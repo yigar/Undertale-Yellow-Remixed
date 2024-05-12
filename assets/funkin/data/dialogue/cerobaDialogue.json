@@ -1,0 +1,106 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Ceroba Dialogue 1",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue": [
+                {
+                    "character": "Ceroba",
+                    "emotion": "happyStare",
+                    "string": "Oh, hey, Clover."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "default",
+                    "string": "I have no idea how I got here..."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "default",
+                    "string": "But it looks like we're in the Ruins."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "default",
+                    "string": "This room looks a bit... random, though."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "stare",
+                    "string": "Whatever purpose it's supposed to serve, I couldn't tell you."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "stare",
+                    "string": "If you find a way out of here, let me know."
+                }
+            ]
+        },
+        {
+            "name": "Ceroba Dialogue 2",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "checkCount": 1
+            },
+            "dialogue": [
+                {
+                    "character": "Ceroba",
+                    "emotion": "stare",
+                    "string": "Hmm? Follow you?"
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "annoyed",
+                    "string": "Well, I WOULD be glad to..."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "unamused",
+                    "string": "But it seems my code to do that hasn't been written yet."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "eyesClosed",
+                    "string": "So, I'll just be waiting here..."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "unamused",
+                    "string": "Standing."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "annoyed",
+                    "string": "Seriously, I can't even move."
+                }
+            ]
+        },
+        {
+            "name": "Ceroba Dialogue 3",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "checkCount": 2
+            },
+            "dialogue": [
+                {
+                    "character": "Ceroba",
+                    "emotion": "stare",
+                    "string": "Tell the developer to hurry up already."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "stare",
+                    "string": "My legs are going numb."
+                }
+            ]
+        }
+
+    ]
+}

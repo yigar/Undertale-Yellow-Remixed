@@ -1,0 +1,48 @@
+{
+    "dialogueGroups": 
+    [
+        {
+            "name": "Test Dialogue 1",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue": 
+            [
+                {
+                    "string": "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+                },
+                {
+                    "character": "Starlo",
+                    "emotion": "smile",
+                    "string": "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+                },
+                {
+                    "character": "Starlo",
+                    "emotion": "smile",
+                    "string": "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+                },
+                {
+                    "string": "a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a a"
+                }
+            ]
+        },
+        {
+            "name": "Test Dialogue 2",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "checkCount": 1
+            },
+            "dialogue": 
+            [
+                {
+                    "character": "Starlo",
+                    "emotion": "smile",
+                    "string": "b b b b b b b b b b b b b b b b b b b b b b b b b b b"
+                }
+            ]
+        }
+    ]  
+}
