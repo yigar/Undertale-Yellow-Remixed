@@ -2,12 +2,13 @@ package uty.objects;
 
 import uty.components.Collision;
 
+/*
+    an object that takes the player to another room and a set of coordinates when collided with.
+    spawned dynamically through Ogmo level files.
+*/
+
 class LoadingZone extends FlxSprite
 {
-    //an object that stores info about a connected room or loading zone, with spawn coordinates, 
-    //and changes the room + takes the player there when collided with
-    //i think the transition itself should probably be in overworld
-
     public var toRoom:String; //contains the name for the next room's json
     //where to move the player
     public var toX:Int = 0; 

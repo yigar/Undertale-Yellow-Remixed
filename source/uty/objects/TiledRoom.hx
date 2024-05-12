@@ -11,7 +11,11 @@ import uty.objects.LoadingZone;
 import uty.objects.Interactable;
 import uty.components.Collision;
 
-//basic class for storing all the tilemap layers + other info in one place, instead of clogging the overworld state
+/*
+    stores tilemap info from room files.
+    try to limit this to just the grid stuff. i.e. the tilemaps, collision grid, and maybe other game objects like interactables on signs.
+    probably best for some stuff like backgrounds, NPCs, etc. to go in the overworld state, somewhere organized
+*/
 class TiledRoom extends FlxTypedGroup<FlxObject>
 {
     var parser:RoomParser;
@@ -42,7 +46,7 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
     {
         parser = new RoomParser(roomName);
 
-        //add the collision grid before the sprites, i think black needs it
+        //add the collision grid before the sprites, i think black needs it to prevent null exception
         collisionGrid = parser.loadGridLayer("collision");
         add(collisionGrid);
         roomBounds = collisionGrid.getBounds();

@@ -12,18 +12,15 @@ import flixel.util.FlxColor;
 import openfl.text.TextFormat;
 import openfl.text.TextField;
 
+/*
+    a component for text that reads itself out over time.
+    currently designed with the dialogue box in mind, but should be abstract enough to apply to other things, as well.
+    functionalities: starting, skipping to the end, slowing on punctuation, alterable speed, text tone sounds.
+    thanks to the poopshitters mod for reference code.
+*/
+
 class NarratedText extends FlxText
 {
-    //create a type of flxtext that takes a font, size, dimensions, speed, string...
-    // some of these may probably be for a more specific text box, limit to just text here.
-    // add functions like reading it, skipping to the next one, closing, opening, effects, etc.
-    // this object will probably be limited to one line at a time, and an external class will feed it new lines to display from a dialogue.
-
-    //for each letter, update the text by appending it, play the sound, and delay based on the type.
-    //include line breaks that delay and add an asterisk
-    //when all text is written out, enable for J to go to the next one or close the box
-    //while it is being written out, allow for K to cut to the end, mute the audio, and enable the above
-    //i might want fancy shit too.
     public var finalText:String = ""; //the text that will eventually be read out
     public var curLetterInt:Int = 0;
     public var curLetterString:String = " ";
@@ -85,9 +82,6 @@ class NarratedText extends FlxText
     public function setFont(font:String = "pixela-extreme", ?spacing:Float)
     {
         setFormat(AssetHelper.getAsset(font, FONT), size, 0xFFFFFFFF, LEFT);
-        //if(spacing != null)
-            //set_letterSpacing(spacing);
-        //fuck this, do letter format or somethig, gn
         trace('FORMAT: font $font size $size');
     }
 
@@ -199,21 +193,10 @@ class NarratedText extends FlxText
         finishNarration();
     }
 
-
-    /*
-        1. get the new line info
-        2. set the dialogue box pos
-        3. set up the sprites
-        4. set the font
-        5. update the text fieldwidth
-        6. update the text
-        7. newline
-    */
-
     public function autoNewline()
     {
         //auto-inserts line breaks so the text doesn't wrap weird when narrating and i don't have to manually type \n every time
-        //problem with it fucking breaking the text on the first time, fix it idk
+        //this needs to happen after the portrait sprite/font size are updated
         this.visible = false;
         this.text = finalText;
         
@@ -226,13 +209,12 @@ class NarratedText extends FlxText
         trace("FIELD WIDTH: " + this.fieldWidth);
 
         //now add \n to the text based on the line lengths
-        //should be this line length, plus all previous ones, plus two for each
         var addLength:Int = 0;
         for(i in 0...lineLengths.length - 1) //i is the line index
         {
             addLength += lineLengths[i];
             finalText = finalText.substring(0, addLength) + "\n" + finalText.substring(addLength);
-            addLength += 1; //for the \n
+            addLength += 1; //accounting for the \n adding an extra character
         }
 
         this.text = "";

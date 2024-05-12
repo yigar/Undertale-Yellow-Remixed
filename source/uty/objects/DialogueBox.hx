@@ -9,8 +9,15 @@ import uty.components.NarratedText;
 import openfl.text.TextFormat;
 import uty.components.DialogueParser;
 
+/*
+    dialogue box for use in the overworld state.
+    controls a narratedText object and feeds it lines of dialogue from a specific dialogue group.
+    also has an optional portrait sprite with animated emotions and speech.
+*/
+
 class DialogueBox extends FlxTypedGroup<FlxObject>
 {
+    //visual assets
     public var boxBackground:FlxSprite;
     public var boxBorder:FlxSprite;
     var borderThickness:Int = 9;
@@ -18,14 +25,14 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
     public var narratedText:NarratedText;
 
     var dialogueParser:DialogueParser;
-    var dialogueGroup:DialogueGroup; //this will be a json but for now just make it DIALOGUEGROUp
+    var dialogueGroup:DialogueGroup;
     var currentLineData:DialogueLine; //for storing the current line's dialogue info
     var currentLine:Int = -1;
     var currentCharacter:String = "NONE"; //for tracking when to update the sprite (character as in like a person, not a letter lol)
 
     public var dialogueCompleted:Bool = false;
 
-    //finals are coming up
+    //finals for formatting & shit
     private final _defaultTextFormat:TextFormat;
     private final _defaultFont:String = "pixela-extreme";
     private final _defaultFontSize:Int = 38;

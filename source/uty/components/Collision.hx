@@ -3,12 +3,13 @@ package uty.components;
 import flixel.math.FlxRect;
 import flixel.math.FlxPoint;
 
+/*
+    general collision component for NPCs and stuff
+*/
+
 class Collision extends FlxRect
 {
-    //a component to give to objects and sprites to allow for collision checks.
-    //if this is false then any COLLISION related stuff should be ignored
-    //maybe im confusing "collision" with hitboxes but whatever
-    public var enableCollide:Bool = true;
+    public var enableCollide:Bool = true; //if false, collision will be ignored
     public var isTrigger:Bool = false; //if true, the player can enter the object, but something happens when they do
     public var hbOffset:FlxPoint;
 

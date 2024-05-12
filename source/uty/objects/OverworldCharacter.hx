@@ -25,19 +25,13 @@ enum abstract Action(String) to String{
     var TALK = "talk";
 }
 
+/*
+    a generic dynamic class for overworld characters.
+    players and NPCs both extend this class for its movement, collision, and sprite/animation functionalities.
+*/
+
 class OverworldCharacter extends FlxSpriteGroup
 {
-    //npc objects in the overworld.
-    //these should be built off of the interactable class by either extending it or having an interactable object in it
-    //npcs must be capable of being talked to (having an interactable object attached to their sprite, with dialogue attached to that)
-    //they should have animations that can be played while their dialogue box is open
-    //they should maybe have a capacity to walk and have animations controlled by cutscene events
-    //they should have colliders
-    //and in regards to followers, that can be an extension of this class
-    //ideally npcs are spawned by the ogmo level either directly or through an event object
-
-    //create a controller that player and cutscenes/follower stuff can access
-
     //sprite
     public var characterName:String = "clover";
     public var characterSprite:ForeverSprite;
@@ -50,7 +44,7 @@ class OverworldCharacter extends FlxSpriteGroup
     //collision box for all character types. disabled by default. defined in the yaml file.
     public var collision:Collision;
 
-    public var bottomCenter:FlxPoint;
+    public var bottomCenter:FlxPoint; //this is the character's "feet": used for pathfinding and other stuff.
 
     public function new(charName:String = "clover", x:Float, y:Float, facing:String = "down")
     {
@@ -151,14 +145,16 @@ class OverworldCharacter extends FlxSpriteGroup
     }
 }
 
+/*
+    a controller that's similarly dynamic and multipurpose.
+    used to move overworldcharacters (and children) and manipulate their animations.
+    examples: player input to control Player.hx, followers constantly tracking the player, NPCs controlled during a cutscene
+    you get the idea
+*/
+
 class CharacterController
 {
-    //checks for input and allows the character to move and stuff
-    //can be used in different ways based on the character child
-    //i.e. npc cutscenes, followers, player control
-    //controller should be an object in the character class
-    //children of the character can use their controller however
-    public var character:OverworldCharacter;
+    public var character:OverworldCharacter; //the character to be controlled
 
     public static var walkSpeed:Float = 4.5;
     public static var runSpeed:Float = 7.5;
@@ -169,7 +165,7 @@ class CharacterController
     //the axes should be checked for collision separately
     public var prevPosition:FlxPoint; 
     
-    private final _diagonal = 0.707; // (sqrt 2) / 2
+    private final _diagonal = 0.707; //diagonal movement speed for characters: [(sqrt 2) / 2]
 
     public function new(char:OverworldCharacter)
     {

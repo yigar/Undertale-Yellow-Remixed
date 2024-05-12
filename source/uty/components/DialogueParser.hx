@@ -1,6 +1,15 @@
 package uty.components;
 import funkin.components.parsers.*;
 
+/*
+    a dialogue parser for dialogue files.
+    dialogue files can store multiple dialogue groups, with attached parameters to judge when to call them.
+    a dialogue group stores multiple dialogue lines.
+    a dialogue line contains the dialogue string, 
+    and other info like the character name (determines what portrait sprite & text sound to use) and their emotion.
+    dialogue files are most commonly assigned to containers in Interactables and scripts (getting there).
+*/
+
 typedef DialogueFile =
 {
     dialogueGroups:Array<DialogueGroup>
@@ -21,20 +30,11 @@ typedef DialogueLine =
     string:String
 }
 
-//this is for storing multiple dialogue groups in the same file.
-//when it comes to checking things and having dynamic & changing dialogue, 
-//it would be a bit obnoxious and unorganized to have to open a different file every time
-//each interactable should have one dialogue file attached
-//and different dialogue should be within the file and called based on different conditions
-//thus interactables themselves should ideally contain some extra info to help with this
-//a "times read" counter could track how many times it was interacted with
-//require a "default" parameter for failsafe purposes, and if there isn't one
-//make the default dialogue the first one in the file
 typedef DialogueParameters = 
 {
     defaultDialogue:Bool, //false by default
     checkCount:Int,
-    itemInInv:String
+    ?itemInInv:String
 }
 
 class DialogueParser
@@ -109,23 +109,24 @@ class DialogueParser
         return diaGroups[0]; //return the first group by default
     }
 
-    /* im too retarded to do this right now
-    public function getDialogueFromParameter(parameters:DialogueParameters):DialogueGroup
+    public function getDialogueFromParameters(parameters:DialogueParameters):DialogueGroup
     {
-        for (group in dialogueGroups)
+        for (group in diaGroups)
+        {
+            if(Reflect.hasField(group, "parameters"))
             {
-                if(Reflect.hasField(group, "parameters"))
+                if(group.parameters == parameters)
                 {
-                    if(group.parameters.defaultDialogue != )
-                }
-                else
-                {
-                    trace("warning: no parameters field");
+                    return group;
                 }
             }
-            return dialogueGroups[0]; //return the first group by default
+            else
+            {
+                trace("warning: no parameters field (DialogueParser line 125)");
+            }
+        }
+        return getDefaultDialogueGroup(); //return the first group by default
     }
-    */
 
     public function getDialogueFromCheckCount(count:Int):DialogueGroup
     {

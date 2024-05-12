@@ -13,6 +13,12 @@ import flixel.math.FlxMath;
 
 //thank you poopshitters
 
+/*
+    the player class. extends the overworldcharacter class.
+    will probably contain more independent functionality later
+    but its main distinction right now is the playerhitbox and having its controller hooked up to user input.
+*/
+
 class Player extends OverworldCharacter
 {
     public var lockMoveInput:Bool = false;

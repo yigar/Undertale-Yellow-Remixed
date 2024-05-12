@@ -8,14 +8,17 @@ import forever.display.ForeverSprite;
 import flixel.math.FlxMath;
 import uty.components.Collision;
 
+/*
+    a type of NPC that follows the player around.
+    spawned through save data.
+    will attempt to walk towards the player when far away enough, and will start running when even further away.
+    will stand still when the player is closeby.
+    can be spoken with by double-tapping ACCEPT key
+    FOLLOWERS DO NOT WALK ON THEIR OWN, they simply contain the LOGIC for a character controller to use.
+*/
+
 class Follower extends NPC
 {
-    //a type of NPC that follows the player around.
-    //a controller should be used to make them follow the player when following is on
-
-    //make them walk towards the player if they're enough distance away
-    //and stop when they're close enough
-
     public var followPlayer:Bool = true;
     public var nodePath:Array<FlxPoint>;
     public var catchingUp:Bool = false;
@@ -30,6 +33,7 @@ class Follower extends NPC
         collision.enableCollide = false;
         //followers must be double-clicked to talk to them. 
         //avoids the menu shit in UTY without taking away ur ability to talk to them
+        //seriously i never knew you could talk to party members in UTY because it was hidden in the menu like fucking Earthbound or something
         interactable.clickRequirement = 2;
 
         targetRadius = 70.0;
@@ -88,6 +92,7 @@ class Follower extends NPC
         return bottomCenter.distanceTo(target) > runDistance;
     }
 
+    //NODES ARE CURRENTLY UNUSED: couldn't manage to make them work without the follower completely glitching out
     public function updateNodePath()
     {
         nodePath = new Array<FlxPoint>();

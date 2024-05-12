@@ -3,19 +3,21 @@ package uty.objects;
 import flixel.FlxSprite;
 import uty.components.Collision;
 
+/*
+    an object with a hitbox and attached dialogue file.
+    the overworld state checks if the player is standing in one when they press the ACCEPT key
+    if so, a dialogue box is instantiated
+    also allows for double-clicking. this feature is used on follower characters for convenience.
+    can be spawned dynamically in Ogmo level files, but also are frequently attached to other game objects.
+*/
+
 class Interactable extends FlxSprite
 {
-    //generic class for things you can walk up to, press the confirm key, and show a dialogue box while you're in its bounds.
-    //NPCs will probably inherit this class or have one of these in them.
     public var collision:Collision;
-    public var dialogueJson:String; 
-    //will store the filename of the dialogue json.
-    //currently the overworld state retrieves the file with the dialogue parser, using this value
-    public var checkCount:Int = 0; 
-    //how many times the interactable has been interacted with. for dynamic dialogue.
+    public var dialogueJson:String; //stores the dialogue file dir to be parsed
+    public var checkCount:Int = 0; //how many times the interactable has been interacted with. used for progressing dialogue.
 
-    //this clicks stuff basically allows for interactables to only be called after double-checking them
-    //something i want for follower NPCs. their interactable box will still be enabled so you can talk to them, but prevents accidental checking
+    //multiple click stuff for follower class
     public var clicks:Int = 0;
     public var clickRequirement:Int = 1;
     private var clickDecrementTime:Float = 0.4;
@@ -71,6 +73,4 @@ class Interactable extends FlxSprite
         clicks = 0;
         clickCountdown = clickDecrementTime;
     }
-
-    //make a function to invoke a textbox?
 }
