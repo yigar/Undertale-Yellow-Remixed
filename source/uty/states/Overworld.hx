@@ -1,6 +1,7 @@
 package uty.states;
 
 //we're just gonna try to get the overworld working at least
+import flixel.math.FlxPoint;
 import uty.objects.*;
 import uty.objects.Player;
 import flixel.tile.FlxTilemap;
@@ -14,10 +15,12 @@ import uty.components.RoomParser;
 import uty.components.DialogueParser;
 import uty.objects.Interactable;
 import uty.substates.DialogueSubState;
+import uty.substates.SoulTransitionSubState;
 import flixel.system.ui.FlxSoundTray;
 import uty.objects.OverworldCharacter;
 import flixel.group.FlxGroup;
 import flixel.util.FlxSort;
+import funkin.states.PlayState;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -82,6 +85,7 @@ class Overworld extends FNFState
         super.update(elapsed);
 
         controlInputCall(); //checks for inputs
+        debugInputCall();
 
         playerHitbox.updatePosition(); //move the hitbox with the player
         playerCollisionCheck();
@@ -297,6 +301,19 @@ class Overworld extends FNFState
         }
     }
 
+    private function debugInputCall()
+    {
+        if(FlxG.keys.justPressed.SEVEN)
+        {
+            var song:PlaySong = {
+                name: "Bopeebo",
+                folder: "bopeebo",
+                difficulty: "hard"
+            };
+            initializeSongTransition(song);
+        }
+    }
+
     public function interactablesCheck()
     {
         //checks all interactables in the room, on npcs, and all relevant objects.
@@ -428,5 +445,22 @@ class Overworld extends FNFState
     public function setLockMoveInput(locked:Bool = true)
     {
         player.lockMoveInput = locked;
+    }
+
+    public function initializeSongTransition(song:PlaySong)
+    {
+        //bigass fuckin bandaid
+        var black:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+        black.camera = camHUD;
+        add(black);
+
+        var playerCenterScreenPoint:FlxPoint = new FlxPoint(
+            player.x + (player.width / 2) + FlxG.camera.x,
+            player.y + (player.height / 2) + FlxG.camera.y);
+
+        final soulSubstate:SoulTransitionSubState = new SoulTransitionSubState(song, 
+            playerCenterScreenPoint.x, playerCenterScreenPoint.y);
+        soulSubstate.camera = camHUD;
+        openSubState(soulSubstate);
     }
 }

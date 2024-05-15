@@ -61,4 +61,9 @@ class Main extends Sprite {
 	private function onStateCreate(state:FlxState):Void {
 		@:privateAccess AssetHelper.clearCacheEntirely(true);
 	}
+
+	public function switchState()
+	{
+		
+	}
 }
