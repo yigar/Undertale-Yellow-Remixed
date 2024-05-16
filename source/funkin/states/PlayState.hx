@@ -131,7 +131,7 @@ class PlayState extends FNFState {
 		}
 		Timings.reset();
 
-		Conductor.time = -(Conductor.crochet) * 16.0;
+		Conductor.time = -(Conductor.crochet) * 2.0;
 		FlxG.mouse.visible = false;
 
 		// -- PREPARE CAMERAS -- //
@@ -202,7 +202,7 @@ class PlayState extends FNFState {
 		openfl.system.System.gc();
 
 		// -- CUTSCENES -- //
-		beginCutscene(false);
+		//beginCutscene(false);
 	}
 
 	public function beginCutscene(endingRound:Bool):Void {
@@ -398,7 +398,7 @@ class PlayState extends FNFState {
 	public var missPopups:Bool = true;
 
 	/** Enables the timing sprites when hitting notes too early or late. **/
-	public var timingPopups:Bool = true;
+	public var timingPopups:Bool = false;
 
 	private var lastJSpr:ComboSprite = null;
 

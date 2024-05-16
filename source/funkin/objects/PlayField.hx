@@ -46,6 +46,8 @@ class PlayField extends FlxGroup {
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 
+	public var missCount:MissCounter;
+
 	public var splashGroup:RecycledSpriteGroup<NoteSplash>;
 
 	public function new():Void {
@@ -89,6 +91,9 @@ class PlayField extends FlxGroup {
 		scoreBar.alignment = CENTER;
 		scoreBar.borderSize = 1.5;
 		add(scoreBar);
+
+		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : (FlxG.width / 2), 110);
+		add(missCount);
 
 		updateScore();
 
@@ -161,15 +166,21 @@ class PlayField extends FlxGroup {
 		scoreBar.text = '< ${tempScore} >\n';
 		scoreBar.screenCenter(X);
 
+		missCount.updateMisses(Timings.comboBreaks ?? 0);
+
 		#if DISCORD
 		if (play != null)
 			DiscordRPC.updatePresence('Playing: ${play.songMeta.name}', '${scoreBar.text}');
 		#end
 	}
 
-	public function onBeat(beat:Int):Void {
+	public function onBeat(beat:Int):Void 
+	{
 		for (icon in [iconP1, iconP2])
 			icon.doBump(beat);
+
+		if(beat % 4 == 0)
+			missCount.heartPulse();
 	}
 
 	// -- GETTERS & SETTERS, DO NOT MESS WITH THESE -- //

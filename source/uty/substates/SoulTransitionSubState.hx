@@ -32,7 +32,7 @@ class SoulTransitionSubState extends FlxSubState
     public var flickerTracker:Int = 0;
     public var flickerClock:Float = 0.0;
 
-    public var dark:Bool = false;
+    public var dark:Bool = true;
     public var flickering:Bool = false;
 
     public var soulTween:FlxTween;
@@ -52,6 +52,7 @@ class SoulTransitionSubState extends FlxSubState
         soul.setGraphicSize(Std.int(soul.width * _pixelScaleRatio));
         soul.updateHitbox();
         soul.antialiasing = false;
+        soul.visible = false;
         add(soul);
 
         flickering = true;
@@ -90,11 +91,12 @@ class SoulTransitionSubState extends FlxSubState
         if(dark)
         {
             //play sound
-            FlxG.sound.play(Paths.sound("snd_switch"));
+            
         }
         //do this stuff when the lights go back on
         else
         {
+            FlxG.sound.play(Paths.sound("snd_switch"));
             flickerTracker++;
         }
     }
@@ -117,6 +119,7 @@ class SoulTransitionSubState extends FlxSubState
     private function intoBattleTransition()
     {
         flickering = false;
+        //FlxG.sound.play(Paths.sound("snd_switch"));
         FlxG.sound.play(Paths.sound("snd_soul_battle_start"));
 
         soul.tween({x: soulEndX, y: soulEndY}, soulTweenTime, {
@@ -134,7 +137,7 @@ class SoulTransitionSubState extends FlxSubState
     {
         soul.visible = false;
 
-        //FlxTransitionableState.skipNextTransOut = true;
+        FlxTransitionableState.skipNextTransOut = true;
 
         Chart.current = ChartLoader.load(song.folder, song.difficulty);
         FlxG.switchState(new PlayState(song));

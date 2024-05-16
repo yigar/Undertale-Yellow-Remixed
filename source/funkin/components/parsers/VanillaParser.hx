@@ -131,7 +131,7 @@ class VanillaParser {
 	public static inline function getStageSkin(song:String):String {
 		return switch (song.toLowerCase().replace(" ", "-")) {
 			case "senpai", "roses", "thorns": "pixel";
-			default: "normal";
+			default: "undertale";
 		}
 	}
 }
