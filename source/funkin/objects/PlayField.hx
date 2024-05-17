@@ -12,7 +12,7 @@ import funkin.components.Timings;
 import funkin.components.parsers.ChartFormat.NoteData;
 import funkin.objects.play.*;
 import funkin.states.PlayState;
-import funkin.ui.ProgressBar;
+import funkin.ui.HealthBar;
 import funkin.ui.HealthIcon;
 
 import haxe.ds.Vector;
@@ -39,14 +39,16 @@ class PlayField extends FlxGroup {
 
 	// -- UI NODES -- //
 
-	public var scoreBar:ForeverText;
 	public var centerMark:ForeverText;
 
-	public var healthBar:ProgressBar;
+	public var healthBar:HealthBar;
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 
+	public var rpcText:String;
+
 	public var missCount:MissCounter;
+	public var gradeSprite:GradeSprite;
 
 	public var splashGroup:RecycledSpriteGroup<NoteSplash>;
 
@@ -58,6 +60,9 @@ class PlayField extends FlxGroup {
 
 		add(enmStrums = new StrumLine(this, 100, strumY, speed, skin, true));
 		add(plrStrums = new StrumLine(this, FlxG.width - 550, strumY, speed, skin, false));
+
+		//QUICK FIX
+		enmStrums.visible = false;
 
 		if (Settings.centerStrums) {
 			enmStrums.visible = false;
@@ -73,8 +78,7 @@ class PlayField extends FlxGroup {
         if (!Tools.fileExists(AssetHelper.getPath(hbPath, IMAGE)))
             hbPath = hbPath.replace(skin, "normal");
 
-		add(healthBar = new ProgressBar(0, hbY, hbPath));
-		healthBar.screenCenter(X);
+		add(healthBar = new HealthBar(FlxG.width / 2, FlxG.height - 100, 1));
 
 		add(iconP1 = new HealthIcon(PlayState.current?.player?.icon ?? "face", true));
 		add(iconP2 = new HealthIcon(PlayState.current?.enemy?.icon ?? "face", false));
@@ -87,13 +91,11 @@ class PlayField extends FlxGroup {
 		centerMark.screenCenter(X);
 		add(centerMark);
 
-		scoreBar = new ForeverText(healthBar.x - healthBar.width - 190, healthBar.y + 40, Std.int(healthBar.width + 150), "", 18);
-		scoreBar.alignment = CENTER;
-		scoreBar.borderSize = 1.5;
-		add(scoreBar);
-
 		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : (FlxG.width / 2), 110);
 		add(missCount);
+
+		gradeSprite = new GradeSprite(70, 70);
+		add(gradeSprite);
 
 		updateScore();
 
@@ -125,7 +127,7 @@ class PlayField extends FlxGroup {
 	}
 
 	override function update(elapsed:Float):Void {
-		healthBar.updateBar(Timings.health);
+		healthBar.updateBar(20);
 
 		while (!paused && noteGroup != null && noteList.length != 0 && curNote != noteList.length) {
 			var unspawnNote:NoteData = noteList[curNote];
@@ -156,21 +158,15 @@ class PlayField extends FlxGroup {
 	public var divider:String = " • ";
 
 	public dynamic function updateScore():Void {
-		if (scoreBar == null) return;
 
-		var tempScore:String = 'Score: ${Timings.score}' //
-		+ divider + 'Accuracy: ${FlxMath.roundDecimal(Timings.accuracy, 2)}%' //
-		+ divider + 'Combo Breaks: ${Timings.comboBreaks}' //
-		+ divider + 'Rank: ${Timings.rank}';
+		missCount.updateMisses(Timings.rank == "N/A" ? -1 : Timings.comboBreaks);
+		gradeSprite.updateGrade(FlxMath.roundDecimal(Timings.accuracy, 2), Timings.rank);
 
-		scoreBar.text = '< ${tempScore} >\n';
-		scoreBar.screenCenter(X);
-
-		missCount.updateMisses(Timings.comboBreaks ?? 0);
+		rpcText = 'Rank: ${Timings.rank} (${Timings.accuracy}%${Timings.comboBreaks <= 0 ? " | FC" : ""})';
 
 		#if DISCORD
 		if (play != null)
-			DiscordRPC.updatePresence('Playing: ${play.songMeta.name}', '${scoreBar.text}');
+			DiscordRPC.updatePresence('Playing: ${play.songMeta.name}', '${rpcText}');
 		#end
 	}
 
@@ -184,8 +180,13 @@ class PlayField extends FlxGroup {
 	}
 
 	// -- GETTERS & SETTERS, DO NOT MESS WITH THESE -- //
+	//welp i'm afraid i have to
 
-	public inline function getHUD():Array<FlxSprite> return [healthBar, iconP1, iconP2, scoreBar, centerMark];
+	public inline function getHUD():Array<FlxSprite> return [
+		healthBar,
+		iconP1, 
+		iconP2, 
+		centerMark];
 
 	inline function get_play():PlayState return PlayState.current;
 	inline function get_skin():String return Chart.current.gameInfo.skin ?? "normal";

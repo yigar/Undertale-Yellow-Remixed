@@ -36,7 +36,7 @@ class ProgressBar extends ForeverSprite {
         scrollFactor.set();
         this.max = max;
         colors = new Vector(2);
-        createFilledBar(0xFFFF0000, 0xFF66FF33);
+        createFilledBar(0xFFFF0000, 0xFFFFFF00);
         updateBar(1.0);
 
         // Turned off but with the default funkin healthbar variables

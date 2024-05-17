@@ -164,7 +164,7 @@ class PlayState extends FNFState {
 		add(comboGroup = new RecycledSpriteGroup<ComboSprite>());
 		add(playField = new PlayField());
 		for (hud in playField.getHUD())
-			hud.alpha = 0;
+			hud.alpha = 1.0;
 
 		playField.camera = hudCamera;
 		if (Settings.fixedJudgements)
@@ -561,7 +561,7 @@ class PlayState extends FNFState {
 		}
 		songState = PLAYING;
 		#if DISCORD
-		DiscordRPC.updatePresenceDetails('${songMeta.name}', '${playField.scoreBar.text}');
+		DiscordRPC.updatePresenceDetails('${songMeta.name}', '${playField.rpcText}');
 		#end
 		pauseTweens(false);
 		super.closeSubState();
@@ -624,7 +624,7 @@ class PlayState extends FNFState {
 	function openPauseMenu():Void {
 		pauseTweens(true);
 		#if DISCORD
-		DiscordRPC.updatePresenceDetails('${songMeta.name} [PAUSED]', '${playField.scoreBar.text}');
+		DiscordRPC.updatePresenceDetails('${songMeta.name} [PAUSED]', '${playField.rpcText}');
 		#end
 		final pause:PauseMenu = new PauseMenu();
 		pause.camera = altCamera;

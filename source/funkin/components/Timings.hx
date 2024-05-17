@@ -16,19 +16,22 @@ enum Judgement {
 }
 
 enum Rank {
-	Rank(name:String, accuracy:Float);
+	Rank(name:String, accuracy:Float, ?requiredMisses:Int);
 }
 
 class Timings {
 	public static final rankings:Array<Rank> = [
-		Rank("S+", 100),
-		Rank("S", 95),
-		Rank("A", 90),
-		Rank("B", 85),
-		Rank("C", 80),
-		Rank("D", 75),
-		Rank("E", 70),
-		Rank("F", 65),
+		Rank("S", 97, 0),
+		Rank("A+", 97),
+		Rank("A", 93),
+		Rank("A-", 90),
+		Rank("B+", 87),
+		Rank("B", 83),
+		Rank("B-", 80),
+		Rank("C+", 77),
+		Rank("C", 73),
+		Rank("C-", 70),
+		Rank("D", 0),
 	];
 
 	public static final judgements:Array<Judgement> = [
@@ -88,8 +91,20 @@ class Timings {
 		for (i in 0...rankings.length) {
 			var eRank:Array<Dynamic> = Tools.getEnumParams(rankings[i]);
 			if (eRank[1] <= accuracy) {
-				rank = eRank[0];
-				break;
+				//if there is no miss requirement, or if there is, you have less misses than it
+				if(eRank.length >= 3 && eRank[2] != null)
+				{
+					if(eRank[2] >= comboBreaks)
+					{
+						rank = eRank[0];
+						break;
+					}
+				}
+				else
+				{
+					rank = eRank[0];
+					break;
+				}
 			}
 		}
 	}

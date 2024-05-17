@@ -32,6 +32,8 @@ class MissCounter extends FlxTypedGroup<FlxObject>
         add(heart);
         add(missText);
         position(x, y);
+
+        heart.visible = false;
     }
 
     private function loadSprite()
@@ -61,9 +63,15 @@ class MissCounter extends FlxTypedGroup<FlxObject>
 
     public function updateMisses(misses:Int)
     {
-        if(!visible) visible = true;
+        if(!heart.visible) heart.visible = true;
 
-        if(misses <= 0)
+        if(misses < 0)
+        {
+            heart.visible = false;
+            return;
+        }
+
+        if(misses == 0)
         {
             missText.text = "";
         }
