@@ -21,6 +21,7 @@ import funkin.states.editors.*;
 import funkin.states.menus.*;
 import funkin.substates.*;
 import funkin.ui.ComboSprite;
+import uty.components.PlayerData;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -73,6 +74,8 @@ class PlayState extends FNFState {
 
 	public var bumpIntensity:Float = 0.015;
 	public var hudBumpIntensity:Float = 0.05;
+
+	public var invTimer:Float = 0.0;
 
 	/**
 	 * Constructs the Gameplay State
@@ -221,6 +224,8 @@ class PlayState extends FNFState {
 	override function update(elapsed:Float):Void {
 		super.update(elapsed);
 
+		invTimer -= elapsed;
+
 		final updateEvt:CancellableEvent = new CancellableEvent();
 		callFunPack("update", [elapsed, updateEvt]);
 		if (updateEvt.cancelled) return;
@@ -290,10 +295,9 @@ class PlayState extends FNFState {
 			Timings.totalMs += millisecondTiming;
 
 			var params = Tools.getEnumParams(judgement);
-			missPunishIncrease = 0.0;
 
 			Timings.score += params[1];
-			Timings.health += 0.035;
+			Timings.health += 1;
 			if (Timings.combo < 0)
 				Timings.combo = 0;
 			Timings.combo += 1;
@@ -319,8 +323,6 @@ class PlayState extends FNFState {
 		callFunPack("postHitBehavior", []);
 	}
 
-	private var missPunishIncrease:Float = 0.0;
-
 	public function missBehavior(dir:Int, note:Note = null):Void {
 		final missEvent:CancellableEvent = new CancellableEvent();
 		callFunPack("missBehavior", [dir, note, missEvent]);
@@ -336,10 +338,8 @@ class PlayState extends FNFState {
 		else
 			Timings.combo--;
 		Timings.score -= 250;
-		if (missPunishIncrease <= 0.01)
-			missPunishIncrease = 1.0;
-		Timings.health -= 0.035 * missPunishIncrease;
-		missPunishIncrease += 0.075;
+
+		damagePlayer(4);
 		Timings.misses += 1;
 
 		if (player.animationContext != 3)
@@ -377,6 +377,11 @@ class PlayState extends FNFState {
 		return true;
 	}
 
+	function isInv():Bool
+	{
+		return invTimer > 0.0;
+	}
+
 	public function sustainTickBehavior(note:Note) {
 		final prefix = (note.isLate) ? 'miss' : '';
 		final character:Character = (note.parent == playField.enmStrums) ? enemy : player;
@@ -388,7 +393,28 @@ class PlayState extends FNFState {
 	}
 
 	public function sustainMissBehavior(note:Note) {
-		Timings.health -= 0.07 * missPunishIncrease * FlxG.elapsed / note.missLen;
+		damagePlayer(4);
+	}
+
+	public function damagePlayer(attack:Int)
+	{
+		if(isInv()) return;
+		/*
+		*	CALCULATION
+		*/
+		
+		var hpDamageBonus:Int = Math.floor(Timings.maxHealth / 10) - 1;
+		if(Timings.maxHealth <= 20) hpDamageBonus = 0;
+		var damage:Int = attack - PlayerData.loveToDef(PlayerData.playerSave.love) + hpDamageBonus;
+		//NOTE: DON'T USE SAVE DATA IN THE FUTURE, USE THE CURRENT RUNTIME PLAYER STATS. trace() <-- to remind myself
+
+		/**
+		 * 	EFFECTS
+		 */
+
+		Timings.health -= damage;
+		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_hurt', SOUND));
+		invTimer = Timings.inv;
 	}
 
 	/** Enables the Golden Judgements & Combo Popups when having a perfect combo. **/

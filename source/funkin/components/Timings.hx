@@ -2,6 +2,7 @@ package funkin.components;
 
 import flixel.math.FlxMath;
 import haxe.ds.StringMap;
+import uty.components.PlayerData;
 
 /**
 	typedef Judgement = {
@@ -44,8 +45,10 @@ class Timings {
 	public static final timings:Array<Float> = [33.33, 91.67, 133.33, 166.67];
 
 	public static var score:Int = 0;
-	public static var health(default, set):Float = 1.0;
-	public static var maxHealth:Float = 2.0;
+	public static var health(default, set):Int = 20;
+	public static var maxHealth:Int = 20;
+
+	public static var inv:Float = 1.0;
 
 	public static var totalNotesHit:Int = 0;
 	public static var accuracyWindow:Float = 0.0;
@@ -70,7 +73,9 @@ class Timings {
 
 		score = combo = totalNotesHit = 0;
 		accuracyWindow = totalMs = 0.0;
-		health = 1.0;
+
+		maxHealth = PlayerData.loveToHP(PlayerData.getPlayerData().love);
+		health = maxHealth;
 		rank = "N/A";
 	}
 
@@ -138,6 +143,6 @@ class Timings {
 		return misses + shits;
 	}
 
-	@:dox(hide) static inline function set_health(v:Float):Float
-		return health = FlxMath.bound(v, 0.0, maxHealth);
+	@:dox(hide) static inline function set_health(v:Int):Int
+		return health = Std.int(FlxMath.bound(v, 0, maxHealth));
 }

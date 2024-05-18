@@ -1,10 +1,20 @@
 package uty.components;
 
+import openfl.utils.IAssetCache;
 import flixel.math.FlxMath;
 import haxe.ds.StringMap;
 
 enum LOVEData{
     LOVEData(hp:Int, atk:Int, def:Int);
+}
+
+//data to save about the player's game state.
+@:structInit class PlayerSave {
+    public var love:Int;
+    public var health:Int;
+    public var room:String;
+    public var posX:Int;
+    public var posY:Int;
 }
 
 /*
@@ -35,6 +45,62 @@ class PlayerData
         19 => LOVEData(92, 36, 4),
         20 => LOVEData(99, 38, 4)
     ];
+
+    private static final dummySave:PlayerSave = {
+        love: 1,
+        health: 20,
+        room: "testLevel4",
+        posX: 200,
+        posY: 200
+    };
+
+    public static var playerSave:PlayerSave = dummySave;
+
+    public static function loveToHP(love:Int):Int
+    {
+        return _getLV(love)[0];
+    }
+
+    public static function loveToAtk(love:Int):Int
+    {
+        return _getLV(love)[1];
+    }
+
+    public static function loveToDef(love:Int):Int
+    {
+        return _getLV(love)[2];
+    }
+
+    private static function _getLV(love:Int):Dynamic
+    {
+        return loveValues.get(love);
+    }
+
+
+    /*
+     * SAVING STUFF
+     */
+
+    public static function savePlayerData(data:PlayerSave):Void
+    {
+        _setSave(data);
+    }
+
+    public static function getPlayerData():PlayerSave
+    {
+        return _getSave();
+    }
+
+    @:dox(hide)
+    private static inline function _getSave():PlayerSave
+    {
+        return playerSave ?? dummySave;
+    }
+
+    private static function _setSave(save:PlayerSave):Void
+    {
+        playerSave = save;
+    }
 
 
 

@@ -21,6 +21,7 @@ import uty.objects.OverworldCharacter;
 import flixel.group.FlxGroup;
 import flixel.util.FlxSort;
 import funkin.states.PlayState;
+import uty.components.PlayerData;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -305,6 +306,17 @@ class Overworld extends FNFState
     {
         if(FlxG.keys.justPressed.SEVEN)
         {
+
+            var tempSave:PlayerSave = {
+                love: 20,
+                health: 20,
+                room: "testLevel4",
+                posX: 200,
+                posY: 200
+            };
+
+
+            PlayerData.savePlayerData(tempSave);
             var song:PlaySong = {
                 name: "Bopeebo",
                 folder: "bopeebo",

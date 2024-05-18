@@ -14,6 +14,7 @@ import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
+import funkin.components.Timings;
 
 class HealthBar extends FlxSpriteGroup
 {
@@ -38,29 +39,31 @@ class HealthBar extends FlxSpriteGroup
     public function new(x:Float, y:Float, love:Int = 1)
     {
         super(x, y);
-
-        lvData = PlayerData.loveValues.get(love);
+        
         //just for the sake of being dynamic here, i know i could just write 20 and 99 but that ain't good code, now is it?
         var lv1Data:Dynamic = PlayerData.loveValues.get(1);
         var lv20Data:Dynamic = PlayerData.loveValues.get(20);
 
-        trace("LV: " + lvData[0] + "LV1: " + lv1Data[0] + "LV20: " + lv20Data[0]);
-        var barLength = FlxMath.lerp(minLength, maxLength, (lvData[0] - lv1Data[0]) / (lv20Data[0] - lv1Data[0]));
+        var barLength:Int = Std.int(FlxMath.lerp(minLength, maxLength, (Timings.maxHealth - lv1Data[0]) / (lv20Data[0] - lv1Data[0])));
 
         //bar should be minLength at LV 1, maxLength at LV 20, and interped in between if any other level.
-        bar = new FlxBar(0, 0, RIGHT_TO_LEFT, barLength, 
-            compactMode ? barThickness /2 : barThickness);
-        bar.createFilledBar(0x660000, 0xFFFF00, false, FlxColor.BLACK);
+        bar = new FlxBar(0, 0, RIGHT_TO_LEFT, barLength,
+            Std.int(compactMode ? barThickness / 2 : barThickness));
+        bar.createFilledBar(FlxColor.RED, FlxColor.YELLOW);
+        //suck my cock FlxBar. fuck you. i hate you
+        //why in mother fuck would you IGNORE float inputs instead of compile erroring or just converting them
 
         border = new FlxSprite().makeGraphic(Std.int(bar.width + (borderThickness * 2)), Std.int(bar.height + (borderThickness * 2)), FlxColor.BLACK);
 
-        loveText = new FlxText(0, 0, 18, "");
-        loveText.setFormat(Paths.font(_font), 18, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        loveText = new FlxText(0, 0, 0, "");
+        loveText.setFormat(Paths.font(_font), 28, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         loveText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
+        loveText.text = "LV " + love;
+        loveText.updateHitbox();
         loveText.antialiasing = false;
 
-        hpText = new FlxText(0, 0, 24, "");
-        hpText.setFormat(Paths.font(_font), 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        hpText = new FlxText(0, 0, 0, "");
+        hpText.setFormat(Paths.font(_font), 36, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         hpText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
         hpText.antialiasing = false;
 
@@ -74,6 +77,7 @@ class HealthBar extends FlxSpriteGroup
         add(loveText);
         add(hpText);
 
+        updateBar(Timings.health);
         position(x, y);
     }
 
@@ -81,16 +85,16 @@ class HealthBar extends FlxSpriteGroup
     {
         bar.setPosition(x - (bar.width / 2), y - (bar.height / 2));
         border.setPosition(bar.x - borderThickness, bar.y - borderThickness);
-        hpText.setPosition(x, y - bar.height - 10);
-        loveText.setPosition(hpText.x - 200, hpText.y);
-        hpSprite.setPosition(hpText.x + hpText.width + 50, hpText.y);
+        hpText.setPosition(x - (hpText.width / 2), y - (border.height / 2) - hpText.height - 20);
+        loveText.setPosition(hpText.x - loveText.width - 40, y - (border.height / 2) - loveText.height - 20);
+        hpSprite.setPosition(hpText.x + hpText.width + 32, y - (border.height / 2) - hpSprite.height - 20);
     }
 
     public function updateBar(playerHealth:Int)
     {
-        hpText.text = '${playerHealth}  /  ${lvData[0]}';
+        hpText.text = '${playerHealth} / ${Timings.maxHealth}';
+        hpText.updateHitbox();
 
-        bar.percent = (playerHealth / lvData[0]);
-        bar.updateBar();
+        bar.percent = (playerHealth / Timings.maxHealth * 100);
     }
 }

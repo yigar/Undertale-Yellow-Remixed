@@ -17,6 +17,8 @@ import funkin.ui.HealthIcon;
 
 import haxe.ds.Vector;
 
+import uty.components.PlayerData;
+
 /**
  * Play Field contains basic objects to handle gameplay
  * Note Fields, Notes, etc.
@@ -78,11 +80,14 @@ class PlayField extends FlxGroup {
         if (!Tools.fileExists(AssetHelper.getPath(hbPath, IMAGE)))
             hbPath = hbPath.replace(skin, "normal");
 
-		add(healthBar = new HealthBar(FlxG.width / 2, FlxG.height - 100, 1));
+		add(healthBar = new HealthBar(FlxG.width / 2, FlxG.height - 100, PlayerData.getPlayerData().love));
 
 		add(iconP1 = new HealthIcon(PlayState.current?.player?.icon ?? "face", true));
 		add(iconP2 = new HealthIcon(PlayState.current?.enemy?.icon ?? "face", false));
 		for (i in [iconP1, iconP2]) i.y = healthBar.y - (i.height * 0.5);
+
+		iconP1.visible = false;
+		iconP2.visible = false;
 
 		// [${play.songMeta.difficulty.toUpperCase()}] -'
 		centerMark = new ForeverText(0, (Settings.downScroll ? FlxG.height - 40 : 15), 0, '- ${play.songMeta.name} -', 20);
@@ -127,7 +132,7 @@ class PlayField extends FlxGroup {
 	}
 
 	override function update(elapsed:Float):Void {
-		healthBar.updateBar(20);
+		healthBar.updateBar(Timings.health);
 
 		while (!paused && noteGroup != null && noteList.length != 0 && curNote != noteList.length) {
 			var unspawnNote:NoteData = noteList[curNote];
