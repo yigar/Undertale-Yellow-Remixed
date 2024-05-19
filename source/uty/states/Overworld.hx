@@ -308,7 +308,7 @@ class Overworld extends FNFState
         {
 
             var tempSave:PlayerSave = {
-                love: 20,
+                love: 1,
                 health: 20,
                 room: "testLevel4",
                 posX: 200,

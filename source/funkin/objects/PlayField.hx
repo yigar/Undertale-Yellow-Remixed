@@ -85,9 +85,9 @@ class PlayField extends FlxGroup {
 		add(iconP1 = new HealthIcon(PlayState.current?.player?.icon ?? "face", true));
 		add(iconP2 = new HealthIcon(PlayState.current?.enemy?.icon ?? "face", false));
 		for (i in [iconP1, iconP2]) i.y = healthBar.y - (i.height * 0.5);
-
-		iconP1.visible = false;
-		iconP2.visible = false;
+		
+		iconP1.x = FlxG.width - 150 - (iconP1.width * 0.50);
+		iconP2.x = 150 - (iconP2.width * 0.50);
 
 		// [${play.songMeta.difficulty.toUpperCase()}] -'
 		centerMark = new ForeverText(0, (Settings.downScroll ? FlxG.height - 40 : 15), 0, '- ${play.songMeta.name} -', 20);

@@ -13,10 +13,12 @@ class HealthIcon extends ChildSprite {
 	public var isPlayer:Bool = false;
 	public var character(default, set):String;
 
+
 	// -- CUSTOMIZATION -- //
-	public var autoPosition:Bool = true;
+	public var autoPosition:Bool = false;
 	public var autoBop:Bool = true;
 
+	//fix this shit lol
 	public var healthSteps:IntMap<Int> = [
 		// *
 		0 => 0, // Default
@@ -85,7 +87,10 @@ class HealthIcon extends ChildSprite {
 	public dynamic function updateFrame(health:Float):Void {
 		for (percent => frame in healthSteps)
 			if (health <= percent && animation.curAnim.frames[frame] != -1)
+			{
 				animation.curAnim.curFrame = frame;
+			}
+				
 	}
 
 	public dynamic function doBump(beat:Int):Void {
