@@ -5,7 +5,7 @@ noteConfig:
       - {name: "static", prefix: "{dir} static", fps: 24, looped: false, offsets: { x: 0, y: 0 }}
       - {name: "pressed", prefix: "{dir} press", fps: 24, looped: false, offsets: { x: 0, y: 0 }}
       - {name: "confirm", prefix: "{dir} confirm", fps: 24, looped: false, offsets: { x: 0, y: 0 }}
-    spacing: 180
+    spacing: 160
     size: 0.7
 
   notes:

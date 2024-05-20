@@ -1,0 +1,39 @@
+# -- CAMERA -- #
+cameraZoom: 1.0
+cameraSpeed: 1.0
+hudZoom: 1.0
+
+# -- POSITIONS -- #
+playerPos: {x: -50, y: 100}
+enemyPos: {x: 0, y: 0}
+crowdPos: {x: 400, y: 130}
+
+objects:
+ - {
+      name: "bg", image: "stages/snowdin/caveWall",
+      position: {x: -450, y: -700}, scroll: {x: 0.1, y: 0.1},
+    }
+ - {
+      name: "horizon", image: "stages/snowdin/horizon",
+      position: {x: -400, y: 100}, scroll: {x: 0.4, y: 0.4},
+    }
+ - {
+      name: "ground", image: "stages/snowdin/ground",
+      position: {x: -420, y: 235}, scroll: {x: 1.0, y: 1.0},
+    }
+ - {
+      name: "trees-left", image: "stages/snowdin/treesL",
+      position: {x: -430, y: -205}, scroll: {x: 0.8, y: 0.8},
+    }
+ - {
+      name: "trees-right", image: "stages/snowdin/treesR",
+      position: {x: 280, y: -180}, scroll: {x: 0.8, y: 0.8},
+    }
+ - {
+      name: "post", image: "stages/snowdin/post",
+      position: {x: -70, y: -110}, scroll: {x: 0.9, y: 0.9},
+    }
+ - {
+      name: "branches", image: "stages/snowdin/fg-branches",
+      position: {x: -450, y: 400}, scroll: {x: 1.4, y: 1.4},
+    }

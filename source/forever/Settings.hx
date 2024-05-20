@@ -81,7 +81,7 @@ class Settings {
 	public static var stageDim:Int = 0;
 
 	/** Check this to attach judgements to the center of the screen, making them easier to read. **/
-	public static var fixedJudgements:Bool = false;
+	public static var fixedJudgements:Bool = true;
 
 	/** Defines if the antialiasing filter affects all graphics. **/
 	public static var globalAntialias:Bool = true;

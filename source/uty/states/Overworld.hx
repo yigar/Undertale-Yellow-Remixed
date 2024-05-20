@@ -318,8 +318,8 @@ class Overworld extends FNFState
 
             PlayerData.savePlayerData(tempSave);
             var song:PlaySong = {
-                name: "Bopeebo",
-                folder: "bopeebo",
+                name: "Martlet",
+                folder: "martlet",
                 difficulty: "hard"
             };
             initializeSongTransition(song);

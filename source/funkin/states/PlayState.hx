@@ -154,14 +154,14 @@ class PlayState extends FNFState {
 		gameCamera.zoom = stage.cameraZoom;
 		hudCamera.zoom = stage.hudZoom;
 
-		// -- SETUP CAMERA -- //
+		// -- PREPARE CHARACTERS -- //
+		add(crowd = new Character(stage.crowdPosition.x, stage.crowdPosition.y, Chart.current.gameInfo.chars[2], false)); //TEMP FIX: \/
+		add(player = new Character(stage.playerPosition.x, stage.playerPosition.y, Chart.current.gameInfo.chars[0], true)); player.visible = false;
+		add(enemy = new Character(stage.enemyPosition.x, stage.enemyPosition.y, Chart.current.gameInfo.chars[1], false));
+
+		// -- SETUP CAMERA -- // (doing this AFTER characters to immediately set the camFollow to the enemy's sprite.)
 		add(camLead = new FlxObject(0, 0, 1, 1));
 		gameCamera.follow(camLead, LOCKON);
-
-		// -- PREPARE CHARACTERS -- //
-		add(crowd = new Character(stage.crowdPosition.x, stage.crowdPosition.y, Chart.current.gameInfo.chars[2], false));
-		add(player = new Character(stage.playerPosition.x, stage.playerPosition.y, Chart.current.gameInfo.chars[0], true));
-		add(enemy = new Character(stage.enemyPosition.x, stage.enemyPosition.y, Chart.current.gameInfo.chars[1], false));
 
 		// -- PREPARE USER INTERFACE -- //
 		add(comboGroup = new RecycledSpriteGroup<ComboSprite>());
@@ -239,12 +239,18 @@ class PlayState extends FNFState {
 		if (Controls.RESET && Settings.resetButton)
 			deathCheck(player);
 
-		#if FE_DEV if (FlxG.keys.justPressed.SEVEN) openChartEditor(); #end
+		//idk how to override this so i'm deleting this metadata for now
+		if (FlxG.keys.justPressed.SEVEN) openChartEditor();
 		if (Controls.PAUSE) openPauseMenu();
 
 		#if sys
 		if (FlxG.keys.justPressed.SEVEN)
-			sys.io.File.saveContent('./${songMeta.folder}-${songMeta.difficulty}.json', ChartLoader.exportChart(Chart.current));
+		{
+			var dir = 'assets/funkin/songs/${songMeta.folder}-${songMeta.difficulty}.json';
+			sys.io.File.saveContent(dir, ChartLoader.exportChart(Chart.current));
+			trace("saved file to " + dir);
+		}
+			
 		#end
 		callFunPack("postUpdate", [elapsed]);
 	}
@@ -448,7 +454,7 @@ class PlayState extends FNFState {
 		}
 		else {
 			// todo: better placements
-			jSpr.screenCenter(XY);
+			jSpr.setPosition(100, 200);
 		}
 
 		jSpr.timeScale = Conductor.rate;

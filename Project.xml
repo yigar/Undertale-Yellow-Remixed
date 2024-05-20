@@ -28,7 +28,7 @@
 
 	<!-- [ Application Settings ] -->
 
-	<app title="The Undertale Yellow Mod" file="UndertaleYellowMod" company="yigar" />
+	<app title="Undertale Yellow: Remixed" file="UTYRemixed" company="yigar" />
 	<app main="Main" package="com.crowplexus.funkinforever" packageName="com.crowplexus.funkinforever" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
@@ -41,13 +41,13 @@
 	<!-- [ Window Settings ] -->
 
 	<!--These window settings apply to all targets-->
-	<window width="1280" height="720" fps="" background="#000000" hardware="true" vsync="false" allow-high-dpi="true" />
+	<window width="960" height="720" fps="" background="#000000" hardware="true" vsync="false" allow-high-dpi="true" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="false" />
 
 	<!--Desktop-specific-->
-	<window if="desktop" orientation="landscape" fullscreen="false" resizable="true" />
+	<window if="desktop" orientation="landscape" fullscreen="false" resizable="false" />
 
 	<!--Mobile-specific-->
 	<window if="mobile" orientation="landscape" fullscreen="true" width="0" height="0" />

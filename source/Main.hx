@@ -34,7 +34,7 @@ class Main extends Sprite {
 		openfl.Lib.current.stage.window.setIcon(icon);
 		#end
 
-		addChild(gameClient = new GameClient(1280, 720, Init, initialFramerate, initialFramerate, true));
+		addChild(gameClient = new GameClient(960, 720, Init, initialFramerate, initialFramerate, true));
 		addChild(overlay = new OverlayContainer());
 		// addChild(console = new ForeverConsole());
 	}

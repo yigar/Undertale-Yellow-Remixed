@@ -1,0 +1,810 @@
+{
+	"events": [
+		[
+			"FocusCamera",
+			0,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			2.4,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			4.8,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			7.2,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			9.6,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			12,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			14.4,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			16.8,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			19.2,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			21.6,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			24,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			26.4,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			28.8,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			31.2,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			33.6,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			36,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			38.4,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			40.8,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			43.2,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			45.6,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			48,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			50.4,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			52.8,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			55.2,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			57.6,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			60,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			62.4,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			64.8,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			67.2,
+			0,
+			false
+		],
+		[
+			"FocusCamera",
+			69.6,
+			1,
+			false
+		],
+		[
+			"FocusCamera",
+			72,
+			0,
+			false
+		]
+	],
+	"notes": [
+		{
+			"dir": 2,
+			"time": 0
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 3,
+			"time": 0.6
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 3,
+			"time": 1.2
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 2.4
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 3,
+			"time": 3
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 3,
+			"time": 3.6
+		},
+		{
+			"holdLen": 0.3,
+			"dir": 1,
+			"time": 4.8
+		},
+		{
+			"holdLen": 0.3,
+			"dir": 0,
+			"time": 5.4
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 3,
+			"time": 6
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.3,
+			"dir": 1,
+			"time": 7.2
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.3,
+			"dir": 0,
+			"time": 7.8
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 3,
+			"time": 8.4
+		},
+		{
+			"holdLen": 0.3,
+			"dir": 1,
+			"time": 9.6
+		},
+		{
+			"dir": 3,
+			"time": 10.2
+		},
+		{
+			"dir": 0,
+			"time": 10.5
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 10.8
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.3,
+			"dir": 1,
+			"time": 12
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 12.6
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 12.9
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 13.2
+		},
+		{
+			"dir": 3,
+			"time": 14.4
+		},
+		{
+			"dir": 1,
+			"time": 14.7
+		},
+		{
+			"dir": 0,
+			"time": 15.3
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 2,
+			"time": 15.6
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 16.8
+		},
+		{
+			"lane": 1,
+			"dir": 1,
+			"time": 17.1
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 17.7
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 2,
+			"time": 18
+		},
+		{
+			"dir": 0,
+			"time": 19.2
+		},
+		{
+			"dir": 3,
+			"time": 19.5
+		},
+		{
+			"holdLen": 0.9,
+			"dir": 1,
+			"time": 19.8
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 21.6
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 21.9
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.9,
+			"dir": 1,
+			"time": 22.2
+		},
+		{
+			"dir": 1,
+			"time": 24
+		},
+		{
+			"dir": 3,
+			"time": 24.3
+		},
+		{
+			"holdLen": 0.9,
+			"dir": 0,
+			"time": 24.6
+		},
+		{
+			"lane": 1,
+			"dir": 1,
+			"time": 26.4
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 26.7
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.9,
+			"dir": 0,
+			"time": 27
+		},
+		{
+			"dir": 2,
+			"time": 28.8
+		},
+		{
+			"dir": 3,
+			"time": 29.1
+		},
+		{
+			"holdLen": 1.2,
+			"dir": 0,
+			"time": 29.4
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 31.2
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 31.5
+		},
+		{
+			"lane": 1,
+			"holdLen": 1.2,
+			"dir": 0,
+			"time": 31.8
+		},
+		{
+			"dir": 2,
+			"time": 33.3
+		},
+		{
+			"dir": 0,
+			"time": 33.6
+		},
+		{
+			"dir": 3,
+			"time": 33.9
+		},
+		{
+			"dir": 2,
+			"time": 34.5
+		},
+		{
+			"dir": 0,
+			"time": 34.575
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 34.8
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 35.7
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 36
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 36.3
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 36.9
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 36.975
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 37.2
+		},
+		{
+			"holdLen": 0.45,
+			"dir": 2,
+			"time": 38.4
+		},
+		{
+			"holdLen": 0.3,
+			"dir": 3,
+			"time": 39
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 0,
+			"time": 39.6
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.45,
+			"dir": 2,
+			"time": 40.8
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.3,
+			"dir": 3,
+			"time": 41.4
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 0,
+			"time": 42
+		},
+		{
+			"dir": 1,
+			"time": 43.2
+		},
+		{
+			"dir": 2,
+			"time": 43.8
+		},
+		{
+			"dir": 1,
+			"time": 44.4
+		},
+		{
+			"dir": 1,
+			"time": 44.55
+		},
+		{
+			"dir": 1,
+			"time": 44.7
+		},
+		{
+			"dir": 2,
+			"time": 45
+		},
+		{
+			"lane": 1,
+			"dir": 1,
+			"time": 45.6
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 46.2
+		},
+		{
+			"lane": 1,
+			"dir": 1,
+			"time": 46.8
+		},
+		{
+			"lane": 1,
+			"dir": 1,
+			"time": 46.95
+		},
+		{
+			"lane": 1,
+			"dir": 1,
+			"time": 47.1
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 47.4
+		},
+		{
+			"holdLen": 0.45,
+			"dir": 2,
+			"time": 48
+		},
+		{
+			"holdLen": 0.3,
+			"dir": 3,
+			"time": 48.6
+		},
+		{
+			"holdLen": 0.45,
+			"dir": 0,
+			"time": 49.2
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.45,
+			"dir": 2,
+			"time": 50.4
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.3,
+			"dir": 3,
+			"time": 51
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.45,
+			"dir": 0,
+			"time": 51.6
+		},
+		{
+			"holdLen": 1.8,
+			"dir": 3,
+			"time": 52.8
+		},
+		{
+			"lane": 1,
+			"holdLen": 1.8,
+			"dir": 3,
+			"time": 55.2
+		},
+		{
+			"dir": 2,
+			"time": 57.6
+		},
+		{
+			"dir": 3,
+			"time": 57.9
+		},
+		{
+			"holdLen": 1.2,
+			"dir": 0,
+			"time": 58.2
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 60
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 60.3
+		},
+		{
+			"lane": 1,
+			"holdLen": 1.2,
+			"dir": 0,
+			"time": 60.6
+		},
+		{
+			"dir": 2,
+			"time": 62.1
+		},
+		{
+			"dir": 0,
+			"time": 62.4
+		},
+		{
+			"dir": 3,
+			"time": 62.7
+		},
+		{
+			"dir": 2,
+			"time": 63.3
+		},
+		{
+			"dir": 0,
+			"time": 63.375
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 63.6
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 64.5
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 64.8
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 65.1
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 65.7
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 65.775
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 66
+		},
+		{
+			"dir": 2,
+			"time": 67.2
+		},
+		{
+			"dir": 3,
+			"time": 67.5
+		},
+		{
+			"dir": 0,
+			"time": 67.8
+		},
+		{
+			"dir": 2,
+			"time": 68.1
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 68.4
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 69.6
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 69.9
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 70.2
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 70.5
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 70.8
+		},
+		{
+			"dir": 2,
+			"time": 71.7
+		},
+		{
+			"dir": 0,
+			"time": 72
+		},
+		{
+			"dir": 3,
+			"time": 72.3
+		},
+		{
+			"dir": 2,
+			"time": 72.9
+		},
+		{
+			"dir": 0,
+			"time": 72.975
+		},
+		{
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 73.2
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 74.1
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 74.4
+		},
+		{
+			"lane": 1,
+			"dir": 3,
+			"time": 74.7
+		},
+		{
+			"lane": 1,
+			"dir": 2,
+			"time": 75.3
+		},
+		{
+			"lane": 1,
+			"dir": 0,
+			"time": 75.375
+		},
+		{
+			"lane": 1,
+			"holdLen": 0.6,
+			"dir": 1,
+			"time": 75.6
+		}
+	],
+	"gameInfo": {
+		"noteSpeed": 1.3,
+		"chars": [
+			"bf",
+			"martlet"
+		],
+		"stageBG": "snowdin",
+		"skin": "undertale"
+	},
+	"songInfo": {
+		"beatsPerMinute": 100,
+		"stepsPerBeat": 4,
+		"beatsPerBar": 4
+	}
+}

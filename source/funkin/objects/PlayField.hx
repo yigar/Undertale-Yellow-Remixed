@@ -61,7 +61,7 @@ class PlayField extends FlxGroup {
 		final speed:Float = Chart.current.gameInfo.noteSpeed;
 
 		add(enmStrums = new StrumLine(this, 100, strumY, speed, skin, true));
-		add(plrStrums = new StrumLine(this, FlxG.width - 550, strumY, speed, skin, false));
+		add(plrStrums = new StrumLine(this, FlxG.width - 480, strumY, speed, skin, false));
 
 		//QUICK FIX
 		enmStrums.visible = false;
@@ -96,10 +96,10 @@ class PlayField extends FlxGroup {
 		centerMark.screenCenter(X);
 		add(centerMark);
 
-		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : (FlxG.width / 2), 110);
+		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : plrStrums.x - 70, 110);
 		add(missCount);
 
-		gradeSprite = new GradeSprite(70, 70);
+		gradeSprite = new GradeSprite(50, 70);
 		add(gradeSprite);
 
 		updateScore();
@@ -165,7 +165,7 @@ class PlayField extends FlxGroup {
 	public dynamic function updateScore():Void {
 
 		missCount.updateMisses(Timings.rank == "N/A" ? -1 : Timings.comboBreaks);
-		gradeSprite.updateGrade(FlxMath.roundDecimal(Timings.accuracy, 2), Timings.rank);
+		gradeSprite.updateGrade(FlxMath.roundDecimal(Timings.accuracy, 1), Timings.rank);
 
 		rpcText = 'Rank: ${Timings.rank} (${Timings.accuracy}%${Timings.comboBreaks <= 0 ? " | FC" : ""})';
 

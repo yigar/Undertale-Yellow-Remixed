@@ -59,7 +59,7 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
     private function loadText()
     {
         accText = new FlxText(0, 0, 0, "");
-        accText.setFormat(Paths.font(_accFont), 36, 0xFFFFFF, CENTER, OUTLINE, FlxColor.BLACK);
+        accText.setFormat(Paths.font(_accFont), 32, 0xFFFFFF, CENTER, OUTLINE, FlxColor.BLACK);
         accText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
         accText.antialiasing = false;
     }
@@ -69,7 +69,7 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
         if(x != null) centerPoint = new FlxPoint(x, y);
 
         letter.setPosition(centerPoint.x - (letter.width / 2), centerPoint.y - (letter.height / 2));
-        sign.setPosition(letter.x + letter.width + 50, letter.y + 10);
+        sign.setPosition(letter.x + letter.width + 40, letter.y + 10);
         accText.setPosition(centerPoint.x - (accText.width / 2) + 160, centerPoint.y);
     }
 
