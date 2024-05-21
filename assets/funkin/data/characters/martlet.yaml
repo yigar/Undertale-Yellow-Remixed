@@ -11,9 +11,9 @@ danceInterval: 2
 singDuration: 6.1
 
 animations:
- - {name: "idle", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
+ - {name: "idle", prefix: "idle", fps: 12, loop: true, x: 0, y: 0}
 
- - {name: "singLEFT", prefix: "idle", fps: 24, loop: false, x: 0, y: 0}
- - {name: "singDOWN", prefix: "idle", fps: 24, loop: false, x: 0, y: 0}
- - {name: "singUP", prefix: "idle", fps: 24, loop: false, x: 0, y: 0}
- - {name: "singRIGHT", prefix: "idle", fps: 24, loop: false, x: 0, y: 0}
+ - {name: "singLEFT", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
+ - {name: "singDOWN", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
+ - {name: "singUP", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
+ - {name: "singRIGHT", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}

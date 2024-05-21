@@ -1,0 +1,19 @@
+spritesheet: "flowey/flowey"
+flip: {x: false, y: false}
+icon: "flowey"
+
+dancingSteps: ["idle"]
+singingSteps: ["singLEFT", "singDOWN", "singUP", "singRIGHT"]
+
+positionDisplace: {x: 0.0, y: 0.0}
+cameraDisplace: {x: 0.0, y: 0.0}
+danceInterval: 2
+singDuration: 6.1
+
+animations:
+ - {name: "idle", prefix: "idle", fps: 12, loop: true, x: 0, y: 0}
+
+ - {name: "singLEFT", prefix: "left", fps: 12, loop: false, x: 55, y: 7}
+ - {name: "singDOWN", prefix: "down", fps: 12, loop: false, x: -24, y: -33}
+ - {name: "singUP", prefix: "up", fps: 12, loop: false, x: -35, y: 86}
+ - {name: "singRIGHT", prefix: "right", fps: 12, loop: false, x: -83, y: -7}

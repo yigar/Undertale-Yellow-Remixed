@@ -324,6 +324,27 @@ class Overworld extends FNFState
             };
             initializeSongTransition(song);
         }
+
+        if(FlxG.keys.justPressed.EIGHT)
+            {
+    
+                var tempSave:PlayerSave = {
+                    love: 1,
+                    health: 20,
+                    room: "testLevel4",
+                    posX: 200,
+                    posY: 200
+                };
+    
+    
+                PlayerData.savePlayerData(tempSave);
+                var song:PlaySong = {
+                    name: "Flowey",
+                    folder: "flowey",
+                    difficulty: "hard"
+                };
+                initializeSongTransition(song);
+            }
     }
 
     public function interactablesCheck()
