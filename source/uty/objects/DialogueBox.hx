@@ -8,6 +8,7 @@ import forever.display.ForeverSprite;
 import uty.components.NarratedText;
 import openfl.text.TextFormat;
 import uty.components.DialogueParser;
+import uty.ui.Window;
 
 /*
     dialogue box for use in the overworld state.
@@ -20,6 +21,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
     //visual assets
     public var boxBackground:FlxSprite;
     public var boxBorder:FlxSprite;
+    public var window:Window;
     var borderThickness:Int = 9;
     public var portrait:ForeverSprite;
     public var narratedText:NarratedText;
@@ -59,13 +61,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
         _defaultTextFormat.letterSpacing = _defaultLetterSpacing;
         _defaultTextFormat.bullet = true;
 
-        //maybe move this to another game object function for replicating other stuff like the menus
-        boxBorder = new FlxSprite().makeGraphic(_boxWidth, _boxHeight, FlxColor.WHITE);
-        boxBackground = new FlxSprite().makeGraphic(
-            Std.int(boxBorder.width - (borderThickness * 2)), 
-            Std.int(boxBorder.height - (borderThickness * 2)), FlxColor.BLACK);
-        boxBorder.antialiasing = false;
-        boxBackground.antialiasing = false;
+        window = new Window(0, 0, _boxWidth, _boxHeight, borderThickness);
 
         //remember to convert the portrait sprites to xml
         portrait = new ForeverSprite();
@@ -73,8 +69,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
         
         narratedText = new NarratedText(100, 30, _boxWidth - 200, "", _defaultFont, _defaultFontSize);
         narratedText.setFont("pixela-extreme", _defaultLetterSpacing);
-        add(boxBorder);
-        add(boxBackground);
+        add(window);
         add(portrait);
         add(narratedText);
 
@@ -99,26 +94,25 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
 
     public function setScreenPosition(pos:String)
     {
-        var newX = Std.int((FlxG.width / 2) - (boxBorder.width / 2));
+        var newX = Std.int((FlxG.width / 2) - (window.width / 2));
         var newY;
         if(pos == "bottom" || pos == "BOTTOM")
-            newY = Std.int(FlxG.height - (boxBorder.height) - _verticalOffset);
+            newY = Std.int(FlxG.height - (window.height) - _verticalOffset);
         else if(pos == "top" || pos == "TOP")
             newY = _verticalOffset;
         else
             newY = 0;
 
-        boxBorder.setPosition(newX, newY);
-        boxBackground.setPosition(newX + borderThickness, newY + borderThickness);
+        window.setPosition(newX, newY);
 
         portrait.setPosition(
-            Std.int(boxBackground.x + 40),
-            Std.int(boxBackground.y + (boxBackground.height / 2) - (portrait.height / 2)));
+            Std.int(window.x + 40),
+            Std.int(window.y + (window.height / 2) - (portrait.height / 2)));
 
-        narratedText.x = boxBackground.x + 100 + portrait.width;
-        narratedText.y = boxBackground.y + 20;
+        narratedText.x = window.x + 100 + portrait.width;
+        narratedText.y = window.y + 20;
         //this should make it so the text always breaks 100 pixels before the end of the dialogue box
-        narratedText.fieldWidth = (boxBackground.x + boxBackground.width - narratedText.x - 50); 
+        narratedText.fieldWidth = (window.x + window.width - narratedText.x - 50); 
     }
 
     override function update(elapsed:Float)
@@ -217,8 +211,8 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
             portrait.updateHitbox();
             portrait.antialiasing = false;
             portrait.setPosition(
-                Std.int(boxBackground.x + 40),
-                Std.int(boxBackground.y + (boxBackground.height / 2)));
+                Std.int(window.x + 40),
+                Std.int(window.y + (window.height / 2)));
             add(portrait);
             currentCharacter = character;
 
