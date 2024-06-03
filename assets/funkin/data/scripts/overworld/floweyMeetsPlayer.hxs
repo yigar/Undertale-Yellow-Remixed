@@ -1,0 +1,33 @@
+function start()
+{
+    Overworld.current.player.lockMoveInput = true;
+    new FlxTimer().start(0.8, emerge);
+}
+
+function emerge()
+{
+    var flowey = new OverworldCharacter("flowey", 380, 440, "down");
+    flowey.playBasicAnimation('emerge', 'down');
+    Overworld.current.objectSorterGroup.add(flowey);
+    new FlxTimer().start(1.5, dialogue1);
+}
+
+function playMusic()
+{
+
+}
+
+function dialogue1()
+{
+    Overworld.current.dialogueParser.updateDialogueJson("floweyMeetsPlayer");
+    var diaGrp:DialogueParser.DialogueGroup = Overworld.current.dialogueParser.getDialogueFromName("Flowey Intro 1");
+    final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, Overworld.current.camHUD);
+    Overworld.current.openSubState(dialogueSubstate);
+    return;
+}
+
+function startSong()
+{
+    var floweySong:PlaySong = new PlaySong("Flowey", "flowey", "hard");
+    Overworld.current.initializeSongTransition(floweySong);
+}

@@ -23,6 +23,7 @@ class LoadingZone extends FlxSprite
         super(x, y);
 
         makeGraphic(width, height, 0x384EFF95);
+        alpha = 0.0;
         setWarp(toRoom, toX, toY);
         //use LoadingZone.collision.checkOverlap to check for things overlapping the loading zone
         collision = new Collision(x, y, width, height);

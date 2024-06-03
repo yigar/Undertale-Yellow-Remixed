@@ -139,6 +139,8 @@ class SoulTransitionSubState extends FlxSubState
 
         FlxTransitionableState.skipNextTransOut = true;
 
+        trace("CHART: " + Chart.current + "\nSONG: " + song);
+
         Chart.current = ChartLoader.load(song.folder, song.difficulty);
         FlxG.switchState(new PlayState(song));
         

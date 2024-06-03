@@ -1,0 +1,15 @@
+spritesheet: "floweyCowboy"
+
+animations:
+ - {name: "idle_up", prefix: "up", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_down", prefix: "down", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_left", prefix: "left", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_right", prefix: "right", fps: 0, loop: false, indices: [0]}
+
+ - {name: "talk_up", prefix: "up", fps: 4, loop: true, indices: [0]}
+ - {name: "talk_down", prefix: "down", fps: 4, loop: true, indices: [1, 0]}
+ - {name: "talk_left", prefix: "left", fps: 4, loop: true, indices: [1, 0]}
+ - {name: "talk_right", prefix: "right", fps: 4, loop: true, indices: [1, 0]}
+
+ - {name: "emerge_down", prefix: "emergeDown", fps: 12, loop: true, indices: [0, 1, 2, 3]}
+ - {name: "descend_down", prefix: "descendDown", fps: 12, loop: true, indices: [0, 1, 2, 3]}

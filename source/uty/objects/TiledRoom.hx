@@ -9,6 +9,7 @@ import flixel.group.FlxSpriteGroup;
 import uty.components.RoomParser;
 import uty.objects.LoadingZone;
 import uty.objects.Interactable;
+import uty.objects.EventTrigger;
 import uty.components.Collision;
 
 /*
@@ -32,6 +33,7 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
     //entities
     public var loadingZones:FlxTypedGroup<LoadingZone>;
     public var interactables:FlxTypedGroup<Interactable>;
+    public var triggers:FlxTypedGroup<EventTrigger>;
 
     //the boundaries of the room
     public var roomBounds:FlxRect;
@@ -106,6 +108,24 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
             );
             interactables.add(newInter);
             add(newInter);
+        }
+
+        //loads all event triggers
+        triggers = new FlxTypedGroup<EventTrigger>();
+        var triggerData:Array<EntityData> = parser.getEntitiesByName("EventTrigger");
+        for(t in triggerData)
+        {
+            var newTrig:EventTrigger = new EventTrigger(
+                t.x * 3,
+                t.y * 3,
+                t.width * 3,
+                t.height * 3,
+                t.values.script,
+                t.values.isButton,
+                t.values.useCount
+            );
+            triggers.add(newTrig);
+            add(newTrig);
         }
     }
 

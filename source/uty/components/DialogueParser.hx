@@ -19,7 +19,8 @@ typedef DialogueGroup =
 {
     name:String,
     parameters:DialogueParameters,
-    dialogue:Array<DialogueLine>
+    dialogue:Array<DialogueLine>,
+    ?callback:{script:String, func:String, args:Array<Dynamic>}
 }
 
 typedef DialogueLine =

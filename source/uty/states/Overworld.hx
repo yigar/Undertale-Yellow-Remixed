@@ -27,7 +27,9 @@ import uty.components.PlayerData;
 
 class Overworld extends FNFState
 {
-    public var curRoomName:String = "testLevel4";
+    public static var current:Overworld;
+
+    public var curRoomName:String = "ruins_1_foggyHall";
     public var room:TiledRoom;
     public var player:Player;
     public var playerController:CharacterController;
@@ -78,7 +80,9 @@ class Overworld extends FNFState
         //note: apparently you can just zoom the camera instead of resizing all the pixel sprites
         //maybe this is more efficient but the problem is you probably can't ever go above the pixel ratio in this state, idk though.
 
-        load(curRoomName, 800, 300);
+        load(curRoomName, 480, 1200);
+
+        current = this;
     }
 
     override function update(elapsed:Float)
@@ -87,6 +91,8 @@ class Overworld extends FNFState
 
         controlInputCall(); //checks for inputs
         debugInputCall();
+
+        triggersCheck(); //interactables only need to be checked when ACCEPT is pressed; triggers do need to be checked constantly.
 
         playerHitbox.updatePosition(); //move the hitbox with the player
         playerCollisionCheck();
@@ -345,6 +351,34 @@ class Overworld extends FNFState
                 };
                 initializeSongTransition(song);
             }
+        
+        if(FlxG.keys.justPressed.NINE)
+        {
+            var tempSave:PlayerSave = {
+                love: 1,
+                health: 20,
+                room: "testLevel4",
+                posX: 200,
+                posY: 200
+            };
+            PlayerData.savePlayerData(tempSave);
+        }
+    }
+
+    public function triggersCheck()
+    {
+        room.triggers.forEach(function(t:EventTrigger)
+        {
+            if(t.enabled && t.checkOverlap(playerHitbox)) //if the trigger is active and you're inside of it
+            {
+                if(!t.isButton || Controls.UT_ACCEPT_P) //if it's not a button, or if it is, you're pressing ACCEPT
+                {
+                    t.callScript();
+                    return;
+                }
+                //otherwise, this is a button trigger, and you're not pressing ACCEPT
+            }
+        });
     }
 
     public function interactablesCheck()
