@@ -22,6 +22,7 @@ import flixel.math.FlxMath;
 class Player extends OverworldCharacter
 {
     public var lockMoveInput:Bool = false;
+    public var lockActionInput:Bool = false;
 
     public function new(characterName:String = "clover", x:Float, y:Float, facing:String = "down", pixelRatio:Int = 3)
     {

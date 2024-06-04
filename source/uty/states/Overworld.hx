@@ -15,6 +15,7 @@ import uty.components.RoomParser;
 import uty.components.DialogueParser;
 import uty.objects.Interactable;
 import uty.substates.DialogueSubState;
+import uty.substates.OverworldMenuSubState;
 import uty.substates.SoulTransitionSubState;
 import flixel.system.ui.FlxSoundTray;
 import uty.objects.OverworldCharacter;
@@ -267,6 +268,18 @@ class Overworld extends FNFState
             room.roomBounds.top - expandY,
             room.roomBounds.width + expandX,
             room.roomBounds.height + expandY);
+
+        //center the camera in small rooms
+        if(camBounds.width < FlxG.width)
+        {
+            camBounds.left = camBounds.left + (camBounds.width * 0.5);
+            camBounds.width = FlxG.width * 0.5;
+        }
+        if(camBounds.height < FlxG.height)
+        {
+            camBounds.top = camBounds.top + (camBounds.height * 0.5);
+            camBounds.height = FlxG.height * 0.5;
+        }
         trace("camera bounds are: " + camBounds.left + ", " + camBounds.top + " | " + camBounds.right + ", " + camBounds.bottom);
 
         camGame.setScrollBoundsRect(camBounds.left, camBounds.top, camBounds.width, camBounds.height);
@@ -302,9 +315,17 @@ class Overworld extends FNFState
         ---                   ACTION KEYS                   ---
         -----------------------------------------------------*/
 
-        if(Controls.UT_ACCEPT_P)
+        if(!player.lockActionInput)
         {
-            interactablesCheck();
+            if(Controls.UT_ACCEPT_P)
+            {
+                interactablesCheck();
+            }
+            if(Controls.UT_MENU_P)
+            {
+                final menuSubstate:OverworldMenuSubState = new OverworldMenuSubState(camHUD);
+                openSubState(menuSubstate);
+            }
         }
     }
 
@@ -390,7 +411,7 @@ class Overworld extends FNFState
         {
             if(i.collision.checkOverlap(playerHitbox))
             {
-                player.lockMoveInput = true;
+                setLockAllInput(true);
                 dialogueParser.updateDialogueJson(i.dialogueJson);
 
                 var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(i.checkCount);
@@ -410,7 +431,7 @@ class Overworld extends FNFState
         {
             if(n.interactable.collision.checkOverlap(playerHitbox) && n.interactable.areClicksReached(1))
             {
-                player.lockMoveInput = true;
+                setLockAllInput(true);
                 dialogueParser.updateDialogueJson(n.interactable.dialogueJson);
 
                 var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(n.interactable.checkCount);
@@ -427,7 +448,7 @@ class Overworld extends FNFState
             {
                 if(f.interactable.collision.checkOverlap(playerHitbox) && f.interactable.areClicksReached(1))
                 {
-                    player.lockMoveInput = true;
+                    setLockAllInput(true);
                     dialogueParser.updateDialogueJson(f.interactable.dialogueJson);
     
                     var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(f.interactable.checkCount);
@@ -504,14 +525,27 @@ class Overworld extends FNFState
     override function closeSubState():Void
     {
         //for allowing movement after dialogue boxes for now; may need to change
-        if(player != null)    
-            player.lockMoveInput = false;
+        if(player != null)
+        {
+            setLockAllInput(false);
+        }
         super.closeSubState();
+    }
+
+    public function setLockAllInput(locked:Bool = true)
+    {
+        setLockMoveInput(locked);
+        setLockActionInput(locked);
     }
 
     public function setLockMoveInput(locked:Bool = true)
     {
         player.lockMoveInput = locked;
+    }
+
+    public function setLockActionInput(locked:Bool = true)
+    {
+        player.lockActionInput = locked;
     }
 
     public function initializeSongTransition(song:PlaySong)
@@ -522,8 +556,8 @@ class Overworld extends FNFState
         add(black);
 
         var playerCenterScreenPoint:FlxPoint = new FlxPoint(
-            player.x + (player.width / 2) + FlxG.camera.x,
-            player.y + (player.height / 2) + FlxG.camera.y);
+            player.x + (player.width / 2) - camGame.scroll.x,
+            player.y + (player.height / 2) - camGame.scroll.y);
 
         final soulSubstate:SoulTransitionSubState = new SoulTransitionSubState(song, 
             playerCenterScreenPoint.x, playerCenterScreenPoint.y);

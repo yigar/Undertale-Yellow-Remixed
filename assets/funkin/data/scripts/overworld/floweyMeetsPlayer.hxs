@@ -1,6 +1,6 @@
 function start()
 {
-    Overworld.current.player.lockMoveInput = true;
+    Overworld.current.setLockAllInput(true);
     new FlxTimer().start(0.8, emerge);
 }
 

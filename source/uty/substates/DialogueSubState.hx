@@ -8,7 +8,7 @@ import uty.components.DialogueParser;
 import flixel.FlxCamera;
 import forever.core.scripting.HScript;
 
-@:access(funkin.states.PlayState)
+@:access(funkin.states.Overworld)
 class DialogueSubState extends FlxSubState
 {
     //this is meant to freeze your other controls until the dialogue box closes
