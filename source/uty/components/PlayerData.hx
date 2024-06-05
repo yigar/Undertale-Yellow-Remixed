@@ -3,6 +3,7 @@ package uty.components;
 import openfl.utils.IAssetCache;
 import flixel.math.FlxMath;
 import haxe.ds.StringMap;
+import flixel.FlxG;
 
 enum LOVEData{
     LOVEData(hp:Int, atk:Int, def:Int);
@@ -54,7 +55,7 @@ class PlayerData
         posY: 200
     };
 
-    public static var playerSave:PlayerSave = dummySave;
+    public static var activeSave:PlayerSave = dummySave;
 
     public static function loveToHP(love:Int):Int
     {
@@ -94,12 +95,12 @@ class PlayerData
     @:dox(hide)
     private static inline function _getSave():PlayerSave
     {
-        return playerSave ?? dummySave;
+        return activeSave ?? dummySave;
     }
 
     private static function _setSave(save:PlayerSave):Void
     {
-        playerSave = save;
+        activeSave = save;
     }
 
 

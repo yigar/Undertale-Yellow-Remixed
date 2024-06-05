@@ -131,15 +131,14 @@ class FlxSoundTray extends Sprite
 				visible = false;
 				active = false;
 
-				#if FLX_SAVE
 				// Save sound preferences
 				if (FlxG.save.isBound)
 				{
 					FlxG.save.data.mute = FlxG.sound.muted;
 					FlxG.save.data.volume = FlxG.sound.volume;
 					FlxG.save.flush();
+					trace('sound settings saved.');
 				}
-				#end
 			}
 		}
 	}

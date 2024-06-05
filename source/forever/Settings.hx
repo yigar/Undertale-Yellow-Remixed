@@ -51,7 +51,7 @@ class Settings {
 	public static var framerateCap:Int = 60;
 
 	/** Whether to enable the reset (Quick Game Over) button during gameplay. **/
-	public static var resetButton:Bool = true;
+	public static var resetButton:Bool = false;
 
 	/** Defines the (spawn) offset of the notes. **/
 	public static var noteOffset:Float = 0.0;

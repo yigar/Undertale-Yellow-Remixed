@@ -19,11 +19,18 @@ class Init extends FlxState {
 	override function create():Void {
 		super.create();
 
+		FlxG.save.bind('utyRemixed', 'yigar/UTYRemixed/uty');
 		if (FlxG.save.data.firstBoot == null) FlxG.save.data.firstBoot = true;
 
 		setupDefaults();
 		setupTransition();
 		precacheAssets();
+
+		if (FlxG.save.data != null)
+		{
+			FlxG.sound.muted = FlxG.save.data.mute;
+			FlxG.sound.volume = FlxG.save.data.volume;
+		}
 
 		// -- CUSTOM SPLASH SCREEN -- //
 
@@ -53,6 +60,8 @@ class Init extends FlxState {
 			"cancelMenu" => AssetHelper.getSound(AssetHelper.getPath("audio/sfx/cancelMenu", SOUND), "cancelMenu"),
 			"confirmMenu" => AssetHelper.getSound(AssetHelper.getPath("audio/sfx/confirmMenu", SOUND), "confirmMenu"),
 			"breakfast" => AssetHelper.getSound(AssetHelper.getPath("audio/bgm/breakfast", SOUND), "breakfast"),
+			"snd_mainmenu_select" => AssetHelper.getSound(AssetHelper.getPath("audio/sfx/snd_mainmenu_select", SOUND), "snd_mainmenu_select"),
+			"snd_confirm" => AssetHelper.getSound(AssetHelper.getPath("audio/sfx/snd_confirm", SOUND), "snd_confirm"),
 		];
 
 		FlxTransitionableState.skipNextTransIn = true;

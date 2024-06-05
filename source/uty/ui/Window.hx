@@ -22,6 +22,7 @@ class Window extends FlxSpriteGroup
 
     public var menu:WindowMenu;
     public var textItems:Array<WindowText> = [];
+    public var sub:Window;
 
 
 
@@ -45,6 +46,27 @@ class Window extends FlxSpriteGroup
         add(center);
     }
 
+    public function setTransparent(tp:Bool = true)
+    {
+        border.alpha = tp ? 0.0 : 1.0;
+        center.alpha = tp ? 0.0 : 1.0;
+    }
+
+    public function controlSubMenu(?b:Bool)
+    {
+        if(menu != null && sub != null && sub.menu != null)
+        {
+            menu.toggleControl(!b);
+            sub.menu.toggleControl(b);
+        }
+    }
+
+    public function addSubWindow(x:Int, y:Int, width:Int, height:Int, ?borderThickness:Int)
+    {
+        sub = new Window(x, y, width, height, borderThickness);
+        this.add(sub);
+    }
+
     public function createMenu(x:Float, y:Float, items:Array<MenuOption>, ?perRow:Int = 1, ?rowSpacing:Int, ?columnSpacing:Int)
     {
         menu = new WindowMenu(x, y, items, perRow, rowSpacing, columnSpacing);
@@ -57,6 +79,15 @@ class Window extends FlxSpriteGroup
         textItems.push(text);
         this.add(text);
     }
+
+    //checks the control inputs of this menu and any sub-menus
+    public function controlCheck()
+    {
+        if(menu != null)
+            menu.controlCheck();
+        if(sub != null)
+            sub.controlCheck();
+    }
 }
 
 class WindowMenu extends FlxSpriteGroup
@@ -65,7 +96,8 @@ class WindowMenu extends FlxSpriteGroup
     public var list:Array<WindowText> = [];
     public var funcMap:Array<Void->Void> = [];
 
-    public var controlEnabled:Bool = true;
+    //private; i don't want this being changed directly
+    private var controlEnabled:Bool = true;
 
     public var selection:Int = 0;
     public var perRow:Int = 1;
@@ -104,7 +136,8 @@ class WindowMenu extends FlxSpriteGroup
         soul.antialiasing = false;
         add(soul);
 
-        updateSelection(0);
+        updateSelection(0, false);
+        toggleControl(true);
     }
 
     public function controlCheck()
@@ -122,12 +155,20 @@ class WindowMenu extends FlxSpriteGroup
 
         if (Controls.UT_ACCEPT_P)
         {
-            funcMap[selection]();
-            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_confirm', SOUND));
+
         }
     }
 
-    public function updateSelection(select:Int)
+    public function callSelectedFunction()
+    {
+        if(funcMap[selection] != null) 
+        {
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_confirm', SOUND));
+            funcMap[selection]();
+        }
+    }
+
+    public function updateSelection(select:Int, ?sound:Bool = true)
     {
         if(!controlEnabled) return;
         if(select < 0 || select >= list.length) select = 0; //failsafe; any invalid number will result in 0
@@ -136,7 +177,8 @@ class WindowMenu extends FlxSpriteGroup
 
         soul.x = list[select].x - (soul.width) - 10;
         soul.y = list[select].y + (list[select].height * 0.5) - (soul.height * 0.5);
-        FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
+        if(sound) //lazy band-aid for sub-menus
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
     }
 
     public function selectFromDirection(direction:String)
@@ -183,6 +225,27 @@ class WindowMenu extends FlxSpriteGroup
         }
 
         updateSelection(newSel);
+    }
+
+    public function centerOptions()
+    {
+        for(item in list)
+        {
+            item.updateHitbox();
+            item.x -= (item.width * 0.5);
+        }
+        updateSelection(selection, false); //repositions the soul
+    }
+
+    public function toggleControl(?on:Bool)
+    {
+        controlEnabled = on ?? !controlEnabled;
+        soul.visible = controlEnabled;
+    }
+
+    public function isControlEnabled():Bool
+    {
+        return controlEnabled;
     }
 }
 
