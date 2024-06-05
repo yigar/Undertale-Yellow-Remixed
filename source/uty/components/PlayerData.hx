@@ -4,24 +4,34 @@ import openfl.utils.IAssetCache;
 import flixel.math.FlxMath;
 import haxe.ds.StringMap;
 import flixel.FlxG;
+import uty.components.Inventory;
 
 enum LOVEData{
-    LOVEData(hp:Int, atk:Int, def:Int);
+    LOVEData(hp:Int, at:Int, df:Int);
 }
 
 //data to save about the player's game state.
-@:structInit class PlayerSave {
-    public var love:Int;
-    public var health:Int;
-    public var room:String;
-    public var posX:Int;
-    public var posY:Int;
+class PlayerSave 
+{
+    public var love:Int = 1;
+    public var health:Int = 20;
+    public var room:String = "testLevel4";
+    public var posX:Int = 200;
+    public var posY:Int = 200;
+    public var inventory:Inventory;
+    public var gold:Int = 0;
+
+    public function new():Void 
+    {
+        inventory = new Inventory();
+    }
 }
 
 /*
     enemies do one extra damage every 21, 30, 40, etc. hp
 */
 
+//tracks the player's game data 
 class PlayerData
 {
     public static final loveValues:Map<Int, LOVEData> = [
@@ -47,15 +57,9 @@ class PlayerData
         20 => LOVEData(99, 38, 4)
     ];
 
-    private static final dummySave:PlayerSave = {
-        love: 1,
-        health: 20,
-        room: "testLevel4",
-        posX: 200,
-        posY: 200
-    };
+    public static final dummySave:PlayerSave = new PlayerSave();
 
-    public static var activeSave:PlayerSave = dummySave;
+    public static var playerSave:PlayerSave = dummySave;
 
     public static function loveToHP(love:Int):Int
     {
@@ -76,34 +80,5 @@ class PlayerData
     {
         return loveValues.get(love);
     }
-
-
-    /*
-     * SAVING STUFF
-     */
-
-    public static function savePlayerData(data:PlayerSave):Void
-    {
-        _setSave(data);
-    }
-
-    public static function getPlayerData():PlayerSave
-    {
-        return _getSave();
-    }
-
-    @:dox(hide)
-    private static inline function _getSave():PlayerSave
-    {
-        return activeSave ?? dummySave;
-    }
-
-    private static function _setSave(save:PlayerSave):Void
-    {
-        activeSave = save;
-    }
-
-
-
 
 }

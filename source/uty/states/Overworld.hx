@@ -23,6 +23,7 @@ import flixel.group.FlxGroup;
 import flixel.util.FlxSort;
 import funkin.states.PlayState;
 import uty.components.PlayerData;
+import uty.components.StoryData;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -333,17 +334,6 @@ class Overworld extends FNFState
     {
         if(FlxG.keys.justPressed.SEVEN)
         {
-
-            var tempSave:PlayerSave = {
-                love: 1,
-                health: 20,
-                room: "testLevel4",
-                posX: 200,
-                posY: 200
-            };
-
-
-            PlayerData.savePlayerData(tempSave);
             var song:PlaySong = {
                 name: "Martlet",
                 folder: "martlet",
@@ -354,17 +344,6 @@ class Overworld extends FNFState
 
         if(FlxG.keys.justPressed.EIGHT)
             {
-    
-                var tempSave:PlayerSave = {
-                    love: 1,
-                    health: 20,
-                    room: "testLevel4",
-                    posX: 200,
-                    posY: 200
-                };
-    
-    
-                PlayerData.savePlayerData(tempSave);
                 var song:PlaySong = {
                     name: "Flowey",
                     folder: "flowey",
@@ -375,14 +354,41 @@ class Overworld extends FNFState
         
         if(FlxG.keys.justPressed.NINE)
         {
-            var tempSave:PlayerSave = {
-                love: 1,
-                health: 20,
-                room: "testLevel4",
-                posX: 200,
-                posY: 200
-            };
-            PlayerData.savePlayerData(tempSave);
+
+        }
+
+
+        //save stuff
+
+        //subtract a level
+        if(FlxG.keys.justPressed.O)
+        {
+            var newSave:StorySave = StoryData.getActiveData();
+            newSave.playerSave.love -= (newSave.playerSave.love == 1 ? 0 : 1);
+            StoryData.setActiveData(newSave);
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_love_increased', SOUND));
+        }
+        //add a level
+        if(FlxG.keys.justPressed.P)
+        {
+            var newSave:StorySave = StoryData.getActiveData();
+            newSave.playerSave.love += (newSave.playerSave.love == 20 ? 0 : 1);
+            StoryData.setActiveData(newSave);
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_love_increased', SOUND));
+        }
+
+        if(FlxG.keys.justPressed.T)
+        {
+            var newSave:StorySave = StoryData.getActiveData();
+            newSave.playerSave.inventory.addItemFromFile('CandyCorn');
+            StoryData.setActiveData(newSave);
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_battle_item_equip', SOUND));
+        }
+
+        if(FlxG.keys.justPressed.SPACE)
+        {
+            StoryData.saveData();
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_savedgame', SOUND));
         }
     }
 

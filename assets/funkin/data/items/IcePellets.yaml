@@ -1,0 +1,5 @@
+name: "Ice Pellets"
+abbreviation: "Ice Ammo"
+info: "Very conveniently shaped ice cubes."
+type: "AMMO"
+stats: {hp: 0, at: 6, df: 0, inv: 0}

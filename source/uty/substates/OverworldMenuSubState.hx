@@ -6,6 +6,8 @@ import uty.objects.DialogueBox;
 import uty.components.DialogueParser;
 import flixel.FlxCamera;
 import uty.ui.Window;
+import uty.components.StoryData;
+import uty.components.PlayerData;
 
 enum abstract MenuName(String) to String{
     var CLOSE = "CLOSE";
@@ -45,12 +47,17 @@ class OverworldMenuSubState extends FlxSubState
 
     function createCloverWindow()
     {
+        var love = StoryData.activeData.playerSave.love;
+        var health = StoryData.activeData.playerSave.health;
+        var maxHP = PlayerData.loveToHP(love);
+        var gold = StoryData.activeData.playerSave.gold;
+
         cloverWindow = new Window(50, 75, 210, 160);
         add(cloverWindow);
         cloverWindow.addText(20, 15, "Clover");
-        cloverWindow.addText(20, 70, "LV 1", "mars-needs-cunnilingus", 15);
-        cloverWindow.addText(20, 95, "HP 20/20", "mars-needs-cunnilingus", 15);
-        cloverWindow.addText(20, 120, "G   0", "mars-needs-cunnilingus", 15);
+        cloverWindow.addText(20, 70, 'LV ${love}', "mars-needs-cunnilingus", 15);
+        cloverWindow.addText(20, 95, 'HP ${health}/${maxHP}', "mars-needs-cunnilingus", 15);
+        cloverWindow.addText(20, 120, 'G   ${gold}', "mars-needs-cunnilingus", 15);
     }
 
     function createOptionWindow()
@@ -89,10 +96,15 @@ class OverworldMenuSubState extends FlxSubState
         menuState = ITEM;
         optionWindow.addSubWindow(230, -175, 500, 500);
         //create menu from items later; temp one for now
+        var itemGrab:Array<String> = [
+            StoryData.getActiveData().playerSave.inventory.items[0].name ?? "null",
+            StoryData.getActiveData().playerSave.inventory.items[1].name ?? "null",
+            StoryData.getActiveData().playerSave.inventory.items[2].name ?? "null"
+        ];
         optionWindow.sub.createMenu(75, 45, [
-            MenuOption("Item 1", openSubItemState),
-            MenuOption("Item 2", openSubItemState),
-            MenuOption("Item 3", openSubItemState)
+            MenuOption(itemGrab[0], openSubItemState),
+            MenuOption(itemGrab[1], openSubItemState),
+            MenuOption(itemGrab[2], openSubItemState)
         ], 1, 60, 50);
 
 

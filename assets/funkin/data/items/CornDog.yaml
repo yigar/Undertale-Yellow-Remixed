@@ -1,0 +1,5 @@
+name: "Corn Dog"
+abbreviation: "Corn Dog"
+info: "A genuine Corn Dog with soft, fluffy ears."
+type: "FOOD"
+stats: {hp: 12, at: 0, df: 0, inv: 0}

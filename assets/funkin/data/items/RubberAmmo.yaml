@@ -1,0 +1,5 @@
+name: "Rubber Ammo"
+abbreviation: "Rubber"
+info: "Small, safe, non-toxic rubber pellets."
+type: "AMMO"
+stats: {hp: 0, at: 0, df: 0, inv: 0}

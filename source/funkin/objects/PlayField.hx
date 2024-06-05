@@ -17,7 +17,7 @@ import funkin.ui.HealthIcon;
 
 import haxe.ds.Vector;
 
-import uty.components.PlayerData;
+import uty.components.StoryData;
 
 /**
  * Play Field contains basic objects to handle gameplay
@@ -80,7 +80,7 @@ class PlayField extends FlxGroup {
         if (!Tools.fileExists(AssetHelper.getPath(hbPath, IMAGE)))
             hbPath = hbPath.replace(skin, "normal");
 
-		add(healthBar = new HealthBar(FlxG.width / 2, FlxG.height - 100, PlayerData.getPlayerData().love));
+		add(healthBar = new HealthBar(FlxG.width / 2, FlxG.height - 100, StoryData.getActiveData().playerSave.love));
 
 		add(iconP1 = new HealthIcon(PlayState.current?.player?.icon ?? "face", true));
 		add(iconP2 = new HealthIcon(PlayState.current?.enemy?.icon ?? "face", false));

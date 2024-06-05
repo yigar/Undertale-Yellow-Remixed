@@ -10,6 +10,7 @@ import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.ui.FlxSoundTray;
 import haxe.ds.StringMap;
+import uty.components.StoryData;
 
 /**
  * This is the initialization class, it simply modifies and initializes a few important variables
@@ -30,6 +31,8 @@ class Init extends FlxState {
 		{
 			FlxG.sound.muted = FlxG.save.data.mute;
 			FlxG.sound.volume = FlxG.save.data.volume;
+
+			StoryData.loadData();
 		}
 
 		// -- CUSTOM SPLASH SCREEN -- //

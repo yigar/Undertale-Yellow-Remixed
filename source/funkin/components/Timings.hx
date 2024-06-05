@@ -2,6 +2,7 @@ package funkin.components;
 
 import flixel.math.FlxMath;
 import haxe.ds.StringMap;
+import uty.components.StoryData;
 import uty.components.PlayerData;
 
 /**
@@ -74,7 +75,7 @@ class Timings {
 		score = combo = totalNotesHit = 0;
 		accuracyWindow = totalMs = 0.0;
 
-		maxHealth = PlayerData.loveToHP(PlayerData.getPlayerData().love);
+		maxHealth = PlayerData.loveToHP(StoryData.getActiveData().playerSave.love);
 		health = maxHealth;
 		rank = "N/A";
 	}

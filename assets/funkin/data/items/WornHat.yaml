@@ -1,0 +1,5 @@
+name: "Worn Hat"
+abbreviation: "Hat"
+info: "Its torn hems and dirty spots are mementos from past adventures."
+type: "ARMOR"
+stats: {hp: 0, at: 0, df: 10, inv: 0}

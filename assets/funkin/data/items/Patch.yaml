@@ -1,0 +1,5 @@
+name: "Patch"
+abbreviation: "Patch"
+info: "It's not strong but it's trustworthy."
+type: "ACCE"
+stats: {hp: 0, at: 0, df: 0, inv: 0}

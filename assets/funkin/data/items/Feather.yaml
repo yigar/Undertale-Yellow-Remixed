@@ -1,0 +1,5 @@
+name: "Feather"
+abbreviation: "Feather"
+info: "An old, forgotten feather. It needs a good preening."
+type: "ACCE"
+stats: {hp: 0, at: 0, df: 2, inv: 0}

@@ -1,0 +1,7 @@
+{
+    "name": "Toy Gun",
+    "abbreviation": "ToyGun",
+    "info": "A well-used toy that packs a punch.",
+    "type": "WEAPON",
+    "stats": {"hp": 0, "at": 10, "df": 0, "inv": 0}
+}
