@@ -22,6 +22,7 @@ import funkin.states.menus.*;
 import funkin.substates.*;
 import funkin.ui.ComboSprite;
 import uty.components.PlayerData;
+import uty.components.StoryData;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -411,13 +412,14 @@ class PlayState extends FNFState {
 		
 		var hpDamageBonus:Int = Math.floor(Timings.maxHealth / 10) - 1;
 		if(Timings.maxHealth <= 20) hpDamageBonus = 0;
-		var damage:Int = attack - PlayerData.loveToDef(PlayerData.playerSave.love) + hpDamageBonus;
+		var damage:Int = attack - PlayerData.loveToDef(StoryData.getActiveData().playerSave.love) + hpDamageBonus;
 		//NOTE: DON'T USE SAVE DATA IN THE FUTURE, USE THE CURRENT RUNTIME PLAYER STATS. trace() <-- to remind myself
 
 		/**
 		 * 	EFFECTS
 		 */
 
+		if(damage <= 1) damage = 1;
 		Timings.health -= damage;
 		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_hurt', SOUND));
 		invTimer = Timings.inv;

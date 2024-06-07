@@ -4,51 +4,69 @@ import haxe.ds.StringMap;
 import flixel.FlxG;
 import uty.components.PlayerData;
 
-class StorySave
+typedef StorySave =
 {
-    public var playerSave:PlayerSave;
-
-    public var followers:Array<String> = [];
-
-    public var killedCharacters:Array<String> = [];
-
-    public function new():Void 
-    {
-        playerSave = PlayerData.playerSave;
-    }
+    playerSave:PlayerSave,
+    followers:Array<String>,
+    killedCharacters:Array<String>
 }
 
 class StoryData
 {
-    private static final dummySave:StorySave = new StorySave();
-
     //THIS DISTINCTION IS IMPORTANT FOR PREVENTING AUTO-SAVING
-    private static var storySave:StorySave = dummySave; //this one gets shared to the FlxSave: the saved game progress.
-    public static var activeData:StorySave = dummySave; //this one does NOT get bound to Flxsave: the current unsaved progress.
+    private static var storySave:StorySave; //this one gets shared to the FlxSave: the saved game progress.
+    public static var activeData:StorySave; //this one does NOT get bound to Flxsave: the current unsaved progress.
+
+    public static function returnDefault():StorySave
+    {
+        var dummySave:StorySave = {
+            playerSave: PlayerData.returnDefault(),
+            followers: [],
+            killedCharacters: []
+        };
+        return dummySave;
+    }
+
+    //writing these functions to separate storySave from activeData.
+    //simply setting them equal to each other doesn't work, it makes them the same object.
+    //this is probably a really dumbass solution. dont ask. i'm not a good programmer -yigar
+    public static function launderData(save:StorySave):StorySave
+    {
+        var newSave = {
+            playerSave: PlayerData.launderData(save.playerSave),
+            followers: save.followers,
+            killedCharacters: save.killedCharacters
+        };
+        return newSave;
+    }
 
     //updates the active game data with the provided storySave object.
     public static function setActiveData(data:StorySave):Void
     {
         activeData = data;
+        trace('ACTIVE LV: ${activeData.playerSave.love}');
+        trace('STORY LV: ${storySave.playerSave.love}');
+        trace('DUMMY LV: ${returnDefault().playerSave.love}');
     }
 
     //returns the active data variable that reflects immediate game status
     public static function getActiveData():StorySave
     {
-        return activeData;
+        if (activeData == null) return returnDefault();
+        return launderData(activeData);
     }
 
     //returns the story save variable that's bound to the save file
     public static function getSaveData():StorySave
     {
-        return storySave;
+        return launderData(storySave) ?? returnDefault();
     }
 
     //overwrites the save data with the active game data.
     //this SHOULD be kept a separate function from updating the active data because I don't want the two to get confused
     public static function saveData():Void
     {
-        storySave = activeData;
+        storySave = launderData(activeData);
         _setSave(storySave);
     }
 
@@ -56,7 +74,7 @@ class StoryData
     public static function loadData()
     {
         storySave = _getSave();
-        activeData = storySave;
+        activeData = launderData(storySave);
     }
 
     @:dox(hide)
@@ -67,7 +85,7 @@ class StoryData
         {
             return FlxG.save.data.storySave;
         }
-        else return dummySave;
+        else return returnDefault();
     }
 
     private static function _setSave(save:StorySave):Void
@@ -77,6 +95,7 @@ class StoryData
         {
             FlxG.save.data.storySave = save;
             FlxG.save.flush();
+            trace("GAME SAVED");
         }
     }
 }

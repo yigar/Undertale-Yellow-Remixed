@@ -1,6 +1,7 @@
 package uty.components;
 
 import openfl.display.IBitmapDrawable;
+import uty.components.StoryData;
 
 enum abstract ItemType(String) to String{
     var FOOD = "FOOD";
@@ -17,10 +18,10 @@ typedef Item =
     abbreviation:String,
     info:String,
     type:String,
-    stats:Stats
+    stats:ItemStats
 }
 
-typedef Stats = {
+typedef ItemStats = {
     hp:Int, 
     at:Int, 
     df:Int, 
@@ -35,27 +36,34 @@ typedef InventoryItems = {
     acce:Item
 }
 
-//an inventory class for managing the player's items and equipment.
+//a static inventory class for managing the player's items and equipment.
 //should be part of a larger static player info class.
 class Inventory
 {
-    public final _inventorySpace:Int = 8;
+    public static final _inventorySpace:Int = 8;
 
-    public static final _defaultInventory:InventoryItems = {
-        food: [],
-        weapon: getItemFromFile('ToyGun'),
-        armor: getItemFromFile('WornHat'),
-        ammo: getItemFromFile('RubberAmmo'),
-        acce: getItemFromFile('Patch')
+    public static function returnDefault():InventoryItems
+    {
+        var dummyInvt:InventoryItems = {
+            food: [],
+            weapon: getItemFromFile('ToyGun'),
+            armor: getItemFromFile('WornHat'),
+            ammo: getItemFromFile('RubberAmmo'),
+            acce: getItemFromFile('Patch')
+        }
+        return dummyInvt;
     }
 
-    public function new()
+    public static function launderData(invt:InventoryItems):InventoryItems
     {
-        items = [];
-        weapon = getItemFromFile('ToyGun');
-        armor = getItemFromFile('WornHat');
-        ammo = getItemFromFile('RubberAmmo');
-        acce = getItemFromFile('Patch');
+        var newInvt:InventoryItems = {
+            food: invt.food,
+            weapon: _launderItem(invt.weapon),
+            armor: _launderItem(invt.armor),
+            ammo: _launderItem(invt.ammo),
+            acce: _launderItem(invt.acce)
+        }
+        return newInvt;
     }
 
     public static function getItemFromFile(file:String, ?folder:String):Item
@@ -64,7 +72,7 @@ class Inventory
         //"unsupported radix 10" whatever that means
         folder = (folder != null ? (folder + "/") : '');
         var dir = 'data/items/${folder}${file}';
-        trace(dir);
+        //trace(dir);
         dir = 'data/items/ToyGun';
         var itemData = AssetHelper.parseAsset(dir, JSON);
         var item:Item;
@@ -86,29 +94,28 @@ class Inventory
             type: itemData.type,
             stats: itemData.stats
         };
-        trace(item);
+        //trace(item);
         return item;
     }
 
-    public function addItemFromFile(file:String, ?folder:String)
+    public static function addItemFromFile(file:String, ?folder:String)
     {
         return addItem(getItemFromFile(file, folder));
     }
 
-    public function addItem(item:Item):Bool
+    public static function addItem(item:Item):Bool
     {
-        if(items.length >= _inventorySpace)
+        if(StoryData.getActiveData().playerSave.inventory.food.length >= _inventorySpace)
             return false;
-
-        items.push(item);
+        StoryData.getActiveData().playerSave.inventory.food.push(item);
         return true;
     }
 
-    public function removeItemByName(itemName:String):Null<Item>
+    public static function removeItemByName(itemName:String):Null<Item>
     {
-        for(i in 0...items.length)
+        for(i in 0...StoryData.getActiveData().playerSave.inventory.food.length)
         {
-            if(items[i].name == itemName)
+            if(StoryData.getActiveData().playerSave.inventory.food[i].name == itemName)
             {
                 return removeItemAtIndex(i);
             }
@@ -116,8 +123,25 @@ class Inventory
         return null;
     }
 
-    public function removeItemAtIndex(itemIndex:Int):Item
+    public static function removeItemAtIndex(itemIndex:Int):Item
     {
-        return items.splice(itemIndex, 0)[0];
+        return StoryData.activeData.playerSave.inventory.food.splice(itemIndex, 0)[0]; //it's long isn't it
+    }
+
+    private static function _launderItem(item:Item):Item
+    {
+        var newItem = {
+            name: item.name,
+            abbreviation: item.abbreviation,
+            info: item.info,
+            type: item.type,
+            stats: {
+                hp: item.stats.hp,
+                at: item.stats.at,
+                df: item.stats.df,
+                inv: item.stats.inv
+            }
+        };
+        return newItem;
     }
 }

@@ -132,6 +132,7 @@ class FlxSoundTray extends Sprite
 				active = false;
 
 				// Save sound preferences
+				FlxG.save.bind('Settings', "forever");
 				if (FlxG.save.isBound)
 				{
 					FlxG.save.data.mute = FlxG.sound.muted;

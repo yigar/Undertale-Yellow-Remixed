@@ -24,6 +24,7 @@ import flixel.util.FlxSort;
 import funkin.states.PlayState;
 import uty.components.PlayerData;
 import uty.components.StoryData;
+import uty.components.Inventory;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -380,7 +381,7 @@ class Overworld extends FNFState
         if(FlxG.keys.justPressed.T)
         {
             var newSave:StorySave = StoryData.getActiveData();
-            newSave.playerSave.inventory.addItemFromFile('CandyCorn');
+            Inventory.addItemFromFile('CandyCorn');
             StoryData.setActiveData(newSave);
             FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_battle_item_equip', SOUND));
         }

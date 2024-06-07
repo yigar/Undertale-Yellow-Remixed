@@ -11,20 +11,15 @@ enum LOVEData{
 }
 
 //data to save about the player's game state.
-class PlayerSave 
+typedef PlayerSave = 
 {
-    public var love:Int = 1;
-    public var health:Int = 20;
-    public var room:String = "testLevel4";
-    public var posX:Int = 200;
-    public var posY:Int = 200;
-    public var inventory:Inventory;
-    public var gold:Int = 0;
-
-    public function new():Void 
-    {
-        inventory = new Inventory();
-    }
+    love:Int,
+    health:Int,
+    room:String,
+    posX:Int,
+    posY:Int,
+    inventory:InventoryItems,
+    gold:Int
 }
 
 /*
@@ -57,9 +52,33 @@ class PlayerData
         20 => LOVEData(99, 38, 4)
     ];
 
-    public static final dummySave:PlayerSave = new PlayerSave();
+    public static function returnDefault():PlayerSave
+    {
+        var dummySave:PlayerSave = {
+            love: 1,
+            health: 20,
+            room: "testLevel4",
+            posX: 200,
+            posY: 200,
+            inventory: Inventory.returnDefault(),
+            gold: 0
+        };
+        return dummySave;
+    }
 
-    public static var playerSave:PlayerSave = dummySave;
+    public static function launderData(save:PlayerSave):PlayerSave
+    {
+        var newSave:PlayerSave = {
+            love: save.love,
+            health: save.health,
+            room: save.room,
+            posX: save.posX,
+            posY: save.posY,
+            inventory: Inventory.launderData(save.inventory),
+            gold: save.gold
+        };
+        return newSave;
+    }
 
     public static function loveToHP(love:Int):Int
     {

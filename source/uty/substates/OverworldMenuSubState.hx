@@ -47,10 +47,10 @@ class OverworldMenuSubState extends FlxSubState
 
     function createCloverWindow()
     {
-        var love = StoryData.activeData.playerSave.love;
-        var health = StoryData.activeData.playerSave.health;
+        var love = StoryData.getActiveData().playerSave.love;
+        var health = StoryData.getActiveData().playerSave.health;
         var maxHP = PlayerData.loveToHP(love);
-        var gold = StoryData.activeData.playerSave.gold;
+        var gold = StoryData.getActiveData().playerSave.gold;
 
         cloverWindow = new Window(50, 75, 210, 160);
         add(cloverWindow);
@@ -97,9 +97,9 @@ class OverworldMenuSubState extends FlxSubState
         optionWindow.addSubWindow(230, -175, 500, 500);
         //create menu from items later; temp one for now
         var itemGrab:Array<String> = [
-            StoryData.getActiveData().playerSave.inventory.items[0].name ?? "null",
-            StoryData.getActiveData().playerSave.inventory.items[1].name ?? "null",
-            StoryData.getActiveData().playerSave.inventory.items[2].name ?? "null"
+            StoryData.getActiveData().playerSave.inventory.food[0].name ?? "null",
+            StoryData.getActiveData().playerSave.inventory.food[1].name ?? "null",
+            StoryData.getActiveData().playerSave.inventory.food[2].name ?? "null"
         ];
         optionWindow.sub.createMenu(75, 45, [
             MenuOption(itemGrab[0], openSubItemState),
