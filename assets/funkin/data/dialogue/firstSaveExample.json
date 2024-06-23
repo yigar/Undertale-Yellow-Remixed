@@ -1,0 +1,48 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Save Dialogue 1",
+            "parameters": {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Hey Clover! I can save your progress for you!"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Just press SAVE in the menu."
+                }
+            ],
+            "callback": {
+                "script": "saveMenu",
+                "func": "open",
+                "args": []
+            }
+        },
+        {
+            "name": "Save Dialogue 2",
+            "parameters": {
+                "defaultDialogue": false,
+                "checkCount": 1
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Let's get a move on."
+                }
+            ],
+            "callback": {
+                "script": "saveMenu",
+                "func": "open",
+                "args": []
+            }
+        }
+    ]
+}

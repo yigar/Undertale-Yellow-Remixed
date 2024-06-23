@@ -56,14 +56,14 @@ class HealthBar extends FlxSpriteGroup
         border = new FlxSprite().makeGraphic(Std.int(bar.width + (borderThickness * 2)), Std.int(bar.height + (borderThickness * 2)), FlxColor.BLACK);
 
         loveText = new FlxText(0, 0, 0, "");
-        loveText.setFormat(Paths.font(_font), 28, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        loveText.setFormat(Paths.font(_font), 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         loveText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
         loveText.text = "LV " + love;
         loveText.updateHitbox();
         loveText.antialiasing = false;
 
         hpText = new FlxText(0, 0, 0, "");
-        hpText.setFormat(Paths.font(_font), 36, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
+        hpText.setFormat(Paths.font(_font), 30, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
         hpText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
         hpText.antialiasing = false;
 
@@ -85,9 +85,9 @@ class HealthBar extends FlxSpriteGroup
     {
         bar.setPosition(x - (bar.width / 2), y - (bar.height / 2));
         border.setPosition(bar.x - borderThickness, bar.y - borderThickness);
-        hpText.setPosition(x - (hpText.width / 2), y - (border.height / 2) - hpText.height - 20);
-        loveText.setPosition(hpText.x - loveText.width - 40, y - (border.height / 2) - loveText.height - 20);
-        hpSprite.setPosition(hpText.x + hpText.width + 32, y - (border.height / 2) - hpSprite.height - 20);
+        hpText.setPosition(x - (hpText.width / 2), y + (border.height) - hpText.height + 30);
+        loveText.setPosition(hpText.x - loveText.width - 40, y + (border.height) - loveText.height + 30);
+        hpSprite.setPosition(hpText.x + hpText.width + 32, y + (border.height) - hpSprite.height + 30);
     }
 
     public function updateBar(playerHealth:Int)

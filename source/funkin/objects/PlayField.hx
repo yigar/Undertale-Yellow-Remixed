@@ -96,7 +96,7 @@ class PlayField extends FlxGroup {
 		centerMark.screenCenter(X);
 		add(centerMark);
 
-		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : plrStrums.x - 70, 110);
+		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : plrStrums.x - 100, 90);
 		add(missCount);
 
 		gradeSprite = new GradeSprite(50, 70);

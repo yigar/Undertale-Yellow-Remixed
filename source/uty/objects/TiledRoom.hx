@@ -11,6 +11,7 @@ import uty.objects.LoadingZone;
 import uty.objects.Interactable;
 import uty.objects.EventTrigger;
 import uty.components.Collision;
+import uty.objects.SavePoint;
 
 /*
     stores tilemap info from room files.
@@ -34,6 +35,7 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
     public var loadingZones:FlxTypedGroup<LoadingZone>;
     public var interactables:FlxTypedGroup<Interactable>;
     public var triggers:FlxTypedGroup<EventTrigger>;
+    public var savePoint:SavePoint; //there's only gonna be at most one of these per room
 
     //the boundaries of the room
     public var roomBounds:FlxRect;
@@ -126,6 +128,23 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
             );
             triggers.add(newTrig);
             add(newTrig);
+        }
+
+        var spData:Array<EntityData> = parser.getEntitiesByName("SavePoint"); //getting the first one in the case that there's 2+
+        if(spData != null && spData.length >= 1) //if there's no save point in this room, then none will be set up
+        {
+            var s:EntityData = spData[0];
+            savePoint = new SavePoint(
+                s.x * 3,
+                s.y * 3,
+                Std.int(s.values.spawnX * 3),
+                Std.int(s.values.spawnY * 3),
+                s.values.pointName,
+                s.values.skin,
+                s.values.dialogue
+            );
+            add(savePoint);
+            savePoint.updateAnim('save');
         }
     }
 

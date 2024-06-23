@@ -13,7 +13,7 @@ singDuration: 6.1
 animations:
  - {name: "idle", prefix: "idle", fps: 12, loop: true, x: 0, y: 0}
 
- - {name: "singLEFT", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
- - {name: "singDOWN", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
- - {name: "singUP", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
- - {name: "singRIGHT", prefix: "idle", fps: 12, loop: false, x: 0, y: 0}
+ - {name: "singLEFT", prefix: "left", fps: 12, loop: false, x: 45, y: 0}
+ - {name: "singDOWN", prefix: "down", fps: 12, loop: false, x: 28, y: -28}
+ - {name: "singUP", prefix: "up", fps: 12, loop: false, x: 45, y: 30}
+ - {name: "singRIGHT", prefix: "right", fps: 12, loop: false, x: 60, y: 11}

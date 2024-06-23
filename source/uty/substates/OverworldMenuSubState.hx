@@ -9,7 +9,7 @@ import uty.ui.Window;
 import uty.components.StoryData;
 import uty.components.PlayerData;
 
-enum abstract MenuName(String) to String{
+enum abstract MenuState(String) to String{
     var CLOSE = "CLOSE";
     var MAIN = "MAIN";
     var ITEM = "ITEM";

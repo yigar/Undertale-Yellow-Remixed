@@ -1,0 +1,18 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Save Dialogue",
+            "parameters": {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue": [],
+            "callback": {
+                "script": "saveMenu",
+                "func": "open",
+                "args": []
+            }
+        }
+    ]
+}

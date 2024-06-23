@@ -50,6 +50,14 @@ class DialogueSubState extends FlxSubState
         {
             setScriptCallback(dialogueGroup.callback.script, dialogueGroup.callback.func, dialogueGroup.callback.args);
         }
+
+        //if the dialogue is invalid or empty, close immediately. 
+        //done after the script set in case it's an empty dialogue w/ a script attached
+        if(dialogueGroup == null || !Reflect.hasField(dialogueGroup, "dialogue") || dialogueGroup.dialogue.length <= 0)
+        {
+            dialogueBox.visible = false;
+            closeDialogue();
+        }
     }
     
     public function setScriptCallback(script:String, func:String, ?args:Array<Dynamic>)

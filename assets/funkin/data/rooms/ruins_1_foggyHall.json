@@ -141,7 +141,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "", "toX": 0, "toY": 0}
+          "values": {"toRoom": "testLevel4", "toX": 200, "toY": 200}
         }
       ]
     },

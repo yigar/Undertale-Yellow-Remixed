@@ -11,18 +11,33 @@
             "dialogue": [
                 {
                     "character": "Ceroba",
-                    "emotion": "happyStare",
-                    "string": "Looks like I can finally walk around now."
+                    "emotion": "stare",
+                    "string": "It appears we're in the ruins west of Snowdin."
                 },
                 {
                     "character": "Ceroba",
-                    "emotion": "relieved",
-                    "string": "That's a relief..."
+                    "emotion": "default",
+                    "string": "It's rather secluded here."
                 },
                 {
                     "character": "Ceroba",
-                    "emotion": "annoyed",
-                    "string": "I've been standing in place as a test NPC for months."
+                    "emotion": "eyesClosed",
+                    "string": "I don't even know of anyone who's from here."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "default",
+                    "string": "Well, except..."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "scrunch",
+                    "string": "..."
+                },
+                {
+                    "character": "Ceroba",
+                    "emotion": "scrunch",
+                    "string": "Let's...just keep moving."
                 }
             ]
         },
@@ -37,32 +52,7 @@
                 {
                     "character": "Ceroba",
                     "emotion": "stare",
-                    "string": "Oh yeah. My dialogue also automatically newlines now."
-                },
-                {
-                    "character": "Ceroba",
-                    "emotion": "stare",
-                    "string": "So I don't have to say '/n' every few words anymore..."
-                },
-                {
-                    "character": "Ceroba",
-                    "emotion": "unamused",
-                    "string": "That would have gotten really old really fast."
-                }
-            ]
-        },
-        {
-            "name": "Ceroba Follower 3",
-            "parameters": 
-            {
-                "defaultDialogue": false,
-                "checkCount": 2
-            },
-            "dialogue": [
-                {
-                    "character": "Ceroba",
-                    "emotion": "stare",
-                    "string": "That's all. Let's get going."
+                    "string": "Let's keep going, Clover."
                 }
             ]
         }

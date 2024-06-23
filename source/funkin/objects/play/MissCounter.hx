@@ -43,12 +43,14 @@ class MissCounter extends FlxTypedGroup<FlxObject>
         heart.frames = Paths.getSparrowAtlas('ui/undertale/fc');
         heart.addAtlasAnim("fc", "fc", 24, false);
         heart.addAtlasAnim("miss", "miss", 0, false);
+
+        heart.scale.set(0.80, 0.80);
     }
 
     private function loadText()
     {
         missText = new FlxText(0, 0, heart.width * .60, "");
-        missText.setFormat(Paths.font(_missFont), 36, 0xFFFFFF, CENTER, OUTLINE, FlxColor.BLACK);
+        missText.setFormat(Paths.font(_missFont), 32, 0xFFFFFF, CENTER, OUTLINE, FlxColor.BLACK);
         missText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
         missText.antialiasing = false;
     }

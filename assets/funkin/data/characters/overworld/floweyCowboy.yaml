@@ -13,3 +13,5 @@ animations:
 
  - {name: "emerge_down", prefix: "emergeDown", fps: 12, loop: true, indices: [0, 1, 2, 3]}
  - {name: "descend_down", prefix: "descendDown", fps: 12, loop: true, indices: [0, 1, 2, 3]}
+
+ - {name: "save", prefix: "save", fps: 4, loop: true, indices: [0, 1]}

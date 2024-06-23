@@ -5,8 +5,8 @@ noteConfig:
       - {name: "static", prefix: "{dir} static", fps: 24, looped: false, offsets: { x: 0, y: 0 }}
       - {name: "pressed", prefix: "{dir} press", fps: 24, looped: false, offsets: { x: 0, y: 0 }}
       - {name: "confirm", prefix: "{dir} confirm", fps: 24, looped: false, offsets: { x: 0, y: 0 }}
-    spacing: 160
-    size: 0.7
+    spacing: 170
+    size: 0.65
 
   notes:
     image: "undertale/notes"
@@ -14,7 +14,7 @@ noteConfig:
       - {name: "scroll", prefix: "{dir}0", fps: 0, looped: false, offsets: { x: 0, y: 0 }}
       - {name: "hold", prefix: "{dir} hold piece", fps: 0, looped: false, offsets: { x: 0, y: 0 }}
       - {name: "end", prefix: "{dir} hold end", fps: 0, looped: false, offsets: { x: 0, y: 0 }}
-    size: 0.7
+    size: 0.65
 
   splashes:
     image: "undertale/splashes"

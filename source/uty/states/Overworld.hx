@@ -63,6 +63,9 @@ class Overworld extends FNFState
 
     public static var pixelRatio:Int = 3; //scale all non-funkin state sprites by this value
 
+    public var isPlayerInLoadingZone:Bool = true; //for various loading zone features
+    //such as not triggering a loading zone when spawning within one, and only triggering the transition once
+
     override function create()
     {
         super.create();
@@ -154,14 +157,29 @@ class Overworld extends FNFState
 
         //for every loading zone in loading zones
         //if player's overlapping it, get that zone's data, transition, and warp to the next room
+
+        var isCol:Bool = false;
         room.loadingZones.forEach(function(zone:LoadingZone)
         {
             if(zone.collision.checkOverlap(playerHitbox))
             {
-                //go to the next room
-                nextRoomTransition(zone.toRoom, zone.toX, zone.toY);
+                isCol = true;
+                //this only gets triggered once. is NOT called unless the player wasn't in a loading zone before.
+                if(!isPlayerInLoadingZone)
+                {
+                    isPlayerInLoadingZone = true;
+                    nextRoomTransition(zone.toRoom, zone.toX, zone.toY);
+                }
             }
         });
+        //will set this var to false if no collision happened
+        isPlayerInLoadingZone = isCol;
+
+        //SAVE POINT//
+        if(room.savePoint != null && room.savePoint.collision.checkOverlap(playerHitbox))
+        {
+            playerController.previousPosition();
+        }
     }
 
     function load(roomName:String, playerX:Int, playerY:Int)
@@ -282,7 +300,7 @@ class Overworld extends FNFState
             camBounds.top = camBounds.top + (camBounds.height * 0.5);
             camBounds.height = FlxG.height * 0.5;
         }
-        trace("camera bounds are: " + camBounds.left + ", " + camBounds.top + " | " + camBounds.right + ", " + camBounds.bottom);
+        //trace("camera bounds are: " + camBounds.left + ", " + camBounds.top + " | " + camBounds.right + ", " + camBounds.bottom);
 
         camGame.setScrollBoundsRect(camBounds.left, camBounds.top, camBounds.width, camBounds.height);
     }
@@ -409,6 +427,14 @@ class Overworld extends FNFState
         });
     }
 
+    public function openDialogue(dialogue:String, ?checkCount:Int = 0)
+    {
+        dialogueParser.updateDialogueJson(dialogue);
+        var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(checkCount);
+        final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
+        openSubState(dialogueSubstate);
+    }
+
     public function interactablesCheck()
     {
         //checks all interactables in the room, on npcs, and all relevant objects.
@@ -419,17 +445,18 @@ class Overworld extends FNFState
             if(i.collision.checkOverlap(playerHitbox))
             {
                 setLockAllInput(true);
-                dialogueParser.updateDialogueJson(i.dialogueJson);
-
-                var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(i.checkCount);
+                openDialogue(i.dialogueJson, i.checkCount);
                 //increment AFTER we retrieve the dialogue
                 i.checkIncrement();
-
-                final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
-                openSubState(dialogueSubstate);
                 return;
             }
         });
+
+        if(room.savePoint != null && room.savePoint.interactable.collision.checkOverlap(playerHitbox))
+        {
+            setLockAllInput(true);
+            room.savePoint.startDialogue();
+        }
 
         //check the NPCs too
         //i know this is shitty copied code... IDGAF!!!!!!

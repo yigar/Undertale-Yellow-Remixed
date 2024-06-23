@@ -219,7 +219,18 @@
       "gridCellHeight": 20,
       "gridCellsX": 21,
       "gridCellsY": 18,
-      "entities": []
+      "entities": [
+        {
+          "name": "SavePoint",
+          "id": 0,
+          "_eid": "82535779",
+          "x": 320,
+          "y": 120,
+          "originX": 0,
+          "originY": 0,
+          "values": {"pointName": "Save Point", "skin": "flowey", "spawnX": 340, "spawnY": 100, "dialogue": "saveDialogueDefault"}
+        }
+      ]
     }
   ]
 }
