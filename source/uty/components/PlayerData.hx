@@ -80,6 +80,7 @@ class PlayerData
         return newSave;
     }
 
+    //maybe it's fucking stupid to use this over and over instead of just storing the values, change later perhaps?
     public static function loveToHP(love:Int):Int
     {
         return _getLV(love)[0];

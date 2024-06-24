@@ -346,7 +346,7 @@ class PlayState extends FNFState {
 			Timings.combo--;
 		Timings.score -= 250;
 
-		damagePlayer(4);
+		damagePlayer(10);
 		Timings.misses += 1;
 
 		if (player.animationContext != 3)
@@ -376,7 +376,7 @@ class PlayState extends FNFState {
 		final pos:FlxPoint = char.getScreenPosition();
 
 		final gameOver:GameOverSubState = new GameOverSubState(pos.x, pos.y, char.gameOverData, char == player);
-		gameOver.camera = altCamera;
+		gameOver.camera = hudCamera;
 		playField.paused = true;
 		songState = PAUSED;
 		openSubState(gameOver);
@@ -400,7 +400,7 @@ class PlayState extends FNFState {
 	}
 
 	public function sustainMissBehavior(note:Note) {
-		damagePlayer(4);
+		damagePlayer(10);
 	}
 
 	public function damagePlayer(attack:Int)

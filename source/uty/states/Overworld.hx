@@ -83,12 +83,22 @@ class Overworld extends FNFState
         dialogueParser = new DialogueParser();
         
         
-        //note: apparently you can just zoom the camera instead of resizing all the pixel sprites
-        //maybe this is more efficient but the problem is you probably can't ever go above the pixel ratio in this state, idk though.
+        //load the save data before generating the assets
+        //setting of all values through StoryData.getActiveData() is to be done in this function
+        loadSaveData();
 
-        load(curRoomName, 480, 1200);
+        //except these, which are one-off enough to do here
+        var spawnX = StoryData.getActiveData().playerSave.posX;
+        var spawnY = StoryData.getActiveData().playerSave.posY;
+        load(curRoomName, spawnX, spawnY);
 
         current = this;
+    }
+
+    
+    function loadSaveData()
+    {
+        curRoomName = StoryData.getActiveData().playerSave.room;
     }
 
     override function update(elapsed:Float)
@@ -427,9 +437,9 @@ class Overworld extends FNFState
         });
     }
 
-    public function openDialogue(dialogue:String, ?checkCount:Int = 0)
+    public function openDialogue(dialogue:String, ?folder:String, ?checkCount:Int = 0)
     {
-        dialogueParser.updateDialogueJson(dialogue);
+        dialogueParser.updateDialogueJson(dialogue, folder ?? "");
         var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(checkCount);
         final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
         openSubState(dialogueSubstate);

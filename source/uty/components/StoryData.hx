@@ -99,3 +99,39 @@ class StoryData
         }
     }
 }
+
+class StoryUtil
+{
+    //utility class for setting some values quickly
+
+    public static function restoreHP(heal:Int, ?overheal:Bool = false)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        var maxHP = PlayerData.loveToHP(dum.playerSave.love);
+        if(dum.playerSave.health + heal < maxHP || overheal)
+        {
+            dum.playerSave.health += heal;
+        }
+        else
+        {
+            dum.playerSave.health = maxHP;
+        }
+        StoryData.setActiveData(dum);
+    }
+
+    public static function setLV(lv:Int, ?add:Bool = false)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        dum.playerSave.love = (add ? dum.playerSave.love + lv : lv);
+    }
+
+    public static function setSpawn(room:String, x:Int, y:Int)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        dum.playerSave.room = room;
+        dum.playerSave.posX = x;
+        dum.playerSave.posY = y;
+        StoryData.setActiveData(dum);
+        trace('spawn set to: x${x} y${y}');
+    }
+}

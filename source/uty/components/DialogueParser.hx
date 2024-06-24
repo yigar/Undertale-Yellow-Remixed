@@ -72,7 +72,9 @@ class DialogueParser
 
     public function updateDialogueJson(jsonFile:String, ?folder:String = "")
     {
-        json = cast(AssetHelper.parseAsset('funkin/data/dialogue/${folder}/${jsonFile}', JSON));
+        if(folder != null && folder != "") 
+            folder += "/";
+        json = cast(AssetHelper.parseAsset('data/dialogue/${folder}${jsonFile}', JSON));
         addDialogueGroups();
     }
 

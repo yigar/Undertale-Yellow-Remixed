@@ -1,5 +1,7 @@
 spritesheet: "floweyCowboy"
 
+hitbox: {x: 0, y: 0, width: 40, height: 40, offsetX: 0, offsetY: -20}
+
 animations:
  - {name: "idle_up", prefix: "up", fps: 0, loop: false, indices: [0]}
  - {name: "idle_down", prefix: "down", fps: 0, loop: false, indices: [0]}

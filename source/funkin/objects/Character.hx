@@ -26,10 +26,8 @@ class Character extends ForeverSprite {
 
 	/** Small data structure for the game over screen. **/
 	public var gameOverData:GameOverData = {
-		character: "bf-dead",
-		loopMusic: "gameOver",
-		confirmSound: "gameOverEnd",
-		deathSFX: "fnf_loss_sfx"
+		character: "clover",
+		loopMusic: "justice"
 	};
 
 	/** Dance Steps, used to track which animations to play when calling `dance()` on a character. **/
@@ -212,9 +210,7 @@ class Character extends ForeverSprite {
 				// -- GAME OVER VALUES -- //
 
 				gameOverData.character = data.gameOverData?.character ?? gameOverData.character;
-				gameOverData.deathSFX = data.gameOverData?.deathSFX ?? gameOverData.deathSFX;
 				gameOverData.loopMusic = data.gameOverData?.loopMusic ?? gameOverData.loopMusic;
-				gameOverData.confirmSound = data.gameOverData?.confirmSound ?? gameOverData.confirmSound;
 
 			case PSYCH:
 				frames = AssetHelper.getAsset('images/${name}', ATLAS);

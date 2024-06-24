@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="soul_clover.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="normal" x="0" y="0" width="20" height="16"/>
+  <SubTexture name="broken" x="20" y="0" width="20" height="16"/>
+</TextureAtlas>

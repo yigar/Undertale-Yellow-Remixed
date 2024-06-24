@@ -1,0 +1,12 @@
+function start()
+{
+    trace('calling script');
+    //dialogue sub state should close automatically, just have to wait like a frame before opening the save substate
+    new FlxTimer().start(0.005, menu);
+    
+}
+
+function menu()
+{
+    Overworld.current.room.savePoint.createSaveMenu();
+}

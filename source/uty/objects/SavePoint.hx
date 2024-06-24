@@ -2,8 +2,9 @@ package uty.objects;
 
 import forever.display.ForeverSprite;
 import flixel.math.FlxPoint;
-import uty.ui.SaveMenu;
+import uty.substates.SaveMenuSubState;
 import uty.components.StoryData;
+import uty.components.PlayerData;
 import flixel.util.FlxTimer;
 import uty.states.Overworld;
 
@@ -16,7 +17,7 @@ class SavePoint extends NPC
     public var spawnPoint:FlxPoint;
     public var dialogue:String;
 
-    public final _emergeTime:Float = 0.6;
+    public final _emergeTime:Float = 0.8;
     public final _descendTime:Float = 0.5;
     
     public function new(x:Float, y:Float, ?spawnX:Int = 0, ?spawnY:Int = 0, 
@@ -25,8 +26,13 @@ class SavePoint extends NPC
         spawnPoint = new FlxPoint(spawnX, spawnY);
         if(name != null) this.name = name;
 
-        super(file, x, y, "down", dialogue);
+        if(dialogue == null || dialogue == "")
+        {
+            dialogue = "saveDialogueDefault";
+        }
+        this.dialogue = dialogue;
 
+        super(file, x, y, "down", dialogue);
     }
 
     public function startDialogue()
@@ -40,14 +46,18 @@ class SavePoint extends NPC
         else
         {
             this.playBasicAnimation("emerge", "down");
-            new FlxTimer().start(1.5, function(tmr:FlxTimer){
-                Overworld.current.openDialogue(dialogue, interactable.checkCount);
+            new FlxTimer().start(_emergeTime, function(tmr:FlxTimer){
+                Overworld.current.openDialogue(dialogue, "savePoint", interactable.checkCount);
+                interactable.checkIncrement();
             });
         }
     }
 
     public function createSaveMenu()
     {
-        var saveMenu:SaveMenu = new SaveMenu(name, spawnPoint);
+        trace('creating save menu');
+        final saveSubstate:SaveMenuSubState = new SaveMenuSubState(this, Overworld.current.camHUD);
+        Overworld.current.openSubState(saveSubstate);
+        //var saveMenu:SaveMenu = new SaveMenu(name, spawnPoint);
     }
 }

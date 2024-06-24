@@ -21,7 +21,7 @@
             ],
             "callback": {
                 "script": "saveMenu",
-                "func": "open",
+                "func": "start",
                 "args": []
             }
         },
@@ -40,7 +40,7 @@
             ],
             "callback": {
                 "script": "saveMenu",
-                "func": "open",
+                "func": "start",
                 "args": []
             }
         }

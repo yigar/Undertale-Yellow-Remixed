@@ -53,9 +53,12 @@ class DialogueSubState extends FlxSubState
 
         //if the dialogue is invalid or empty, close immediately. 
         //done after the script set in case it's an empty dialogue w/ a script attached
-        if(dialogueGroup == null || !Reflect.hasField(dialogueGroup, "dialogue") || dialogueGroup.dialogue.length <= 0)
+        if(dialogueGroup == null || !Reflect.hasField(dialogueGroup, "dialogue") || 
+            dialogueGroup.dialogue.length <= 0 || dialogueGroup.dialogue == [])
         {
+            trace('dialogue is empty; closing');
             dialogueBox.visible = false;
+            dialogueBox.dialogueCompleted = true;
             closeDialogue();
         }
     }
@@ -77,6 +80,8 @@ class DialogueSubState extends FlxSubState
         script.set("OverworldCharacter", uty.objects.OverworldCharacter);
         script.set("DialogueSubState", uty.substates.DialogueSubState);
         script.set("DialogueGroup", uty.components.DialogueParser);
+
+        script.set("currentDiaSubState", this);
     }
 
     public function closeDialogue()
@@ -128,6 +133,7 @@ class DialogueSubState extends FlxSubState
 
     override function close()
     {
+        trace("closing dialogue substate...");
         dialogueBox.destroy();
         super.close();
         //FlxG.state.closeSubState();
