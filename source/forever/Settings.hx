@@ -107,7 +107,8 @@ class Settings {
 		FlxG.autoPause = Settings.autoPause;
 		if (FlxG.drawFramerate != Settings.framerateCap)
 			Tools.changeMaxFramerate(Settings.framerateCap);
-		FlxG.sound.volume = Tools.toFloatPercent(Settings.masterVolume);
+		//seriously what's the fucking point of this?
+		//FlxG.sound.volume = Tools.toFloatPercent(Settings.masterVolume);
 		applyFilter(Settings.screenFilter);
 	}
 

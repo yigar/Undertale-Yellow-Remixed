@@ -31,6 +31,13 @@ class RoomParser
         json = cast(AssetHelper.parseAsset('funkin/data/rooms/${folder}/${jsonFile}', JSON));
     }
     
+    public function getRoomValues():Dynamic
+    {
+        return json.values ?? {
+            music: "none",
+            ambience: "none"
+        };
+    }
 
     public function loadAllTilemapLayers(tilesheet:String):FlxTypedGroup<FlxTilemap>
     {

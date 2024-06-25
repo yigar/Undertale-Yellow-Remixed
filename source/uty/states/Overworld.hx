@@ -25,11 +25,13 @@ import funkin.states.PlayState;
 import uty.components.PlayerData;
 import uty.components.StoryData;
 import uty.components.Inventory;
+import uty.components.SoundManager;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
 class Overworld extends FNFState
 {
+    //hurm... they call it "overworld" even though it's in the underground... le ironic isn't it?
     public static var current:Overworld;
 
     public var curRoomName:String = "ruins_1_foggyHall";
@@ -54,6 +56,8 @@ class Overworld extends FNFState
     public var foreground:Array<FlxSprite>;
     //for object draw order organization
     public var objectSorterGroup:FlxTypedGroup<FlxObject>;
+    //audio
+    public var soundMngr:SoundManager;
 
     //just to save some constants to reduce the math in update()
     var centerWidth = FlxG.width / 2;
@@ -81,6 +85,7 @@ class Overworld extends FNFState
         FlxG.cameras.add(camHUD, false); //UI elements will need to be manually assigned to this camera with { object.cameras = [camHUD] }
 
         dialogueParser = new DialogueParser();
+        soundMngr = new SoundManager();
         
         
         //load the save data before generating the assets
@@ -98,7 +103,7 @@ class Overworld extends FNFState
     
     function loadSaveData()
     {
-        curRoomName = StoryData.getActiveData().playerSave.room;
+        curRoomName = StoryData.getActiveData().playerSave.room ?? "testLevel4";
     }
 
     override function update(elapsed:Float)
@@ -201,6 +206,7 @@ class Overworld extends FNFState
         npcs = new FlxTypedGroup<NPC>();
         followers = new FlxTypedGroup<Follower>();
 
+        loadSound(roomParser.getRoomValues().music, roomParser.getRoomValues().ambience);
         loadRoom(curRoomName);
         //note that players and npcs are add()ed to the object sorter group and not directly to the scene
         loadPlayer(playerX, playerY);
@@ -218,6 +224,14 @@ class Overworld extends FNFState
     {
         room = new TiledRoom(roomName, "darkRuins_sheet");
         add(room);
+    }
+
+    function loadSound(music:String, ambience:String)
+    {
+        soundMngr.updateMusic(music ?? "none");
+        soundMngr.updateAmbience(ambience ?? "none");
+        soundMngr.setMusicVolume(1.0);
+        soundMngr.setAmbienceVolume(1.0);
     }
 
     function loadForeground()
@@ -414,11 +428,13 @@ class Overworld extends FNFState
             FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_battle_item_equip', SOUND));
         }
 
+        /*
         if(FlxG.keys.justPressed.SPACE)
         {
             StoryData.saveData();
             FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_savedgame', SOUND));
         }
+        */
     }
 
     public function triggersCheck()

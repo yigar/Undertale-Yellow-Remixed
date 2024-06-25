@@ -20,20 +20,23 @@ class Init extends FlxState {
 	override function create():Void {
 		super.create();
 
-		FlxG.save.bind('utyRemixed', 'yigar/UTYRemixed/uty');
-		if (FlxG.save.data.firstBoot == null) FlxG.save.data.firstBoot = true;
-
-		setupDefaults();
-		setupTransition();
-		precacheAssets();
-
+		FlxG.save.bind('Settings', "yigar/UTYRemixed/forever");
 		if (FlxG.save.data != null)
 		{
 			FlxG.sound.muted = FlxG.save.data.mute;
 			FlxG.sound.volume = FlxG.save.data.volume;
+		}
 
+		FlxG.save.bind('utyRemixed', 'yigar/UTYRemixed/uty');
+		if (FlxG.save.data.firstBoot == null) FlxG.save.data.firstBoot = true;
+		if(FlxG.save.data != null)
+		{
 			StoryData.loadData();
 		}
+
+		setupDefaults();
+		setupTransition();
+		precacheAssets();
 
 		// -- CUSTOM SPLASH SCREEN -- //
 
