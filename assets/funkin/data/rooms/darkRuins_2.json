@@ -142,7 +142,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "ruins_1_foggyHall", "toX": 480, "toY": 420}
+          "values": {"toRoom": "darkRuins_1", "toX": 480, "toY": 420}
         }
       ]
     },

@@ -40,13 +40,13 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
     //the boundaries of the room
     public var roomBounds:FlxRect;
 
-    public function new(roomName:String, tilesheet:String)
+    public function new(roomName:String)
     {
         super();
-        load(roomName, tilesheet);
+        load(roomName);
     }
 
-    public function load(roomName:String, tilesheet:String)
+    public function load(roomName:String)
     {
         parser = new RoomParser(roomName);
 
@@ -57,7 +57,7 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
 
         //sprite/tilemap setup
         black = new FlxSprite().makeGraphic(Std.int(roomBounds.width), Std.int(roomBounds.height), 0xFF000000);
-        tilemaps = parser.loadAllTilemapLayers(tilesheet);
+        tilemaps = parser.loadAllTilemapLayers();
         background = parser.loadDecalLayer(parser.getDecalLayerByName("Background"));
         decals = parser.loadDecalLayer(parser.getDecalLayerByName("Decals"));
 

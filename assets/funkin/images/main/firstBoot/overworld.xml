@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="overworld.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="arrows" x="0" y="0" width="120" height="111"/>
+  <SubTexture name="WASD" x="120" y="0" width="120" height="111"/>
+</TextureAtlas>

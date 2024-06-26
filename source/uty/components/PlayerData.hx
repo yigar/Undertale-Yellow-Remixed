@@ -57,7 +57,7 @@ class PlayerData
         var dummySave:PlayerSave = {
             love: 1,
             health: 20,
-            room: "testLevel4",
+            room: "testLevel",
             posX: 200,
             posY: 200,
             inventory: Inventory.returnDefault(),

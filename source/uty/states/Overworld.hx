@@ -34,7 +34,7 @@ class Overworld extends FNFState
     //hurm... they call it "overworld" even though it's in the underground... le ironic isn't it?
     public static var current:Overworld;
 
-    public var curRoomName:String = "ruins_1_foggyHall";
+    public var curRoomName:String = "darkRuins_0";
     public var room:TiledRoom;
     public var player:Player;
     public var playerController:CharacterController;
@@ -103,7 +103,7 @@ class Overworld extends FNFState
     
     function loadSaveData()
     {
-        curRoomName = StoryData.getActiveData().playerSave.room ?? "testLevel4";
+        curRoomName = StoryData.getActiveData().playerSave.room ?? "testLevel";
     }
 
     override function update(elapsed:Float)
@@ -207,9 +207,9 @@ class Overworld extends FNFState
         followers = new FlxTypedGroup<Follower>();
 
         loadSound(roomParser.getRoomValues().music, roomParser.getRoomValues().ambience);
-        loadRoom(curRoomName);
         //note that players and npcs are add()ed to the object sorter group and not directly to the scene
         loadPlayer(playerX, playerY);
+        loadRoom(curRoomName);
         loadNPCs(curRoomName);
         loadFollowers();
         //now we add the sorter
@@ -222,7 +222,7 @@ class Overworld extends FNFState
 
     function loadRoom(roomName:String)
     {
-        room = new TiledRoom(roomName, "darkRuins_sheet");
+        room = new TiledRoom(roomName);
         add(room);
     }
 
@@ -246,6 +246,11 @@ class Overworld extends FNFState
 
     function loadPlayer(x:Int, y:Int)
     {
+        if(!roomParser.roomFileExists(curRoomName))
+        {
+            x = 480;
+            y = 540;
+        }
         player = new Player("clover", x, y, 1);
         objectSorterGroup.add(player);
 

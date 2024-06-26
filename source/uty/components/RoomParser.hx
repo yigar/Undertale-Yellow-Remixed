@@ -16,6 +16,7 @@ class RoomParser
     var json:LevelData;
 
     private static final _pixelRatio:Float = 3.0;
+    private final _defaultRoom:String = "darkRuins_0";
 
     // **FILEPATHS**
     public static final _defaultDecalDirectory:String = 'images/overworld/decals/';
@@ -28,7 +29,20 @@ class RoomParser
 
     public function updateRoomJson(jsonFile:String, ?folder:String = "")
     {
-        json = cast(AssetHelper.parseAsset('funkin/data/rooms/${folder}/${jsonFile}', JSON));
+        if(folder == null) folder = "";
+        if(folder != "") folder += "/";
+
+        if(roomFileExists(folder + jsonFile))
+            json = cast(AssetHelper.parseAsset('funkin/data/rooms/${folder}${jsonFile}', JSON));
+        else
+        {
+            json = cast(AssetHelper.parseAsset('funkin/data/rooms/${_defaultRoom}', JSON));
+        }
+    }
+
+    public function roomFileExists(filePath:String):Bool
+    {
+        return Tools.fileExists(AssetHelper.getPath('funkin/data/rooms/${filePath}', JSON));
     }
     
     public function getRoomValues():Dynamic
@@ -39,12 +53,11 @@ class RoomParser
         };
     }
 
-    public function loadAllTilemapLayers(tilesheet:String):FlxTypedGroup<FlxTilemap>
+    public function loadAllTilemapLayers():FlxTypedGroup<FlxTilemap>
     {
         //returns all tilemap layers from the json as tilemaps.
         //outside of creating them in the proper order, their distinctions are not really important because they're purely visual.
         //collision, entities, etc. are meant to be handled by grid layers and instance layers.
-        var graphic = AssetHelper.getAsset('images/overworld/tile/${tilesheet}', IMAGE);
 
         var mapGroup:FlxTypedGroup<FlxTilemap> = new FlxTypedGroup<FlxTilemap>();
         //this reverse for-loop returns layers bottom to top, so the uppermost layers in the .json file are drawn on top.
@@ -225,7 +238,11 @@ class RoomParser
         
 
         //NOTE: THE NAME OF THE TILESET IN OGMO HAS TO BE EXACTLY THE SAME AS THE TILESHEET FILE.
-        var graphic = AssetHelper.getAsset('images/overworld/tile/${layer.tileset}', IMAGE);
+        var graphic = null;
+        graphic = AssetHelper.getAsset('images/overworld/tile/${layer.tileset}', IMAGE);
+        if(graphic == null) //backup
+            graphic = AssetHelper.getAsset('images/overworld/tile/darkRuins_sheet', IMAGE);
+
         var tilemap:FlxTilemap = new FlxTilemap();
 
         tilemap.loadMapFromArray(
@@ -307,7 +324,7 @@ class RoomParser
                 {
                     //this is the new lowest decal
                     lowestDecalIndex = i; 
-                    lowestHeight = layer.decals[i].values.drawHeight;
+                    lowestHeight = drawHeightArray[i];
                 }
             }
             //now we add the lowest decal to the sprite array and check it off the list

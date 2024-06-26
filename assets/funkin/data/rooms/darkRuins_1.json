@@ -130,7 +130,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "ruins_2_floweyRoom", "toX": 420, "toY": 1160}
+          "values": {"toRoom": "darkRuins_2", "toX": 420, "toY": 1160}
         },
         {
           "name": "LoadingZone",
@@ -142,7 +142,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "testLevel4", "toX": 200, "toY": 200}
+          "values": {"toRoom": "darkRuins_0", "toX": 480, "toY": 240}
         }
       ]
     },

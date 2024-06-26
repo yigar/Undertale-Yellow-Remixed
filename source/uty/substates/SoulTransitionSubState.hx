@@ -43,6 +43,9 @@ class SoulTransitionSubState extends FlxSubState
     {
         super();
 
+        if (FlxG.sound.music != null)
+			FlxG.sound.music.stop();
+
         black = new ForeverSprite();
         black.graphic = black.makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK).graphic;
         add(black);

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="funkin.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="one-handed_left" x="0" y="0" width="115" height="59"/>
+  <SubTexture name="one-handed_right" x="116" y="0" width="115" height="59"/>
+  <SubTexture name="two-handed" x="232" y="0" width="165" height="39"/>
+</TextureAtlas>

@@ -130,7 +130,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "testLevel4", "toX": 400, "toY": 400}
+          "values": {"toRoom": "testLevel", "toX": 400, "toY": 400}
         },
         {
           "name": "LoadingZone",
@@ -142,7 +142,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "testLevel4", "toX": 300, "toY": 300}
+          "values": {"toRoom": "testLevel", "toX": 300, "toY": 300}
         }
       ]
     },
