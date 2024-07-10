@@ -39,7 +39,7 @@ class PlayerHitbox extends FlxSprite
     public function new(player:Player)
     {
         super();
-        alpha = 0.0;
+        alpha = 0.5;
         this.player = player;
         var halfHeight = Std.int(player.height / 2);
         makeGraphic(Std.int(player.width), halfHeight, 0x3800FF00);

@@ -90,8 +90,8 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
                 loadZone.width * 3,
                 loadZone.height * 3,
                 loadZone.values.toRoom,
-                loadZone.values.toX,
-                loadZone.values.toY
+                loadZone.values.toX * 3,
+                loadZone.values.toY * 3
             );
             loadingZones.add(newZone);
             add(newZone);

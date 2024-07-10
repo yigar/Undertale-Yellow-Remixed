@@ -26,6 +26,7 @@ import uty.components.PlayerData;
 import uty.components.StoryData;
 import uty.components.Inventory;
 import uty.components.SoundManager;
+import flixel.tile.FlxTilemap;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -53,9 +54,10 @@ class Overworld extends FNFState
     public var npcs:FlxTypedGroup<NPC>;
     public var followers:FlxTypedGroup<Follower>;
     public var followerController:CharacterController;
-    public var foreground:Array<FlxSprite>;
+    public var foregroundDecals:Array<FlxSprite>;
+    public var foregroundTiles:FlxTilemap;
     //for object draw order organization
-    public var objectSorterGroup:FlxTypedGroup<FlxObject>;
+    public var objectSorterGroup:FlxTypedGroup<OverworldSprite>;
     //audio
     public var soundMngr:SoundManager;
 
@@ -126,7 +128,7 @@ class Overworld extends FNFState
         //debug
         //trace('clover position: x${player.x} y${player.y}');
 
-        objectSorterGroup.sort((Order, a:FlxObject, b:FlxObject) -> FlxSort.byValues(FlxSort.ASCENDING, (a.y + a.height), (b.y + b.height)));
+        objectSorterGroup.sort((Order, a:OverworldSprite, b:OverworldSprite) -> FlxSort.byValues(FlxSort.ASCENDING, (a.worldHeight), (b.worldHeight)));
     }
 
     public function playerCollisionCheck()
@@ -197,12 +199,12 @@ class Overworld extends FNFState
         }
     }
 
-    function load(roomName:String, playerX:Int, playerY:Int)
+    function load(roomName:String, playerX:Float, playerY:Float)
     {
         curRoomName = roomName;
 
         roomParser = new RoomParser(curRoomName);
-        objectSorterGroup = new FlxTypedGroup<FlxObject>();
+        objectSorterGroup = new FlxTypedGroup<OverworldSprite>();
         npcs = new FlxTypedGroup<NPC>();
         followers = new FlxTypedGroup<Follower>();
 
@@ -213,7 +215,7 @@ class Overworld extends FNFState
         loadNPCs(curRoomName);
         loadFollowers();
         //now we add the sorter
-        add(objectSorterGroup);
+        this.add(objectSorterGroup);
 
         loadForeground();
         setCameraBounds(0, 0);
@@ -236,15 +238,21 @@ class Overworld extends FNFState
 
     function loadForeground()
     {
-        foreground = roomParser.loadDecalLayer(roomParser.getDecalLayerByName("Foreground"));
+        foregroundDecals = roomParser.loadDecalLayer(roomParser.getDecalLayerByName("Foreground"));
+        foregroundTiles = roomParser.initializeTilemap(roomParser.getTileLayerByName("foreground"));
 
-        for(decal in foreground)
+        for(decal in foregroundDecals)
         {
             add(decal);
         }
+        if(foregroundTiles != null)
+        {
+            add(foregroundTiles);
+        }
+        else trace("no foreground tiles detected");
     }
 
-    function loadPlayer(x:Int, y:Int)
+    function loadPlayer(x:Float, y:Float)
     {
         if(!roomParser.roomFileExists(curRoomName))
         {
@@ -553,7 +561,7 @@ class Overworld extends FNFState
         return Std.int((a.collision.y + a.collision.height) - (b.collision.y + b.collision.height));
     }
 
-    public function nextRoomTransition(roomName:String, playerX:Int, playerY:Int)
+    public function nextRoomTransition(roomName:String, playerX:Float, playerY:Float)
     {
         var blackScreen:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xFF000000);
         blackScreen.cameras = [camHUD];
@@ -628,5 +636,52 @@ class Overworld extends FNFState
             playerCenterScreenPoint.x, playerCenterScreenPoint.y);
         soulSubstate.camera = camHUD;
         openSubState(soulSubstate);
+    }
+}
+
+//might use later for better organization because this is becoming spaghetti code with all these added room layers
+//my whole system for layering right now is pretty stupid, searching by name for "foreground" and "background"
+//ogmo (or perhaps my brain) is unfortunately a bit too primitive to easily replicate UTY's detailed artistic overworld
+class OverworldSpriteManager extends FlxTypedGroup<OverworldSprite>
+{
+    //only visible sprite objects should go here
+    public var room:TiledRoom;
+    public var player:Player;
+    public var npcs:FlxTypedGroup<NPC>;
+    public var followers:FlxTypedGroup<Follower>;
+    public var followerController:CharacterController;
+    public var foregroundDecals:Array<FlxSprite>;
+    public var foregroundTiles:FlxTilemap;
+    //for object draw order organization
+    public var objectSorterGroup:FlxTypedGroup<FlxObject>;
+
+    public function new()
+    {
+        super();
+    }
+
+    public function load()
+    {
+        /* loading code from overworld:
+
+        roomParser = new RoomParser(curRoomName);
+        objectSorterGroup = new FlxTypedGroup<FlxObject>();
+        npcs = new FlxTypedGroup<NPC>();
+        followers = new FlxTypedGroup<Follower>();
+
+        loadPlayer(playerX, playerY);
+        loadRoom(curRoomName);
+        loadNPCs(curRoomName);
+        loadFollowers();
+
+        add(objectSorterGroup);
+
+        loadForeground();
+        setCameraBounds(0, 0);
+        camGame.follow(player);
+
+        */
+            
+        
     }
 }

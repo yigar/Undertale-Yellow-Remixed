@@ -40,7 +40,7 @@ class SavePoint extends NPC
         
         if(StoryData.getActiveData().followers.length > 0) //if clover is not alone, and another character is in the party
         {
-            this.characterSprite.animation.play('save');
+            this.sprite.animation.play('save');
             createSaveMenu();
         }
         else

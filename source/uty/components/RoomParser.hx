@@ -72,6 +72,25 @@ class RoomParser
         return mapGroup;
     }
 
+    //set includes to true in order to check if the layer includes the string rather than equals to it.
+    public function getTileLayerByName(name:String = "do the stanky leg", ?includes:Bool = false):TileLayer
+    {
+        var tl:TileLayer = null;
+        for(i in 0...json.layers.length)
+        {
+            if(Reflect.hasField(json.layers[i], "tileset") && //if it's a tilemap
+                Reflect.hasField(json.layers[i], "name")) //null safety for name field
+            {
+                if(json.layers[i].name == name || (includes && StringTools.contains(json.layers[i].name.toLowerCase(), name.toLowerCase())))
+                {
+                    tl = cast json.layers[i];
+                    return tl;
+                }
+            }
+        }
+        return tl;
+    }
+
     public function loadAllGridLayers():FlxTypedGroup<FlxTilemap>
     {
         var mapGroup:FlxTypedGroup<FlxTilemap> = new FlxTypedGroup<FlxTilemap>();
@@ -241,7 +260,11 @@ class RoomParser
         var graphic = null;
         graphic = AssetHelper.getAsset('images/overworld/tile/${layer.tileset}', IMAGE);
         if(graphic == null) //backup
-            graphic = AssetHelper.getAsset('images/overworld/tile/darkRuins_sheet', IMAGE);
+        {
+            trace('WARNING: could not find tile graphic at images/overworld/tile/${layer.tileset}');
+            graphic = AssetHelper.getAsset('images/overworld/tile/tile_darkRuins', IMAGE);
+        }
+            
 
         var tilemap:FlxTilemap = new FlxTilemap();
 
@@ -339,7 +362,12 @@ class RoomParser
 
     public function loadDecal(decal:DecalData):FlxSprite
     {
-        var sprite:FlxSprite = new FlxSprite(0, 0, AssetHelper.getAsset(_defaultDecalDirectory + decal.texture, IMAGE));
+        //directory removal from ogmo formatting.
+        var tex:String = decal.texture;
+        if(tex.lastIndexOf("/") > -1)
+            tex = tex.substr(tex.lastIndexOf("/") + 1);
+
+        var sprite:FlxSprite = new FlxSprite(0, 0, AssetHelper.getAsset(_defaultDecalDirectory + tex, IMAGE));
         sprite.x = decal.x * _pixelRatio;
         sprite.y = decal.y * _pixelRatio;
 
@@ -355,7 +383,7 @@ class RoomParser
             //animated. only do this stuff if the variable exists and is true.
             if(Reflect.hasField(decal.values, "animated") && decal.values.animated)
             {
-                sprite.frames = AssetHelper.getAsset(_defaultDecalDirectory + decal.texture, ATLAS);
+                sprite.frames = AssetHelper.getAsset(_defaultDecalDirectory + tex, ATLAS);
                 //not gonna make a very modular animation system for decals right now
                 //if they have an animation, it plays on loop. that's it.
                 sprite.animation.addByPrefix("anim", "anim", 

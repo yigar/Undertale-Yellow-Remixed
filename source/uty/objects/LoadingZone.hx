@@ -11,14 +11,14 @@ class LoadingZone extends FlxSprite
 {
     public var toRoom:String; //contains the name for the next room's json
     //where to move the player
-    public var toX:Int = 0; 
-    public var toY:Int = 0;
+    public var toX:Float = 0; 
+    public var toY:Float = 0;
     //collision
     public var collision:Collision;
     //debug
     public var hitboxVisible:Bool = false;
 
-    public function new(x:Int, y:Int, width:Int, height:Int, toRoom:String, toX:Int, toY:Int)
+    public function new(x:Int, y:Int, width:Int, height:Int, toRoom:String, toX:Float, toY:Float)
     {
         super(x, y);
 
@@ -29,7 +29,7 @@ class LoadingZone extends FlxSprite
         collision = new Collision(x, y, width, height);
     }
 
-    public function setWarp(toRoom:String, toX:Int, toY:Int)
+    public function setWarp(toRoom:String, toX:Float, toY:Float)
     {
         this.toRoom = toRoom;
         this.toX = toX;

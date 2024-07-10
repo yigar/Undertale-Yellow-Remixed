@@ -30,21 +30,17 @@ enum abstract Action(String) to String{
     players and NPCs both extend this class for its movement, collision, and sprite/animation functionalities.
 */
 
-class OverworldCharacter extends FlxSpriteGroup
+class OverworldCharacter extends OverworldSprite
 {
     //sprite
     public var characterName:String = "clover";
-    public var characterSprite:ForeverSprite;
 
     public var facingDirection:String = DOWN;
 
-    private final _pixelRatio:Int = 3;
     private final _defaultDataDirectory:String = "data/characters/overworld/";
     private final _defaultSpriteDirectory:String = "images/overworld/characters/";
     //collision box for all character types. disabled by default. defined in the yaml file.
     public var collision:Collision;
-
-    public var bottomCenter:FlxPoint; //this is the character's "feet": used for pathfinding and other stuff.
 
     public function new(charName:String = "clover", x:Float, y:Float, facing:String = "down")
     {
@@ -53,21 +49,15 @@ class OverworldCharacter extends FlxSpriteGroup
         facingDirection = facing;
 
         //sprite stuff
-        characterSprite = new ForeverSprite(0, 0);
         loadCharacterSprite(charName);
-
-        bottomCenter = new FlxPoint();
     }
 
     override function update(elapsed:Float)
     {
         super.update(elapsed);
         //bottom-centers the box. offset values can adjust this if the sprite size is a bit weird.
-        collision.x = characterSprite.x + (characterSprite.width / 2) - (collision.width / 2) + collision.hbOffset.x;
-        collision.y = characterSprite.y + (characterSprite.height - collision.height) + collision.hbOffset.y;
-
-        bottomCenter.x = this.x + (characterSprite.width / 2);
-        bottomCenter.y = this.y + characterSprite.height;
+        collision.x = sprite.x + (sprite.width / 2) - (collision.width / 2) + collision.hbOffset.x;
+        collision.y = sprite.y + (sprite.height - collision.height) + collision.hbOffset.y;
     }
 
     public function loadCharacterSprite(char:String):OverworldCharacter
@@ -81,25 +71,18 @@ class OverworldCharacter extends FlxSpriteGroup
             trace('OW Character ${characterName} could not be parsed due to a inexistent file, Please provide a file called "${characterName}.yaml" in the "data/characters directory.');
             return this;
         }
-        //get da sprite
-        characterSprite.loadGraphic(AssetHelper.getAsset(_defaultSpriteDirectory + data.spritesheet, IMAGE));
-        characterSprite.frames = AssetHelper.getAsset(_defaultSpriteDirectory + data.spritesheet, ATLAS);
+
+        loadSprite(_defaultSpriteDirectory + data.spritesheet, true);
         //add animations
         var animations:Array<Dynamic> = data.animations ?? [];
         if (animations.length > 0) {
             for (i in animations) 
             {
-                characterSprite.addAtlasAnim(i.name, i.prefix, i.fps ?? 24, i.loop ?? false, cast(i.indices ?? []));
+                sprite.addAtlasAnim(i.name, i.prefix, i.fps ?? 12, i.loop ?? false, cast(i.indices ?? []));
             }
         }
         else
-            characterSprite.addAtlasAnim("idle_down", "default_walk_down", 0, false, [0]);
-        
-        //setting scale to default 3 pixels for now
-        characterSprite.antialiasing = false;
-        characterSprite.setGraphicSize(Std.int(characterSprite.width * _pixelRatio));
-        characterSprite.updateHitbox();
-        add(characterSprite);
+            sprite.addAtlasAnim("idle_down", "default_walk_down", 0, false, [0]);
 
         var hitbox:Dynamic = data.hitbox ?? {x: 0, y: 0, width: 0, height: 0};
         collision = new Collision(0, 0, hitbox.width, hitbox.height, hitbox.offsetX, hitbox.offsetY);
@@ -121,11 +104,11 @@ class OverworldCharacter extends FlxSpriteGroup
     public function updateAnim(anim:String)
     {
         //takes care of attempting to play a playing animation issue
-        if(characterSprite.animation.exists(anim) && characterSprite.animation.name != anim)
+        if(sprite.animation.exists(anim) && sprite.animation.name != anim)
         {
-            if(characterSprite.animation.name != anim)
+            if(sprite.animation.name != anim)
             {
-                characterSprite.animation.play(anim);
+                sprite.animation.play(anim);
                 //trace('playing animation ${anim} on character ${characterName}');
             }
             else
