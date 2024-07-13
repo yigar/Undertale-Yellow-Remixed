@@ -231,6 +231,7 @@ class Overworld extends FNFState
         visMngr.addBackgroundObjects(room.background.members);
         visMngr.addTilemaps(room.tilemaps.members);
         visMngr.addForegroundObjects(room.foregroundDecals.members);
+        visMngr.addForegroundObject(room.foregroundTilemap);
 
         //for(i in room.decals)
             //this.add(i);
@@ -243,8 +244,8 @@ class Overworld extends FNFState
             visMngr.addSprite(n);
         for (f in followers.members)
             visMngr.addSprite(f);
-        visMngr.addSprite(new OverworldSprite(200, 200).loadSprite('images/overworld/decals/flowerBed'));
-        visMngr.addSprites(roomParser.loadDecalLayer(roomParser.getDecalLayerByName("Decals")).members);
+        visMngr.addSprites(room.decals.members);
+        //reminder: the problem is not here, check tiledroom
 
         //visMngr.sortSprites();
         add(visMngr);

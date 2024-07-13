@@ -59,9 +59,10 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
 
         //sprite/tilemap setup
         black = new FlxSprite().makeGraphic(Std.int(roomBounds.width), Std.int(roomBounds.height), 0xFF000000);
-        tilemaps = parser.loadAllTilemapLayers();
+        tilemaps = parser.loadAllTilemapLayers(["foreground"]);
         background = parser.loadDecalLayer(parser.getDecalLayerByName("Background"));
         decals = parser.loadDecalLayer(parser.getDecalLayerByName("Decals"));
+            
         foregroundTilemap = parser.initializeTilemap(parser.getTileLayerByName("foreground"));
         foregroundDecals = parser.loadDecalLayer(parser.getDecalLayerByName("Foreground"));
 

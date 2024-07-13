@@ -63,6 +63,6 @@ class OverworldSprite extends FlxSpriteGroup
         bottomCenter.x = this.x + (sprite.width / 2);
         bottomCenter.y = this.y + sprite.height;
 
-        worldHeight = bottomCenter.y - elevation;
+        worldHeight = bottomCenter.y + elevation;
     }
 }

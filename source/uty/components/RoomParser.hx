@@ -55,19 +55,24 @@ class RoomParser
         };
     }
 
-    public function loadAllTilemapLayers():FlxTypedGroup<OverworldTilemap>
+    public function loadAllTilemapLayers(?exclude:Array<String>):FlxTypedGroup<OverworldTilemap>
     {
         //returns all tilemap layers from the json as tilemaps.
         //outside of creating them in the proper order, their distinctions are not really important because they're purely visual.
         //collision, entities, etc. are meant to be handled by grid layers and instance layers.
+        //the exclude arg allows certain tilemap(s) to be excluded based on name; case insensitive. useful for layering.
+        if(exclude == null) exclude = [];
+        for(i in 0...exclude.length)
+            exclude[i] = exclude[i].toLowerCase();
 
         var mapGroup:FlxTypedGroup<OverworldTilemap> = new FlxTypedGroup<OverworldTilemap>();
         //this reverse for-loop returns layers bottom to top, so the uppermost layers in the .json file are drawn on top.
         for(i in 0...json.layers.length)
         {
             var j = json.layers.length - 1 - i;
-            if(Reflect.hasField(json.layers[j], "tileset"))
+            if(Reflect.hasField(json.layers[j], "tileset") && !exclude.contains(json.layers[j].name.toLowerCase()))
             {
+
                 mapGroup.add(initializeTilemap(cast json.layers[j]));
             }
         }
@@ -83,7 +88,8 @@ class RoomParser
             if(Reflect.hasField(json.layers[i], "tileset") && //if it's a tilemap
                 Reflect.hasField(json.layers[i], "name")) //null safety for name field
             {
-                if(json.layers[i].name == name || (includes && StringTools.contains(json.layers[i].name.toLowerCase(), name.toLowerCase())))
+                if(json.layers[i].name.toLowerCase() == name.toLowerCase() || 
+                    (includes && StringTools.contains(json.layers[i].name.toLowerCase(), name.toLowerCase())))
                 {
                     tl = cast json.layers[i];
                     return tl;
@@ -344,10 +350,14 @@ class RoomParser
         var dh:Int = 0; 
         if(Reflect.hasField(decal, "values") && Reflect.hasField(decal.values, "drawHeight"))
             dh = decal.values.drawHeight;
-        var sprite:OverworldSprite = new OverworldSprite(0, 0, 0, DrawLayer.DEFAULT, dh);
+        var elv:Int = 0; 
+        if(Reflect.hasField(decal, "values") && Reflect.hasField(decal.values, "elevation"))
+            elv = decal.values.elevation;
+
+        var sprite:OverworldSprite = new OverworldSprite(decal.x * _pixelRatio, decal.y * _pixelRatio, elv, DrawLayer.DEFAULT, dh);
         sprite.loadSprite(_defaultDecalDirectory + tex);
-        sprite.x = decal.x * _pixelRatio;
-        sprite.y = decal.y * _pixelRatio;
+        //sprite.x = decal.x * _pixelRatio;
+        //sprite.y = decal.y * _pixelRatio;
 
         //set anything relevant in the values field
         if(Reflect.hasField(decal, "values"))
@@ -369,10 +379,6 @@ class RoomParser
                         decal.values.frameRate : 12, true);
             }
         }
-        
-        sprite.setGraphicSize(Std.int(sprite.width * _pixelRatio));
-        sprite.updateHitbox();
-        sprite.antialiasing = false;
 
         return sprite;
     }
@@ -528,6 +534,7 @@ typedef DecalData =
 typedef DecalValues = 
 {
     drawHeight:Int,
+    elevation:Int,
     ?scrollFactorX:Float,
     ?scrollFactorY:Float,
     ?animated:Bool,
