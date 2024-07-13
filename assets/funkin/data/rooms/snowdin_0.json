@@ -29,776 +29,7 @@
       "gridCellHeight": 20,
       "gridCellsX": 21,
       "gridCellsY": 26,
-      "decals": [
-        {
-          "x": 6,
-          "y": 195,
-          "texture": "decal/snowdin_gate.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 72,
-          "y": 214,
-          "texture": "decal/snowdin_gateBars.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -3,
-          "y": 37,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 4,
-          "y": 65,
-          "texture": "decal/snowdin_branch_left_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -4,
-          "y": 35,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -3,
-          "y": -9,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -17,
-          "y": 19,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -12,
-          "y": 5,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -6,
-          "y": 66,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 0,
-          "y": 88,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -10,
-          "y": 15,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -24,
-          "y": 78,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -36,
-          "y": 32,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -38,
-          "y": 161,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -26,
-          "y": 207,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -12,
-          "y": 144,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -2,
-          "y": 217,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -8,
-          "y": 195,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -14,
-          "y": 134,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -19,
-          "y": 148,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -5,
-          "y": 120,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -6,
-          "y": 164,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 2,
-          "y": 194,
-          "texture": "decal/snowdin_branch_left_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -5,
-          "y": 166,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -22,
-          "y": 93,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -26,
-          "y": 333,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -40,
-          "y": 272,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -28,
-          "y": 318,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -14,
-          "y": 255,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -4,
-          "y": 328,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -10,
-          "y": 306,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -16,
-          "y": 245,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -21,
-          "y": 259,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -7,
-          "y": 231,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -8,
-          "y": 275,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 0,
-          "y": 305,
-          "texture": "decal/snowdin_branch_left_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -7,
-          "y": 277,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -25,
-          "y": 407,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -8,
-          "y": 434,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -22,
-          "y": 462,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -17,
-          "y": 448,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -15,
-          "y": 458,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -39,
-          "y": 346,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -27,
-          "y": 392,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -3,
-          "y": 402,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -9,
-          "y": 380,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 1,
-          "y": 379,
-          "texture": "decal/snowdin_branch_left_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -6,
-          "y": 351,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -15,
-          "y": 498,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -17,
-          "y": 488,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -22,
-          "y": 502,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -8,
-          "y": 474,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 15,
-          "y": 510,
-          "texture": "decal/snowdin_branch_left_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": -6,
-          "y": 143,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 1,
-          "y": 11,
-          "texture": "decal/snowdin_branch_left_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 0,
-          "y": 450,
-          "texture": "decal/snowdin_branch_left_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 140,
-          "y": 500,
-          "texture": "decal/snowdin_branch_right_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 136,
-          "y": 455,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 151,
-          "y": 496,
-          "texture": "decal/snowdin_branch_right_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 166,
-          "y": 489,
-          "texture": "decal/snowdin_branch_right_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 173,
-          "y": 481,
-          "texture": "decal/snowdin_branch_right_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 187,
-          "y": 462,
-          "texture": "decal/snowdin_branch_right_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 220,
-          "y": 420,
-          "texture": "decal/snowdin_branch_bottom_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 280,
-          "y": 420,
-          "texture": "decal/snowdin_branch_bottom_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 200,
-          "y": 440,
-          "texture": "decal/snowdin_branch_bottom_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 232,
-          "y": 432,
-          "texture": "decal/snowdin_branch_bottom_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 260,
-          "y": 433,
-          "texture": "decal/snowdin_branch_bottom_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 297,
-          "y": 425,
-          "texture": "decal/snowdin_branch_bottom_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 285,
-          "y": 455,
-          "texture": "decal/snowdin_branch_bottom_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 297,
-          "y": 446,
-          "texture": "decal/snowdin_branch_bottom_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 262,
-          "y": 453,
-          "texture": "decal/snowdin_branch_bottom_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 332,
-          "y": 432,
-          "texture": "decal/snowdin_branch_bottom_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 346,
-          "y": 421,
-          "texture": "decal/snowdin_branch_bottom_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 365,
-          "y": 429,
-          "texture": "decal/snowdin_branch_bottom_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 352,
-          "y": 452,
-          "texture": "decal/snowdin_branch_bottom_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 314,
-          "y": 443,
-          "texture": "decal/snowdin_branch_bottom_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 372,
-          "y": 391,
-          "texture": "decal/snowdin_branch_right_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 363,
-          "y": 356,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 367,
-          "y": 329,
-          "texture": "decal/snowdin_branch_right_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 359,
-          "y": 396,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 390,
-          "y": 355,
-          "texture": "decal/snowdin_branch_right_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 379,
-          "y": 369,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 372,
-          "y": 420,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 381,
-          "y": 446,
-          "texture": "decal/snowdin_branch_right_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 385,
-          "y": 284,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 396,
-          "y": 270,
-          "texture": "decal/snowdin_branch_right_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 365,
-          "y": 311,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 364,
-          "y": 251,
-          "texture": "decal/snowdin_branch_right_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 369,
-          "y": 271,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 358,
-          "y": 306,
-          "texture": "decal/snowdin_branch_right_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 386,
-          "y": 252,
-          "texture": "decal/snowdin_branch_right_2.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 366,
-          "y": 230,
-          "texture": "decal/snowdin_branch_right_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 362,
-          "y": 197,
-          "texture": "decal/snowdin_branch_right_0.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 369,
-          "y": 202,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 369,
-          "y": 175,
-          "texture": "decal/snowdin_branch_right_3.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        },
-        {
-          "x": 371,
-          "y": 220,
-          "texture": "decal/snowdin_branch_right_1.png",
-          "originX": 0,
-          "originY": 0,
-          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
-        }
-      ],
+      "decals": [],
       "folder": ""
     },
     {
@@ -823,7 +54,782 @@
       "gridCellsX": 21,
       "gridCellsY": 26,
       "decals": [
-        {"x": 169, "y": 17, "texture": "decal/snowdin_tarp.png", "originX": 0, "originY": 0}
+        {
+          "x": 169,
+          "y": 17,
+          "texture": "decal/snowdin_tarp.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": -5000}
+        },
+        {
+          "x": 6,
+          "y": 195,
+          "texture": "decal/snowdin_gate.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 0}
+        },
+        {
+          "x": 72,
+          "y": 214,
+          "texture": "decal/snowdin_gateBars.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 0}
+        },
+        {
+          "x": -3,
+          "y": 37,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 4,
+          "y": 65,
+          "texture": "decal/snowdin_branch_left_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -4,
+          "y": 35,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -3,
+          "y": -9,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -17,
+          "y": 19,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -12,
+          "y": 5,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -6,
+          "y": 66,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 0,
+          "y": 88,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -10,
+          "y": 15,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -24,
+          "y": 78,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -36,
+          "y": 32,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -38,
+          "y": 161,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -26,
+          "y": 207,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -12,
+          "y": 144,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -2,
+          "y": 217,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -8,
+          "y": 195,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -14,
+          "y": 134,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -19,
+          "y": 148,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -5,
+          "y": 120,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -6,
+          "y": 164,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 2,
+          "y": 194,
+          "texture": "decal/snowdin_branch_left_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -5,
+          "y": 166,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -22,
+          "y": 93,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -26,
+          "y": 333,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -40,
+          "y": 272,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -28,
+          "y": 318,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -14,
+          "y": 255,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -4,
+          "y": 328,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -10,
+          "y": 306,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -16,
+          "y": 245,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -21,
+          "y": 259,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -7,
+          "y": 231,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -8,
+          "y": 275,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 0,
+          "y": 305,
+          "texture": "decal/snowdin_branch_left_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -7,
+          "y": 277,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -25,
+          "y": 407,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -8,
+          "y": 434,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -22,
+          "y": 462,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -17,
+          "y": 448,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -15,
+          "y": 458,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -39,
+          "y": 346,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -27,
+          "y": 392,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -3,
+          "y": 402,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -9,
+          "y": 380,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 1,
+          "y": 379,
+          "texture": "decal/snowdin_branch_left_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -6,
+          "y": 351,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -15,
+          "y": 498,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -17,
+          "y": 488,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -22,
+          "y": 502,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -8,
+          "y": 474,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 15,
+          "y": 510,
+          "texture": "decal/snowdin_branch_left_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": -6,
+          "y": 143,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 1,
+          "y": 11,
+          "texture": "decal/snowdin_branch_left_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 0,
+          "y": 450,
+          "texture": "decal/snowdin_branch_left_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 140,
+          "y": 500,
+          "texture": "decal/snowdin_branch_right_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 136,
+          "y": 455,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 151,
+          "y": 496,
+          "texture": "decal/snowdin_branch_right_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 166,
+          "y": 489,
+          "texture": "decal/snowdin_branch_right_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 173,
+          "y": 481,
+          "texture": "decal/snowdin_branch_right_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 187,
+          "y": 462,
+          "texture": "decal/snowdin_branch_right_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 220,
+          "y": 420,
+          "texture": "decal/snowdin_branch_bottom_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 280,
+          "y": 420,
+          "texture": "decal/snowdin_branch_bottom_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 200,
+          "y": 440,
+          "texture": "decal/snowdin_branch_bottom_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 232,
+          "y": 432,
+          "texture": "decal/snowdin_branch_bottom_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 260,
+          "y": 433,
+          "texture": "decal/snowdin_branch_bottom_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 297,
+          "y": 425,
+          "texture": "decal/snowdin_branch_bottom_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 285,
+          "y": 455,
+          "texture": "decal/snowdin_branch_bottom_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 297,
+          "y": 446,
+          "texture": "decal/snowdin_branch_bottom_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 262,
+          "y": 453,
+          "texture": "decal/snowdin_branch_bottom_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 332,
+          "y": 432,
+          "texture": "decal/snowdin_branch_bottom_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 346,
+          "y": 421,
+          "texture": "decal/snowdin_branch_bottom_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 365,
+          "y": 429,
+          "texture": "decal/snowdin_branch_bottom_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 352,
+          "y": 452,
+          "texture": "decal/snowdin_branch_bottom_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 314,
+          "y": 443,
+          "texture": "decal/snowdin_branch_bottom_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 372,
+          "y": 391,
+          "texture": "decal/snowdin_branch_right_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 363,
+          "y": 356,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 367,
+          "y": 329,
+          "texture": "decal/snowdin_branch_right_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 359,
+          "y": 396,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 390,
+          "y": 355,
+          "texture": "decal/snowdin_branch_right_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 379,
+          "y": 369,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 372,
+          "y": 420,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 381,
+          "y": 446,
+          "texture": "decal/snowdin_branch_right_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 385,
+          "y": 284,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 396,
+          "y": 270,
+          "texture": "decal/snowdin_branch_right_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 365,
+          "y": 311,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 364,
+          "y": 251,
+          "texture": "decal/snowdin_branch_right_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 369,
+          "y": 271,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 358,
+          "y": 306,
+          "texture": "decal/snowdin_branch_right_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 386,
+          "y": 252,
+          "texture": "decal/snowdin_branch_right_2.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 366,
+          "y": 230,
+          "texture": "decal/snowdin_branch_right_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 362,
+          "y": 197,
+          "texture": "decal/snowdin_branch_right_0.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 369,
+          "y": 202,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 369,
+          "y": 175,
+          "texture": "decal/snowdin_branch_right_3.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        },
+        {
+          "x": 371,
+          "y": 220,
+          "texture": "decal/snowdin_branch_right_1.png",
+          "originX": 0,
+          "originY": 0,
+          "values": {"elevation": 500}
+        }
       ],
       "folder": ""
     },

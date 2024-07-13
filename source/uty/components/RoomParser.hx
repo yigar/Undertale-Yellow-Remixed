@@ -7,6 +7,8 @@ import flixel.util.FlxSort;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import uty.states.Overworld;
+import uty.objects.OverworldSprite;
+import uty.objects.OverworldTilemap;
 
 class RoomParser
 {
@@ -53,13 +55,13 @@ class RoomParser
         };
     }
 
-    public function loadAllTilemapLayers():FlxTypedGroup<FlxTilemap>
+    public function loadAllTilemapLayers():FlxTypedGroup<OverworldTilemap>
     {
         //returns all tilemap layers from the json as tilemaps.
         //outside of creating them in the proper order, their distinctions are not really important because they're purely visual.
         //collision, entities, etc. are meant to be handled by grid layers and instance layers.
 
-        var mapGroup:FlxTypedGroup<FlxTilemap> = new FlxTypedGroup<FlxTilemap>();
+        var mapGroup:FlxTypedGroup<OverworldTilemap> = new FlxTypedGroup<OverworldTilemap>();
         //this reverse for-loop returns layers bottom to top, so the uppermost layers in the .json file are drawn on top.
         for(i in 0...json.layers.length)
         {
@@ -91,9 +93,9 @@ class RoomParser
         return tl;
     }
 
-    public function loadAllGridLayers():FlxTypedGroup<FlxTilemap>
+    public function loadAllGridLayers():FlxTypedGroup<OverworldTilemap>
     {
-        var mapGroup:FlxTypedGroup<FlxTilemap> = new FlxTypedGroup<FlxTilemap>();
+        var mapGroup:FlxTypedGroup<OverworldTilemap> = new FlxTypedGroup<OverworldTilemap>();
         for(i in 0...json.layers.length)
         {
             var j = json.layers.length - 1 - i;
@@ -105,10 +107,10 @@ class RoomParser
         return mapGroup;
     }
 
-    public function loadGridLayer(layerName:String):FlxTilemap
+    public function loadGridLayer(layerName:String):OverworldTilemap
         {
             //loads a specific grid layer by name
-            var map:FlxTilemap = new FlxTilemap();
+            var map:OverworldTilemap = new OverworldTilemap();
             for(i in 0...json.layers.length)
             {
                 var j = json.layers.length - 1 - i;
@@ -237,7 +239,7 @@ class RoomParser
         {
             if(Reflect.hasField(layer, "decals")) //if it's a decal layer
             {
-                if(Reflect.hasField(layer, "name") && layer.name == name) //if its name is correct
+                if(Reflect.hasField(layer, "name") && layer.name.toLowerCase() == name.toLowerCase()) //if its name is correct
                 {
                     decalLayer = cast layer;
                 }
@@ -247,12 +249,12 @@ class RoomParser
         return decalLayer;
     }
 
-    public function initializeTilemap(layer:TileLayer):FlxTilemap
+    public function initializeTilemap(layer:TileLayer):OverworldTilemap
     {
         if(!Reflect.hasField(layer, "tileset"))
         {
             trace("ERROR: layer is not a tilemap");
-            return new FlxTilemap();
+            return new OverworldTilemap();
         }
         
 
@@ -266,7 +268,7 @@ class RoomParser
         }
             
 
-        var tilemap:FlxTilemap = new FlxTilemap();
+        var tilemap:OverworldTilemap = new OverworldTilemap();
 
         tilemap.loadMapFromArray(
             layer.data,
@@ -284,15 +286,15 @@ class RoomParser
         return tilemap;
     }
 
-    public function initializeGridmap(layer:GridLayer):FlxTilemap
+    public function initializeGridmap(layer:GridLayer):OverworldTilemap
     {
         if(!Reflect.hasField(layer, "grid"))
             {
                 trace("ERROR: layer is not a gridmap");
-                return new FlxTilemap();
+                return new OverworldTilemap();
             }
             
-            var gridmap:FlxTilemap = new FlxTilemap();
+            var gridmap:OverworldTilemap = new OverworldTilemap();
 
             //kind of annoying that ogmo saves this as strings but whatever
             var csv:Array<Int> = new Array<Int>();
@@ -319,55 +321,31 @@ class RoomParser
             return gridmap;
     }
 
-    public function loadDecalLayer(layer:DecalLayer):Array<FlxSprite>
+    public function loadDecalLayer(layer:DecalLayer):FlxTypedGroup<OverworldSprite>
     {
-        var decalGrp:Array<FlxSprite> = new Array<FlxSprite>();
+        var decalGrp:FlxTypedGroup<OverworldSprite> = new FlxTypedGroup<OverworldSprite>();
 
-        var lowestHeight:Int = 9999;
-        var lowestDecalIndex:Int = 0;
+        for(i in 0...layer.decals.length)
+            decalGrp.add(loadDecal(layer.decals[i]));
 
-        //stores the draw heights into an array for optimization
-        var drawHeightArray:Array<Int> = new Array<Int>(); 
-        for (decal in layer.decals)
-        {
-            var h:Int = 0;
-            if(Reflect.hasField(decal, "values") && Reflect.hasField(decal.values, "drawHeight")) //if this decal has a valid drawHeight value
-            {
-                h = decal.values.drawHeight;
-            }
-            drawHeightArray.push(h);
-        }
-
-        //adds decals to decalGrp in order of least to greatest height
-        while(layer.decals.length > 0 && drawHeightArray.length > 0) //run this until everything is sorted
-        {
-            for(i in 0...drawHeightArray.length)
-            {
-                if(drawHeightArray[i] <= lowestHeight)
-                {
-                    //this is the new lowest decal
-                    lowestDecalIndex = i; 
-                    lowestHeight = drawHeightArray[i];
-                }
-            }
-            //now we add the lowest decal to the sprite array and check it off the list
-            decalGrp.push(loadDecal(layer.decals[lowestDecalIndex]));
-            layer.decals.splice(lowestDecalIndex, 1);
-            drawHeightArray.splice(lowestDecalIndex, 1);
-            lowestHeight = 9999;
-        }
+        decalGrp.members.sort((a:OverworldSprite, b:OverworldSprite) -> 
+        FlxSort.byValues(FlxSort.ASCENDING, (a.drawHeight), (b.drawHeight)));
 
         return decalGrp;
     }
 
-    public function loadDecal(decal:DecalData):FlxSprite
+    public function loadDecal(decal:DecalData):OverworldSprite
     {
         //directory removal from ogmo formatting.
         var tex:String = decal.texture;
         if(tex.lastIndexOf("/") > -1)
             tex = tex.substr(tex.lastIndexOf("/") + 1);
 
-        var sprite:FlxSprite = new FlxSprite(0, 0, AssetHelper.getAsset(_defaultDecalDirectory + tex, IMAGE));
+        var dh:Int = 0; 
+        if(Reflect.hasField(decal, "values") && Reflect.hasField(decal.values, "drawHeight"))
+            dh = decal.values.drawHeight;
+        var sprite:OverworldSprite = new OverworldSprite(0, 0, 0, DrawLayer.DEFAULT, dh);
+        sprite.loadSprite(_defaultDecalDirectory + tex);
         sprite.x = decal.x * _pixelRatio;
         sprite.y = decal.y * _pixelRatio;
 

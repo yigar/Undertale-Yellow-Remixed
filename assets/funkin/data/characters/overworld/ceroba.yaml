@@ -1,4 +1,4 @@
-spritesheet: "ceroba_vitals"
+spritesheet: "ceroba"
 
 animations:
  - {name: "idle_up", prefix: "walk_up", fps: 0, loop: false, indices: [0]}

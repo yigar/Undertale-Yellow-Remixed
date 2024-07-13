@@ -24,12 +24,14 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
 
     //all map visuals
     public var black:FlxSprite;
-    public var background:Array<FlxSprite>; //drawn the lowest, fractional scroll factor
-    public var tilemaps:FlxTypedGroup<FlxTilemap>;
-    public var decals:Array<FlxSprite>; //regular decals with the same scroll factor as the tilemap
+    public var background:FlxTypedGroup<OverworldSprite>; //drawn the lowest, fractional scroll factor
+    public var tilemaps:FlxTypedGroup<OverworldTilemap>;
+    public var decals:FlxTypedGroup<OverworldSprite>; //regular decals with the same scroll factor as the tilemap
+    public var foregroundTilemap:OverworldTilemap;
+    public var foregroundDecals:FlxTypedGroup<OverworldSprite>;
 
     //collision
-    public var collisionGrid:FlxTilemap;
+    public var collisionGrid:OverworldTilemap;
 
     //entities
     public var loadingZones:FlxTypedGroup<LoadingZone>;
@@ -60,24 +62,11 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
         tilemaps = parser.loadAllTilemapLayers();
         background = parser.loadDecalLayer(parser.getDecalLayerByName("Background"));
         decals = parser.loadDecalLayer(parser.getDecalLayerByName("Decals"));
+        foregroundTilemap = parser.initializeTilemap(parser.getTileLayerByName("foreground"));
+        foregroundDecals = parser.loadDecalLayer(parser.getDecalLayerByName("Foreground"));
 
         //add the black backdrop
-        add(black);
-        //then the background stuff
-        for(decal in background)
-        {
-            add(decal);
-        }
-        //then the tilemap
-        for(map in tilemaps.members)
-        {
-            add(map);
-        }
-        //then any decals on the map
-        for(decal in decals)
-        {
-            add(decal);
-        }
+        //add(black);
         
         //loads all loading zones/doorways
         loadingZones = new FlxTypedGroup<LoadingZone>();
@@ -143,7 +132,6 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
                 s.values.skin,
                 s.values.dialogue
             );
-            add(savePoint);
             savePoint.updateAnim('save');
         }
     }

@@ -156,7 +156,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "darkRuins_0", "toX": 480, "toY": 240}
+          "values": {"toRoom": "darkRuins_0", "toX": 160, "toY": 80}
         }
       ]
     },

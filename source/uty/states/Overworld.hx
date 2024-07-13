@@ -8,6 +8,7 @@ import flixel.tile.FlxTilemap;
 import flixel.FlxCamera;
 import flixel.math.FlxRect;
 import flixel.FlxObject;
+import flixel.util.typeLimit.OneOfTwo;
 import funkin.states.base.FNFState;
 import forever.display.ForeverSprite;
 import flixel.tweens.FlxTween;
@@ -27,6 +28,7 @@ import uty.components.StoryData;
 import uty.components.Inventory;
 import uty.components.SoundManager;
 import flixel.tile.FlxTilemap;
+import flixel.FlxBasic;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -57,7 +59,7 @@ class Overworld extends FNFState
     public var foregroundDecals:Array<FlxSprite>;
     public var foregroundTiles:FlxTilemap;
     //for object draw order organization
-    public var objectSorterGroup:FlxTypedGroup<OverworldSprite>;
+    public var visMngr:OverworldVisualManager;
     //audio
     public var soundMngr:SoundManager;
 
@@ -128,7 +130,7 @@ class Overworld extends FNFState
         //debug
         //trace('clover position: x${player.x} y${player.y}');
 
-        objectSorterGroup.sort((Order, a:OverworldSprite, b:OverworldSprite) -> FlxSort.byValues(FlxSort.ASCENDING, (a.worldHeight), (b.worldHeight)));
+        visMngr.sortSprites();
     }
 
     public function playerCollisionCheck()
@@ -204,7 +206,7 @@ class Overworld extends FNFState
         curRoomName = roomName;
 
         roomParser = new RoomParser(curRoomName);
-        objectSorterGroup = new FlxTypedGroup<OverworldSprite>();
+        visMngr = new OverworldVisualManager();
         npcs = new FlxTypedGroup<NPC>();
         followers = new FlxTypedGroup<Follower>();
 
@@ -214,18 +216,45 @@ class Overworld extends FNFState
         loadRoom(curRoomName);
         loadNPCs(curRoomName);
         loadFollowers();
+        loadRoomVisuals();
         //now we add the sorter
-        this.add(objectSorterGroup);
+        this.add(visMngr);
 
-        loadForeground();
         setCameraBounds(0, 0);
         camGame.follow(player);
+    }
+
+    function loadRoomVisuals()
+    {
+        if(visMngr == null)
+            visMngr = new OverworldVisualManager();
+        visMngr.addBackgroundObjects(room.background.members);
+        visMngr.addTilemaps(room.tilemaps.members);
+        visMngr.addForegroundObjects(room.foregroundDecals.members);
+
+        //for(i in room.decals)
+            //this.add(i);
+        trace(room.decals);
+
+        if(room.savePoint != null)
+            visMngr.addSprite(room.savePoint);
+        visMngr.addSprite(player);
+        for (n in npcs.members)
+            visMngr.addSprite(n);
+        for (f in followers.members)
+            visMngr.addSprite(f);
+        visMngr.addSprite(new OverworldSprite(200, 200).loadSprite('images/overworld/decals/flowerBed'));
+        visMngr.addSprites(roomParser.loadDecalLayer(roomParser.getDecalLayerByName("Decals")).members);
+
+        //visMngr.sortSprites();
+        add(visMngr);
+        add(room);
+        trace("VIS MNGR SPRITE LENGTH: " + visMngr.owSprites.members.length);
     }
 
     function loadRoom(roomName:String)
     {
         room = new TiledRoom(roomName);
-        add(room);
     }
 
     function loadSound(music:String, ambience:String)
@@ -236,22 +265,6 @@ class Overworld extends FNFState
         soundMngr.setAmbienceVolume(1.0);
     }
 
-    function loadForeground()
-    {
-        foregroundDecals = roomParser.loadDecalLayer(roomParser.getDecalLayerByName("Foreground"));
-        foregroundTiles = roomParser.initializeTilemap(roomParser.getTileLayerByName("foreground"));
-
-        for(decal in foregroundDecals)
-        {
-            add(decal);
-        }
-        if(foregroundTiles != null)
-        {
-            add(foregroundTiles);
-        }
-        else trace("no foreground tiles detected");
-    }
-
     function loadPlayer(x:Float, y:Float)
     {
         if(!roomParser.roomFileExists(curRoomName))
@@ -260,7 +273,6 @@ class Overworld extends FNFState
             y = 540;
         }
         player = new Player("clover", x, y, 1);
-        objectSorterGroup.add(player);
 
         playerController = new CharacterController(player);
 
@@ -282,7 +294,6 @@ class Overworld extends FNFState
                 i.values.dialogue
             );
             npcs.add(newNPC);
-            objectSorterGroup.add(newNPC);
         }
     }
 
@@ -304,7 +315,6 @@ class Overworld extends FNFState
                 "cerobaFollower"
             );
             followers.add(follower);
-            objectSorterGroup.add(follower);
         }
 
         followerController = new CharacterController(followers.members[0]);
@@ -584,14 +594,14 @@ class Overworld extends FNFState
         room.destroy();
 
         var i:Int = 0;
-		while (i != objectSorterGroup.members.length) {
-			objectSorterGroup.members[i].destroy();
+		while (i != visMngr.members.length) {
+			visMngr.members[i].destroy();
 			i++;
 		}
 
-        objectSorterGroup.clear();
+        visMngr.clear();
         npcs.clear();
-        objectSorterGroup.destroy();
+        visMngr.destroy();
         npcs.destroy();
     }
 
@@ -642,46 +652,161 @@ class Overworld extends FNFState
 //might use later for better organization because this is becoming spaghetti code with all these added room layers
 //my whole system for layering right now is pretty stupid, searching by name for "foreground" and "background"
 //ogmo (or perhaps my brain) is unfortunately a bit too primitive to easily replicate UTY's detailed artistic overworld
-class OverworldSpriteManager extends FlxTypedGroup<OverworldSprite>
+class OverworldVisualManager extends FlxTypedGroup<FlxBasic>
 {
+    //so this order: background tiles/decals, tiles (in layer order), sprites, foreground tiles/decals
+
     //only visible sprite objects should go here
     public var room:TiledRoom;
-    public var player:Player;
-    public var npcs:FlxTypedGroup<NPC>;
-    public var followers:FlxTypedGroup<Follower>;
-    public var followerController:CharacterController;
-    public var foregroundDecals:Array<FlxSprite>;
-    public var foregroundTiles:FlxTilemap;
-    //for object draw order organization
-    public var objectSorterGroup:FlxTypedGroup<FlxObject>;
+    public var owSprites:FlxTypedGroup<OverworldSprite>;
+    public var owTilemaps:FlxTypedGroup<OverworldTilemap>;
+    //to prevent a ton of unnecessary array sorting each frame, probably best to separate into layers
+    public var background:FlxTypedGroup<Dynamic>;
+    public var foreground:FlxTypedGroup<Dynamic>;
 
     public function new()
     {
         super();
+        owSprites = new FlxTypedGroup<OverworldSprite>();
+        owTilemaps = new FlxTypedGroup<OverworldTilemap>();
+        background = new FlxTypedGroup<Dynamic>();
+        foreground = new FlxTypedGroup<Dynamic>();
+        //this is the layer order:
+        this.add(background);
+        this.add(owTilemaps);
+        this.add(owSprites);
+        this.add(foreground);
     }
 
-    public function load()
+    public function addSprite(sprite:OverworldSprite)
     {
-        /* loading code from overworld:
-
-        roomParser = new RoomParser(curRoomName);
-        objectSorterGroup = new FlxTypedGroup<FlxObject>();
-        npcs = new FlxTypedGroup<NPC>();
-        followers = new FlxTypedGroup<Follower>();
-
-        loadPlayer(playerX, playerY);
-        loadRoom(curRoomName);
-        loadNPCs(curRoomName);
-        loadFollowers();
-
-        add(objectSorterGroup);
-
-        loadForeground();
-        setCameraBounds(0, 0);
-        camGame.follow(player);
-
-        */
-            
-        
+        owSprites.add(sprite);
     }
+
+    //NOTE: giving an Array<Parent> type an Array<Child> DOES NOT REGISTER the child class
+    //don't use this except for locally and for actual non-child overworldsprites for now
+    public function addSprites(sprites:Array<OverworldSprite>)
+    {
+        if(sprites == null) return;
+        for(i in 0...sprites.length)
+            addSprite(sprites[i]);
+    }
+
+    public function sortSprites():FlxTypedGroup<OverworldSprite>
+    {
+        owSprites.members.sort((a:OverworldSprite, b:OverworldSprite) -> 
+            FlxSort.byValues(FlxSort.ASCENDING, (a.worldHeight), (b.worldHeight)));
+
+        return owSprites;
+    }
+
+    public function addTilemap(tilemap:OverworldTilemap)
+    {
+        owTilemaps.add(tilemap);
+    }
+
+    public function addTilemaps(tilemaps:Array<OverworldTilemap>)
+    {
+        if(tilemaps == null) return;
+        for(i in 0...tilemaps.length)
+            addTilemap(tilemaps[i]);
+    }
+
+    //most likely an unnecessary function; just use what the parser gives
+    public function sortTilemaps():FlxTypedGroup<OverworldTilemap>
+    {
+        owTilemaps.members.sort((a:OverworldTilemap, b:OverworldTilemap) -> 
+        FlxSort.byValues(FlxSort.ASCENDING, (a.drawHeight), (b.drawHeight)));
+
+        return owTilemaps;
+    }
+
+    //NOTE: these functions use dynamic to get fields from both Tilemaps and Sprites
+    //fix later, probably an unstable solution long-term
+
+    public function addBackgroundObject(obj:Dynamic)
+    {
+        background.add(obj);
+    }
+
+    public function addBackgroundObjects(objs:Array<Dynamic>)
+    {
+        for(i in 0...objs.length)
+            addBackgroundObject(objs[i]);
+    }
+
+    public function sortBackground():FlxTypedGroup<Dynamic>
+    {
+        background.members.sort((a:Dynamic, b:Dynamic) -> 
+            FlxSort.byValues(FlxSort.ASCENDING, (a.drawHeight), (b.drawHeight)));
+
+        return background;
+    }
+
+    public function addForegroundObject(obj:Dynamic)
+    {
+        foreground.add(obj);
+    }
+
+    public function addForegroundObjects(objs:Array<Dynamic>)
+    {
+        for(i in 0...objs.length)
+            addForegroundObject(objs[i]);
+    }
+
+    public function sortForeground():FlxTypedGroup<Dynamic>
+    {
+        foreground.members.sort((a:Dynamic, b:Dynamic) -> 
+            FlxSort.byValues(FlxSort.ASCENDING, (a.drawHeight), (b.drawHeight)));
+
+        return foreground;
+    }
+
+    /* OLD CODE
+    public function sortSprites():FlxTypedGroup<OverworldSprite>
+    {
+        var tempArray:Array<OverworldSprite> = owSprites.members;
+        var transferArray:Array<OverworldSprite> = new Array<OverworldSprite>();
+        var finalArray:Array<OverworldSprite> = new Array<OverworldSprite>();
+
+        //stores the draw heights into an array for optimization
+        var drawHeightArray:Array<Int> = new Array<Int>(); 
+        for (sprite in owSprites.members)
+        {
+            //only add if it's not added already
+            if(!drawHeightArray.contains(sprite.drawHeight))
+                drawHeightArray.push(sprite.drawHeight);
+        }
+        //lowest first; this becomes a list of all UNIQUE height values from least to greatest
+        drawHeightArray.sort((Order, a:Int, b:Int) -> FlxSort.byValues(FlxSort.ASCENDING, a, b));
+
+        while(drawHeightArray.length > 0) //run this until everything is sorted
+        {
+            //adds all sprites with the lowest draw priority to an array
+            for(i in 0...tempArray.length)
+            {
+                if(tempArray[i].drawHeight == drawHeightArray[0]) //if this sprite's drawheight = the lowest listed draw height
+                {
+                    transferArray.append(tempArray.splice(i, 1));
+                    i -= 1; //optimizing to prevent unnecessary recursion
+                }
+            }
+            //subsort by world height
+            if(transferArray.length > 1)
+                transferArray.sort((Order, a:OverworldSprite, b:OverworldSprite) -> 
+                FlxSort.byValues(FlxSort.ASCENDING, (a.worldHeight), (b.worldHeight)));
+
+            //add these lowest sprites to the final array and shorten the drawheightarray to the next lowest
+            for(s in transferArray.members)
+                finalArray.push(s);
+            transferArray.clear();
+            drawHeightArray.splice(0, 1);
+        }
+
+        owSprites.clear();
+        for (i in 0...finalArray.length)
+            owSprites.push(finalArray[i]);
+        return owSprites;
+    }
+    */
 }

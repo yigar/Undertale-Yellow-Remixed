@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextureAtlas imagePath="ceroba_vitals.png">
+<TextureAtlas imagePath="ceroba.png">
   <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
   <SubTexture name="walk_down0000" x="0" y="0" width="29" height="56"/>
   <SubTexture name="walk_down0001" x="29" y="0" width="29" height="56"/>
