@@ -26,7 +26,7 @@ class Opponents
     public static var opponentList:Array<OpponentData> = 
     [
         {name: "flowey", at: 1, df: 0, love: 0, killed: false},
-        {name: "martlet", at: 5, df: 10, love: 0, killed: false}
+        {name: "martlet", at: 8, df: 10, love: 0, killed: false}
     ];
 
     public static function returnFromName(name:String):OpponentData

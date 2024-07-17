@@ -88,9 +88,7 @@ class Inventory
         //"unsupported radix 10" whatever that means
         folder = (folder != null ? (folder + "/") : '');
         var dir = 'data/items/${folder}${file}';
-        //trace(dir);
-        dir = 'data/items/ToyGun';
-        var itemData = AssetHelper.parseAsset(dir, JSON);
+        var itemData = AssetHelper.parseAsset(dir, YAML);
         var item:Item;
         if(itemData == null)
         {

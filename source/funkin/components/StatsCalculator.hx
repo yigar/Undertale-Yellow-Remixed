@@ -32,7 +32,7 @@ class StatsCalculator
         var hpDamageBonus:Int = Math.floor(maxHP / 10) - 1;
 		if(maxHP <= 20) hpDamageBonus = 0;
 
-		var damage:Int = enemyAT - playerDF + hpDamageBonus;
+		var damage:Int = enemyAT - Math.ceil(playerDF * 0.2) + hpDamageBonus;
         if(damage <= 1) damage = 1;
         return damage;
     }

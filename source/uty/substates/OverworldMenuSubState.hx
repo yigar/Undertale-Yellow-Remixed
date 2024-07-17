@@ -8,6 +8,7 @@ import flixel.FlxCamera;
 import uty.ui.Window;
 import uty.components.StoryData;
 import uty.components.PlayerData;
+import uty.components.Inventory;
 
 enum abstract MenuState(String) to String{
     var CLOSE = "CLOSE";
@@ -49,7 +50,7 @@ class OverworldMenuSubState extends FlxSubState
     {
         var love = StoryData.getActiveData().playerSave.love;
         var health = StoryData.getActiveData().playerSave.health;
-        var maxHP = PlayerData.loveToHP(love);
+        var maxHP = PlayerData.getActiveHP();
         var gold = StoryData.getActiveData().playerSave.gold;
 
         cloverWindow = new Window(50, 75, 210, 160);
@@ -125,22 +126,39 @@ class OverworldMenuSubState extends FlxSubState
     {
         menuState = STATS;
         optionWindow.addSubWindow(230, -175, 500, 600);
+        //stats retrieval
+        var love = StoryData.getActiveData().playerSave.love;
+        var health = StoryData.getActiveData().playerSave.health;
+        var maxHP = PlayerData.getActiveHP();
+
+        var wpn:Item = StoryData.getActiveData().playerSave.inventory.weapon;
+        var arm:Item = StoryData.getActiveData().playerSave.inventory.armor;
+        var ammo:Item = StoryData.getActiveData().playerSave.inventory.ammo;
+        var acce:Item = StoryData.getActiveData().playerSave.inventory.acce;
+        //base at and df include the hat and gun
+        var baseAT = PlayerData.loveToAT(love) + wpn.stats.at;
+        var addAT = ammo.stats.at;
+        var baseDF = PlayerData.loveToDF(love) + arm.stats.df;
+        var addDF = acce.stats.df;
+
+        var gold = StoryData.getActiveData().playerSave.gold;
+
         //player basics
         optionWindow.sub.addText(45, 60, "\"Clover\"");
-        optionWindow.sub.addText(325, 60, "LV 1");
-        optionWindow.sub.addText(45, 120, "HP 20 / 20");
+        optionWindow.sub.addText(325, 60, 'LV ${love}');
+        optionWindow.sub.addText(45, 120, 'HP ${health} / ${maxHP}');
         //AT, DF, EXP
-        optionWindow.sub.addText(45, 195, "AT 10(0)");
-        optionWindow.sub.addText(45, 240, "DF 10(0)");
-        optionWindow.sub.addText(260, 195, "EXP 0");
-        optionWindow.sub.addText(260, 240, "NEXT 10");
+        optionWindow.sub.addText(45, 195, 'AT ${baseAT}(${addAT})');
+        optionWindow.sub.addText(45, 240, 'DF ${baseDF}(${addDF})');
+        optionWindow.sub.addText(260, 195, "EXP -");
+        optionWindow.sub.addText(260, 240, "NEXT -");
         //equipment
-        optionWindow.sub.addText(45, 300, "WEAPON: Toy Gun");
-        optionWindow.sub.addText(45, 345, "ARMOR: Worn Hat");
-        optionWindow.sub.addText(45, 405, "AMMO: Rubber Ammo");
-        optionWindow.sub.addText(45, 450, "ACCE: Patch");
+        optionWindow.sub.addText(45, 300, 'WEAPON: ${wpn.name}');
+        optionWindow.sub.addText(45, 345, 'ARMOR: ${arm.name}');
+        optionWindow.sub.addText(45, 405, 'AMMO: ${ammo.name}');
+        optionWindow.sub.addText(45, 450, 'ACCE: ${acce.name}');
         //ya g's
-        optionWindow.sub.addText(45, 510, "GOLD: 0");
+        optionWindow.sub.addText(45, 510, 'GOLD: ${gold}');
 
         openSubMenuGeneric();
     }

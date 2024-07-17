@@ -25,6 +25,7 @@ import uty.ui.Window;
 import yaml.Yaml;
 import uty.states.Overworld;
 import uty.components.Opponents;
+import uty.components.PlayerData;
 
 using flixel.util.FlxStringUtil;
 
@@ -488,10 +489,22 @@ class PauseDescription extends FlxSpriteGroup
 	{
 		var at = Opponents.returnFromName(data.stats).at;
 		var df = Opponents.returnFromName(data.stats).df;
+		var atDif:Int = at - PlayerData.getActiveDF();
+		var dfDif:Int = df - PlayerData.getActiveAT();
+		var a:String = (atDif >= 0 ? "+" : "");
+		var d:String = (dfDif >= 0 ? "+" : "");
+		//this is gonna get a bit complicated
+		var goodClr = 0xFF40F15E;
+		var badClr = 0xFFBB101F;
+		var atClr = FlxColor.interpolate(FlxColor.WHITE, (atDif >= 0 ? badClr : goodClr), Math.abs(atDif * 0.2));
+		var dfClr = FlxColor.interpolate(FlxColor.WHITE, (dfDif >= 0 ? badClr : goodClr), Math.abs(dfDif * 0.2));
+		var atPair = new FlxTextFormatMarkerPair(new FlxTextFormat(atClr), "^");
+		var dfPair = new FlxTextFormatMarkerPair(new FlxTextFormat(dfClr), "#");
+
 		if(data != null)
 		{
 			title.text = data.title;
-			stats.text = 'AT ${at} DF ${df}'; //this could be done from playstate data too, however they should probably be independent
+			stats.applyMarkup('AT ${at} ^(${a + atDif})^  DF ${df} #(${d + dfDif})#', [atPair, dfPair]);
 			desc.text = data.description;
 			titleColor = FlxColor.fromInt(data.titleColor);
 		}
