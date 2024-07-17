@@ -3,6 +3,7 @@ package funkin.components;
 import flixel.util.FlxSort;
 import funkin.components.parsers.*;
 import funkin.components.parsers.ChartFormat;
+import uty.components.Opponents;
 
 typedef ForeverEvent = ChartEvent<ForeverEvents>;
 
@@ -50,7 +51,8 @@ class ChartLoader {
 						chart.gameInfo = {
 							noteSpeed: json.gameInfo?.noteSpeed ?? 1.0,
 							chars: chars, stageBG: json.gameInfo?.stageBG ?? null,
-							skin: json.gameInfo?.skin ?? "normal"
+							skin: json.gameInfo?.skin ?? "normal",
+							pauseData: json.gameInfo?.pauseData ?? "flowey"
 						};
 					}
 
@@ -88,7 +90,7 @@ class Chart {
 	public var notes:Array<NoteData> = [];
 	public var events:Array<ForeverEvent> = [];
 	public var songInfo:BeatSignature = {beatsPerMinute: 100.0, stepsPerBeat: 4, beatsPerBar: 4};
-	public var gameInfo:GameplayData = {noteSpeed: 1.0, chars: ["bf", "dad", "gf"], stageBG: null, skin: "normal"};
+	public var gameInfo:GameplayData = {noteSpeed: 1.0, chars: ["bf", "dad", "gf"], stageBG: null, skin: "normal", pauseData: "flowey"};
 
 	public static var current:Chart;
 

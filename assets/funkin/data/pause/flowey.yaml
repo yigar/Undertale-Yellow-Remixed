@@ -1,5 +1,7 @@
 art: "flowey"
 title: "Flowey"
 titleColor: 0xFFFFFF00
+backgroundColor: 0xFFFFFFFF
 stats: "flowey-tutorial"
 description: "*  Your best friend."
+music: "floweynew_yellow.ogg"

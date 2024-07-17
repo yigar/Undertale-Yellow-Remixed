@@ -800,7 +800,8 @@
 			"martlet"
 		],
 		"stageBG": "snowdin",
-		"skin": "undertale"
+		"skin": "undertale",
+		"pauseData": "martlet"
 	},
 	"songInfo": {
 		"beatsPerMinute": 100,

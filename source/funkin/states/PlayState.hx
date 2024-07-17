@@ -23,6 +23,8 @@ import funkin.substates.*;
 import funkin.ui.ComboSprite;
 import uty.components.PlayerData;
 import uty.components.StoryData;
+import funkin.components.StatsCalculator;
+import uty.components.Opponents;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -76,6 +78,10 @@ class PlayState extends FNFState {
 	public var bumpIntensity:Float = 0.015;
 	public var hudBumpIntensity:Float = 0.05;
 
+	//custom data components
+	public var opponentData:OpponentData = {name: "flowey", at: 1, df: 0, love: 0, killed: false};
+
+	//custom live components
 	public var invTimer:Float = 0.0;
 
 	/**
@@ -159,6 +165,8 @@ class PlayState extends FNFState {
 		add(crowd = new Character(stage.crowdPosition.x, stage.crowdPosition.y, Chart.current.gameInfo.chars[2], false)); //TEMP FIX: \/
 		add(player = new Character(stage.playerPosition.x, stage.playerPosition.y, Chart.current.gameInfo.chars[0], true)); player.visible = false;
 		add(enemy = new Character(stage.enemyPosition.x, stage.enemyPosition.y, Chart.current.gameInfo.chars[1], false));
+		//setting up enemy data here as well
+		opponentData = Opponents.returnFromName(Chart.current.gameInfo.chars[1]);
 
 		// -- SETUP CAMERA -- // (doing this AFTER characters to immediately set the camFollow to the enemy's sprite.)
 		add(camLead = new FlxObject(0, 0, 1, 1));
@@ -304,7 +312,7 @@ class PlayState extends FNFState {
 			var params = Tools.getEnumParams(judgement);
 
 			Timings.score += params[1];
-			Timings.health += 1;
+			healPlayer();
 			if (Timings.combo < 0)
 				Timings.combo = 0;
 			Timings.combo += 1;
@@ -346,7 +354,7 @@ class PlayState extends FNFState {
 			Timings.combo--;
 		Timings.score -= 250;
 
-		damagePlayer(10);
+		damagePlayer();
 		Timings.misses += 1;
 
 		if (player.animationContext != 3)
@@ -400,26 +408,32 @@ class PlayState extends FNFState {
 	}
 
 	public function sustainMissBehavior(note:Note) {
-		damagePlayer(10);
+		damagePlayer();
 	}
 
-	public function damagePlayer(attack:Int)
+	public function healPlayer(?overrideHP:Int)
+	{
+		if(overrideHP != null)
+		{
+			Timings.health += overrideHP;
+			return;
+		}
+		var hp = StatsCalculator.calculateRecoverHP(PlayerData.getActiveAT(), opponentData.df);
+		Timings.subHealth += hp;
+		//if subhealth has exceeded 1, move any "full" health points over to the actual health
+		var floor = Math.floor(Timings.subHealth);
+		Timings.health += floor;
+		Timings.subHealth -= floor;
+
+	}
+
+	//set overrideAT to use a specific damage amount, otherwise the enemy's default one will be used
+	public function damagePlayer(?overrideAT:Int)
 	{
 		if(isInv()) return;
-		/*
-		*	CALCULATION
-		*/
-		
-		var hpDamageBonus:Int = Math.floor(Timings.maxHealth / 10) - 1;
-		if(Timings.maxHealth <= 20) hpDamageBonus = 0;
-		var damage:Int = attack - PlayerData.loveToDef(StoryData.getActiveData().playerSave.love) + hpDamageBonus;
-		//NOTE: DON'T USE SAVE DATA IN THE FUTURE, USE THE CURRENT RUNTIME PLAYER STATS. trace() <-- to remind myself
 
-		/**
-		 * 	EFFECTS
-		 */
-
-		if(damage <= 1) damage = 1;
+		var at = overrideAT ?? opponentData.at ?? 5;
+		var damage:Int = StatsCalculator.calculateDamage(at, PlayerData.getActiveDF(), PlayerData.getActiveHP());
 		Timings.health -= damage;
 		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_hurt', SOUND));
 		invTimer = Timings.inv;
@@ -660,7 +674,7 @@ class PlayState extends FNFState {
 		#if DISCORD
 		DiscordRPC.updatePresenceDetails('${songMeta.name} [PAUSED]', '${playField.rpcText}');
 		#end
-		final pause:PauseMenu = new PauseMenu();
+		final pause:PauseMenu = new PauseMenu(Chart.current.gameInfo.pauseData);
 		pause.camera = altCamera;
 		playField.paused = true;
 		songState = PAUSED;

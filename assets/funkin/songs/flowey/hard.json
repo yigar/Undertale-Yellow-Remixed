@@ -800,7 +800,8 @@
 			"flowey"
 		],
 		"stageBG": "ruins-flowey",
-		"skin": "undertale"
+		"skin": "undertale",
+		"pauseData": "flowey"
 	},
 	"songInfo": {
 		"beatsPerMinute": 100,

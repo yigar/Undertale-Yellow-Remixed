@@ -1,10 +1,12 @@
 package uty.components;
 
+import openfl.display.IBitmapDrawable;
 import openfl.utils.IAssetCache;
 import flixel.math.FlxMath;
 import haxe.ds.StringMap;
 import flixel.FlxG;
 import uty.components.Inventory;
+import uty.components.StoryData;
 
 enum LOVEData{
     LOVEData(hp:Int, at:Int, df:Int);
@@ -80,18 +82,44 @@ class PlayerData
         return newSave;
     }
 
+    public static function getActiveLOVE():Int
+    {
+        return StoryData.getActiveData().playerSave.love;
+    }
+
+    public static function getActiveHP():Int
+    {
+        return loveToHP(getActiveLOVE());
+    }
+
+    public static function getActiveAT():Int
+    {
+        var at:Int = 0;
+        at += loveToAT(getActiveLOVE());
+        at += Inventory.getActiveAT();
+        return at;
+    }
+
+    public static function getActiveDF():Int
+    {
+        var df:Int = 0;
+        df += loveToDF(getActiveLOVE());
+        df += Inventory.getActiveDF();
+        return df;
+    }
+
     //maybe it's fucking stupid to use this over and over instead of just storing the values, change later perhaps?
     public static function loveToHP(love:Int):Int
     {
         return _getLV(love)[0];
     }
 
-    public static function loveToAtk(love:Int):Int
+    public static function loveToAT(love:Int):Int
     {
         return _getLV(love)[1];
     }
 
-    public static function loveToDef(love:Int):Int
+    public static function loveToDF(love:Int):Int
     {
         return _getLV(love)[2];
     }

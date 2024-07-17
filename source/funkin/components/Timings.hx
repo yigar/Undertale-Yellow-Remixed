@@ -47,6 +47,7 @@ class Timings {
 
 	public static var score:Int = 0;
 	public static var health(default, set):Int = 20;
+	public static var subHealth:Float = 0.0; //used for granular health gain, like sub-pixels
 	public static var maxHealth:Int = 20;
 
 	public static var inv:Float = 1.0;

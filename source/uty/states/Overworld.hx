@@ -37,7 +37,7 @@ class Overworld extends FNFState
     //hurm... they call it "overworld" even though it's in the underground... le ironic isn't it?
     public static var current:Overworld;
 
-    public var curRoomName:String = "darkRuins_0";
+    public var curRoomName:String = "testLevel";
     public var room:TiledRoom;
     public var player:Player;
     public var playerController:CharacterController;
@@ -105,6 +105,10 @@ class Overworld extends FNFState
     }
 
     
+    /*
+    * NOTE: may want to make loading the save file or the active data part of an external thing or a create() parameter
+    * for more control
+    */
     function loadSaveData()
     {
         curRoomName = StoryData.getActiveData().playerSave.room ?? "testLevel";

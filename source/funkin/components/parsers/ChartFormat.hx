@@ -28,6 +28,9 @@ package funkin.components.parsers;
 
 	/** Declares the name of the skin used in game. **/
 	public var skin:String = "default";
+
+	//CUSTOM: declares the pause menu data to load when pausing.
+	public var pauseData:String = "flowey";
 }
 
 typedef NoteData = {

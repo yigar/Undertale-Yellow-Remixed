@@ -22,6 +22,9 @@ import lime.app.Promise;
 import flixel.addons.display.FlxBackdrop;
 import flixel.math.FlxPoint;
 import uty.ui.Window;
+import yaml.Yaml;
+import uty.states.Overworld;
+import uty.components.Opponents;
 
 using flixel.util.FlxStringUtil;
 
@@ -45,6 +48,8 @@ class PauseMenu extends FlxSubState {
 		["d", 470, -30]
 	];
 
+	var data:Yaml;
+
 	var bg:FlxTypedSpriteGroup<FlxBackdrop>;
 	var bgFront:FlxBackdrop;
 	var bgBack:FlxBackdrop;
@@ -58,8 +63,11 @@ class PauseMenu extends FlxSubState {
 	public var pauseMusic:FlxSound;
 	public var future:Future<FlxSound>;
 
-	public function new():Void {
+	public function new(pauseData:String, ?folder:String):Void {
 		super();
+
+		//this pause data is stored in the song json file, at run-time in the gameinfo of the current chart object.
+		var data = AssetHelper.parseAsset('data/pause/${folder != null ? (folder + "/") : ''}${pauseData}', YAML);
 
 		pauseLists.set("default", [
 			PauseButton('resume', resumeSong),
@@ -76,10 +84,26 @@ class PauseMenu extends FlxSubState {
 				closing = true;
 				if (pauseMusic != null) pauseMusic.stop();
 				if (FlxG.sound.music != null) FlxG.sound.music.stop();
-				FlxG.switchState(new FreeplayMenu());
+				FlxG.switchState(new Overworld());
 			})
 		]);
 
+		loadAssets(data);
+
+		reloadMenu(pauseLists.get("default"));
+		updateSelection();
+
+		tweenInItems();
+
+		// so in the original game the sound just plays when you trigger the menu so...
+		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
+
+	}
+
+	//the dynamic part of the pause menu.
+	//files should be structured with the song character's name in front, and sub-names for multiple sprites after
+	private function loadAssets(data:Dynamic)
+	{
 		bg = new FlxTypedSpriteGroup<FlxBackdrop>();
 		bg.alpha = 0.0;
 		add(bg);
@@ -98,10 +122,11 @@ class PauseMenu extends FlxSubState {
 
         bg.add(bgBack);
 		bg.add(bgFront);
+		bg.color = FlxColor.fromInt(data.backgroundColor);
 
 		art = new ForeverSprite();
-		art.loadGraphic(Paths.image('pause/art/flowey')); //temporary for now, need a way to load multiple in one song
-		art.scale.set(0.8, 0.8);
+		art.loadGraphic(Paths.image('pause/art/${data.art}')); //temporary for now, need a way to load multiple in one song
+		art.scale.set(1.0, 1.0);
 		art.updateHitbox();
 		art.x = 0 - art.width;
 		art.y = (FlxG.height * 0.5) - (art.height * 0.5);
@@ -116,22 +141,14 @@ class PauseMenu extends FlxSubState {
 		add(pauseGroup = new FlxTypedGroup<PauseOption>());
 		add(pauseLetters = new FlxTypedSpriteGroup<PauseLetter>(FlxG.width, 40));
 
-		pauseInfo = new PauseDescription(FlxG.width, 250, 'flowey');
+		pauseInfo = new PauseDescription(FlxG.width, 250, data);
 		pauseInfo.alpha = 0.0;
 		add(pauseInfo);
-
-		reloadMenu(pauseLists.get("default"));
-		updateSelection();
-
-		tweenInItems();
-
-		// so in the original game the sound just plays when you trigger the menu so...
-		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
 
 		future = new Future<FlxSound>(function():FlxSound {
 			pauseMusic = new FlxSound();
 			@:privateAccess if (pauseMusic._sound == null)
-				pauseMusic.loadEmbedded(Paths.music("floweynew_yellow"));
+				pauseMusic.loadEmbedded(Paths.music(data.music));
 
 			pauseMusic.volume = 0;
 			pauseMusic.play(true, FlxG.random.int(0, Std.int(pauseMusic.length * 0.5)));
@@ -439,7 +456,7 @@ class PauseDescription extends FlxSpriteGroup
 
 	private final _defaultFont:String = 'pixela-extreme';
 
-	public function new(x:Int, y:Int, pauseData:String)
+	public function new(x:Int, y:Int, data:Dynamic)
 	{
 		super(x, y);
 
@@ -450,7 +467,7 @@ class PauseDescription extends FlxSpriteGroup
 		stats = new FlxText(0, 0, box.width - 40);
 		desc = new FlxText(0, 0, box.width - 40);
 
-		updateInfo(pauseData);
+		updateInfo(data);
 
 		title.setFormat(AssetHelper.getAsset(_defaultFont, FONT), 64, titleColor, LEFT);
 		stats.setFormat(AssetHelper.getAsset("mars-needs-cunnilingus", FONT), 18, FlxColor.WHITE, LEFT);
@@ -467,13 +484,14 @@ class PauseDescription extends FlxSpriteGroup
 		add(desc);
 	}
 
-	public function updateInfo(pauseData:String, ?folder:String)
+	public function updateInfo(data:Dynamic)
 	{
-		var data = AssetHelper.parseAsset('data/pause/${folder != null ? (folder + "/") : ''}${pauseData}', YAML);
+		var at = Opponents.returnFromName(data.stats).at;
+		var df = Opponents.returnFromName(data.stats).df;
 		if(data != null)
 		{
 			title.text = data.title;
-			stats.text = "AT 1 DF 0"; //fix this later
+			stats.text = 'AT ${at} DF ${df}'; //this could be done from playstate data too, however they should probably be independent
 			desc.text = data.description;
 			titleColor = FlxColor.fromInt(data.titleColor);
 		}

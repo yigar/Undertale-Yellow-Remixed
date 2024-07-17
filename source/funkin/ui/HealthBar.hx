@@ -31,8 +31,8 @@ class HealthBar extends FlxSpriteGroup
     public var compactMode:Bool = false;
     public var barThickness:Int = 32;
     public var borderThickness:Int = 5;
-    public final minLength:Int = 200;
-    public final maxLength:Int = 720;
+    public final minLength:Int = 120;
+    public final maxLength:Int = 500;
 
     public final _font:String = "mars-needs-cunnilingus";
 

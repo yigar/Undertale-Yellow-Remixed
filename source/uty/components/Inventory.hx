@@ -42,6 +42,22 @@ class Inventory
 {
     public static final _inventorySpace:Int = 8;
 
+    public static function getActiveAT():Int
+    {
+        var at:Int = 0;
+        at += StoryData.getActiveData().playerSave.inventory.weapon.stats.at ?? 0;
+        at += StoryData.getActiveData().playerSave.inventory.ammo.stats.at ?? 0;
+        return at;
+    }
+
+    public static function getActiveDF():Int
+    {
+        var df:Int = 0;
+        df += StoryData.getActiveData().playerSave.inventory.armor.stats.df ?? 0;
+        df += StoryData.getActiveData().playerSave.inventory.acce.stats.df ?? 0;
+        return df;
+    }
+
     public static function returnDefault():InventoryItems
     {
         var dummyInvt:InventoryItems = {
