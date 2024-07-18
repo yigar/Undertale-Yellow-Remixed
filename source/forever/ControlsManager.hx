@@ -27,7 +27,7 @@ class ControlsManager {
 		"accept" => [ENTER, SPACE],
 		"back" => [BACKSPACE, ESCAPE],
 		"pause" => [ENTER, ESCAPE],
-		"reset" => [R, NONE],
+		"reset" => [R, R],
 		//
 		"ut_accept" => [J, Z],
 		"ut_cancel" => [K, X],

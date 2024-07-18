@@ -4,6 +4,8 @@ import flixel.sound.FlxSound;
 import funkin.states.PlayState;
 import flixel.FlxSubState;
 import flixel.util.FlxTimer;
+import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
 
 import funkin.states.menus.StoryMenu;
 import funkin.states.menus.FreeplayMenu;
@@ -13,6 +15,12 @@ import funkin.objects.Character;
 import openfl.media.Sound;
 
 import forever.display.ForeverSprite;
+
+import uty.objects.DialogueBox;
+import uty.components.DialogueParser;
+import uty.components.SoundManager;
+import uty.states.Overworld;
+import uty.components.StoryData;
 
 @:structInit class GameOverData {
     /** Character that died. This alters the soul that appears (in case monsters become playable characters... wink wink) **/
@@ -28,9 +36,21 @@ class GameOverSubState extends FlxSubState {
 
     public var soul:ForeverSprite;
     public var gameOverText:ForeverSprite;
+    public var enter:ForeverSprite;
+    public var back:ForeverSprite;
+    public var enterTxt:FlxText;
+    public var backTxt:FlxText;
+
+    public var diaBox:DialogueBox;
+    public var sndMngr:SoundManager;
+
+    public var textTimer:Float = 1.0;
+    public var timerActive:Bool = false;
 
     public function new(?x:Float = 0, ?y:Float = 0, screenData:GameOverData, isPlayer:Bool = true):Void {
         super();
+
+        sndMngr = new SoundManager();
 
         if (FlxG.sound.music != null)
             FlxG.sound.music.stop();
@@ -72,8 +92,44 @@ class GameOverSubState extends FlxSubState {
         add(gameOverText);
         gameOverText.alpha = 0.0;
 
+        enter = new ForeverSprite();
+        enter.loadGraphic(Paths.image('gameOver/enter'));
+        enter.antialiasing = false;
+        enter.scale.set(3.0, 3.0);
+        enter.updateHitbox();
+        add(enter);
+        enter.alpha = 0.0;
+
+        back = new ForeverSprite();
+        back.loadGraphic(Paths.image('gameOver/backspace'));
+        back.antialiasing = false;
+        back.scale.set(3.0, 3.0);
+        back.updateHitbox();
+        add(back);
+        back.alpha = 0.0;
+
+        enterTxt = new FlxText(0, 0, 0, "Retry");
+        enterTxt.setFormat(Paths.font("pixela-extreme"), 38, 0xFFFFFF, CENTER);
+        enterTxt.antialiasing = false;
+        enterTxt.updateHitbox();
+        add(enterTxt);
+        enterTxt.alpha = 0.0;
+
+        backTxt = new FlxText(0, 0, 0, "Back to Save");
+        backTxt.setFormat(Paths.font("pixela-extreme"), 38, 0xFFFFFF, CENTER);
+        backTxt.antialiasing = false;
+        backTxt.updateHitbox();
+        add(backTxt);
+        backTxt.alpha = 0.0;
+
         soul.setPosition(FlxG.width * 0.5 - (soul.width * 0.5), FlxG.height - 200);
         gameOverText.setPosition(FlxG.width * 0.5 - (gameOverText.width * 0.5), 80);
+        enter.setPosition(FlxG.width * 0.30 - (enter.width * 0.5), FlxG.height - enter.height - 50);
+        back.setPosition(FlxG.width * 0.70 - (back.width * 0.5), FlxG.height - back.height - 50);
+        enterTxt.setPosition(enter.x + (enter.width * 0.5) - (enterTxt.width * 0.5), enter.y - 50);
+        backTxt.setPosition(back.x + (back.width * 0.5) - (backTxt.width * 0.5), back.y - 50);
+
+        setupDialogue();
 
         soulAnimSequence();
 
@@ -96,38 +152,88 @@ class GameOverSubState extends FlxSubState {
                 new FlxTimer().start(2.0, function(tmr:FlxTimer){
                     gameOverText.tween({alpha: 1.0}, 0.8);
                     startMusicLoop();
+                    timerActive = true;
                 });
             });
         });
     }
 
+    private function setupDialogue()
+    {
+        //name the dialogue files based on the songs.
+        var parser:DialogueParser = new DialogueParser(PlayState.current.songMeta.name, "gameOver/");
+        var diaGrp:DialogueGroup = parser.getDialogueFromParameter("deathCount", StoryUtil.getDeaths(PlayState.current.songMeta.name), true);
+        diaBox = new DialogueBox(0, 0, diaGrp);
+        add(diaBox);
+        diaBox.setScreenPosition(-25, 450);
+        diaBox.window.setTransparent();
+        diaBox.togglePortrait(false);
+    }
+
     var leaving:Bool = false;
-    var confirmSound:FlxSound;
 
     override function update(elapsed:Float) {
         super.update(elapsed);
 
-        /*
-        if (Controls.BACK || Controls.ACCEPT) {
+        if(diaBox != null && !leaving && diaBox.visible)
+        {
+            if(timerActive)
+            {
+                textTimer -= elapsed;
+                if(textTimer <= 0)
+                {
+                    diaBox.nextDialogueLine();
+                    textTimer = 2.0;
+                    timerActive = false;
+
+                    if(diaBox.dialogueCompleted)
+                    {
+                        diaBox.visible = false;
+                        tweenInControls();
+                    }
+                }
+            }
+            else
+            {
+                if(diaBox.narratedText.finished)
+                    timerActive = true;
+            }
+        }
+
+        if ((Controls.BACK || Controls.ACCEPT) && !leaving) {
             leaving = true;
+            diaBox.visible = false;
+            diaBox.pause();
+
+            sndMngr.tweenMusicVolume(0.0, 1.0);
+            FlxG.sound.play(Paths.sound('snd_confirm'));
 
             if (Controls.BACK) {
-                if (FlxG.sound.music != null) FlxG.sound.music.stop();
-                FlxG.switchState(new FreeplayMenu());
+                back.color = 0xFFFFFF00;
+                camera.fade(FlxColor.BLACK, 1.0, false, () -> {
+                    FlxG.switchState(new Overworld());
+                });
             }
             else {
-                confirmSound.play(true, 0.0);
-                camera.fade(FlxColor.BLACK, 1.5, false, () -> {
+                enter.color = 0xFFFFFF00;
+                camera.fade(FlxColor.BLACK, 1.0, false, () -> {
                     FlxG.switchState(new PlayState(PlayState.current.songMeta));
                 });
             }
         }
-        */
+        
+    }
+
+    function tweenInControls(time:Float = 0.8)
+    {
+        enter.tween({alpha: 1.0}, time);
+        back.tween({alpha: 1.0}, time);
+        FlxTween.tween(enterTxt, {alpha: 1.0}, time);
+        FlxTween.tween(backTxt, {alpha: 1.0}, time);
     }
 
     function startMusicLoop(vol:Float = 1.0):Void {
-        FlxG.sound.playMusic(Paths.music(data.loopMusic), vol, true);
-        if (vol != 1.0 && !leaving) FlxG.sound.music.fadeIn(vol, 1.0, 4.0);
+        sndMngr.updateMusic(data.loopMusic);
     }
 }
 

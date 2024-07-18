@@ -434,17 +434,13 @@ class Overworld extends FNFState
         //subtract a level
         if(FlxG.keys.justPressed.O)
         {
-            var newSave:StorySave = StoryData.getActiveData();
-            newSave.playerSave.love -= (newSave.playerSave.love == 1 ? 0 : 1);
-            StoryData.setActiveData(newSave);
+            StoryUtil.setLV(-1, true);
             FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_love_increased', SOUND));
         }
         //add a level
         if(FlxG.keys.justPressed.P)
         {
-            var newSave:StorySave = StoryData.getActiveData();
-            newSave.playerSave.love += (newSave.playerSave.love == 20 ? 0 : 1);
-            StoryData.setActiveData(newSave);
+            StoryUtil.setLV(1, true);
             FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_love_increased', SOUND));
         }
 

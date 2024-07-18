@@ -32,6 +32,7 @@ class NarratedText extends FlxText
     var currentDelay:Float = 0.0; //how long to wait for the next letter. based off the previous letter.
 
     public var narrating:Bool = false;
+    public var finished:Bool = false;
     public var allowContinue:Bool = false; //if true, you can press the confirm key to go to the next line if the narration is done
     public var allowSkip:Bool = true; //if false, you cannot fast read this line and must wait for it to read out. for important lines.
     public var automated:Bool = false; //if true, it will finish on a timer. use with dialogue interruptions, etc. and allowSkip = false
@@ -93,6 +94,7 @@ class NarratedText extends FlxText
             delay = _defaultDelay;
 
         narrating = true;
+        finished = false;
     }
 
     public function setSound(sound:String)
@@ -183,6 +185,7 @@ class NarratedText extends FlxText
     public function finishNarration()
     {
         narrating = false;
+        finished = true;
         text = finalText;
         allowContinue = true;
     }
@@ -219,6 +222,26 @@ class NarratedText extends FlxText
 
         this.text = "";
         this.visible = true;
+    }
+
+    public function pause()
+    {
+        narrating = false;
+        allowContinue = false;
+        allowSkip = false;
+    }
+
+    public function resume()
+    {
+        if(!finished)
+        {
+            narrating = true;
+            allowSkip = true; //maybe need to change this, probably fine for now
+        }
+        else
+        {
+            allowContinue = true;
+        }
     }
 
 }

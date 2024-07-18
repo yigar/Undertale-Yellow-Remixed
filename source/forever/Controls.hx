@@ -24,6 +24,8 @@ class Controls {
 
 	@:justPressed(reset) function RESET() {}
 
+	@:pressed(reset) function RESET_HELD() {}
+
 	// -- SINGLE PRESS -- //
 
 	@:justPressed(left) function LEFT_P() {}

@@ -39,7 +39,7 @@ class DialogueSubState extends FlxSubState
         dialogueBox.cameras = [camHUD];
         add(dialogueBox);
         //pos
-        dialogueBox.setScreenPosition("BOTTOM");
+        dialogueBox.presetScreenPos("BOTTOM");
         //disable overworld input (IN THE OVERWORLD STATE)
         dialogueBox.nextDialogueLine();
         

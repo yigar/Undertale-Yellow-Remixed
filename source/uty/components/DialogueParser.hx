@@ -1,5 +1,6 @@
 package uty.components;
 import funkin.components.parsers.*;
+import flixel.math.FlxMath;
 
 /*
     a dialogue parser for dialogue files.
@@ -34,8 +35,9 @@ typedef DialogueLine =
 typedef DialogueParameters = 
 {
     defaultDialogue:Bool, //false by default
-    checkCount:Int,
-    ?itemInInv:String
+    ?checkCount:Int,
+    ?itemInInv:String,
+    ?deathCount:Int
 }
 
 class DialogueParser
@@ -129,6 +131,46 @@ class DialogueParser
             }
         }
         return getDefaultDialogueGroup(); //return the first group by default
+    }
+
+    //allows you to grab a dialogue group using one parameter type and its value at a time.
+    //you can also check for the parameter closest to the given value, if the given value is a number.
+    //i.e. things like death counts
+    public function getDialogueFromParameter(paramName:String, value:Dynamic, ?getClosest:Bool = false):DialogueGroup
+    {
+        var closest:Float = FlxMath.MAX_VALUE_FLOAT;
+        var canCompare:Bool = false;
+        var storedReturnGroup:DialogueGroup = getDefaultDialogueGroup();
+        if(getClosest && (Std.isOfType(value, Int) || Std.isOfType(value, Float)))
+        {
+            canCompare = true;
+        }
+
+        for(group in diaGroups)
+        {
+            if(Reflect.hasField(group, "parameters") && Reflect.hasField(group.parameters, paramName))
+            {
+                if(value != null)
+                {
+                    var paramVal = Reflect.field(group.parameters, paramName);
+                    if(paramVal == value)
+                        return group;
+                    //this will only run if the value type is an int/float
+                    if(canCompare)
+                    {
+                        //if closest is empty, or if this parameter's num value is closer to the target than closest
+                        if(((Std.isOfType(paramVal, Int) || Std.isOfType(paramVal, Float)) &&
+                            Math.abs(paramVal - value) > Math.abs (closest - value)))
+                        {
+                            closest = value;
+                            storedReturnGroup = group;
+                        }
+                    }
+                }
+                    
+            }
+        }
+        return storedReturnGroup;
     }
 
     public function getDialogueFromCheckCount(count:Int):DialogueGroup

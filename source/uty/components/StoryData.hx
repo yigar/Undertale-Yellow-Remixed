@@ -8,6 +8,7 @@ typedef StorySave =
 {
     playerSave:PlayerSave,
     followers:Array<String>,
+    deaths:StringMap<Int>,
     killedCharacters:Array<String>
 }
 
@@ -19,9 +20,12 @@ class StoryData
 
     public static function returnDefault():StorySave
     {
+        //need to get a way of retrieving the song list later on, and generally organizing songs.
+
         var dummySave:StorySave = {
             playerSave: PlayerData.returnDefault(),
             followers: [],
+            deaths: ["default" => 0],
             killedCharacters: []
         };
         return dummySave;
@@ -35,6 +39,7 @@ class StoryData
         var newSave = {
             playerSave: PlayerData.launderData(save.playerSave),
             followers: save.followers,
+            deaths: save.deaths,
             killedCharacters: save.killedCharacters
         };
         return newSave;
@@ -123,6 +128,9 @@ class StoryUtil
     {
         var dum:StorySave = StoryData.getActiveData();
         dum.playerSave.love = (add ? dum.playerSave.love + lv : lv);
+        if(dum.playerSave.love > 20) dum.playerSave.love = 20;
+        else if(dum.playerSave.love < 1) dum.playerSave.love = 1;
+        StoryData.setActiveData(dum);
     }
 
     public static function setSpawn(room:String, x:Int, y:Int)
@@ -133,5 +141,23 @@ class StoryUtil
         dum.playerSave.posY = y;
         StoryData.setActiveData(dum);
         trace('spawn set to: x${x} y${y}');
+    }
+
+    //adds one to the death count for a particular song
+    public static function addDeath(song:String)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        if(dum.deaths == null) 
+            dum.deaths = new StringMap<Int>();
+        dum.deaths.set(song, getDeaths(song) + 1);
+        StoryData.setActiveData(dum);
+    }
+
+    public static function getDeaths(song:String):Int
+    {
+        var d = null;
+        d = StoryData.getActiveData().deaths?.get(song);
+        if(d == null) d = 0;
+        return d;
     }
 }

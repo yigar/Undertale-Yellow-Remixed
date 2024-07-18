@@ -83,6 +83,8 @@ class PlayState extends FNFState {
 
 	//custom live components
 	public var invTimer:Float = 0.0;
+	public var gameOvered:Bool = false;
+	public var suicideClock:Float = 0.0; //for a fun little reset button effect
 
 	/**
 	 * Constructs the Gameplay State
@@ -245,12 +247,13 @@ class PlayState extends FNFState {
 		FlxG.camera.followLerp = FlxMath.bound(elapsed * 2.4 * stage.cameraSpeed * (FlxG.updateFramerate / 60.0), 0.0, 1.0);
 		parseEventColumn(Chart.current.events, eventIndex, (e) -> processEvent(e.event), 0.0); // old rewrite type beat
 
-		if (Controls.RESET && Settings.resetButton)
-			deathCheck(player);
+		resetCheck(elapsed);
 
 		//idk how to override this so i'm deleting this metadata for now
 		if (FlxG.keys.justPressed.SEVEN) openChartEditor();
 		if (Controls.PAUSE) openPauseMenu();
+		//cool rapid-damage suicide effect
+
 
 		#if sys
 		if (FlxG.keys.justPressed.SEVEN)
@@ -262,6 +265,22 @@ class PlayState extends FNFState {
 			
 		#end
 		callFunPack("postUpdate", [elapsed]);
+	}
+
+	//cool function that manages the reset key.
+	//
+	function resetCheck(elapsed:Float)
+	{
+		if (Controls.RESET_HELD && Settings.resetButton)
+		{
+			damagePlayer(-2 + Std.int(suicideClock * 8));
+			invTimer -= elapsed * (2 + (Math.pow(suicideClock * 2, 3)));
+			suicideClock += elapsed;
+		} 
+		else
+		{
+			suicideClock = 0.0;
+		}
 	}
 
 	override function draw():Void {
@@ -374,12 +393,17 @@ class PlayState extends FNFState {
 
 	function deathCheck(char:Character):Bool {
 		if (Timings.health > 0) return false;
+		if(gameOvered) return true;
+
+		gameOvered = true;
 
 		Conductor.active = false;
 		if (FlxG.sound.music != null) {
 			FlxG.sound.music.stop();
 			vocals.stop();
 		}
+
+		StoryUtil.addDeath(songMeta.name);
 
 		final pos:FlxPoint = char.getScreenPosition();
 
@@ -428,15 +452,16 @@ class PlayState extends FNFState {
 	}
 
 	//set overrideAT to use a specific damage amount, otherwise the enemy's default one will be used
-	public function damagePlayer(?overrideAT:Int)
+	public function damagePlayer(?overrideAT:Int, ?ignoreInv:Bool = false)
 	{
-		if(isInv()) return;
+		if(isInv() && !ignoreInv) return;
 
 		var at = overrideAT ?? opponentData.at ?? 5;
 		var damage:Int = StatsCalculator.calculateDamage(at, PlayerData.getActiveDF(), PlayerData.getActiveHP());
 		Timings.health -= damage;
 		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_hurt', SOUND));
 		invTimer = Timings.inv;
+		deathCheck(player);
 	}
 
 	/** Enables the Golden Judgements & Combo Popups when having a perfect combo. **/

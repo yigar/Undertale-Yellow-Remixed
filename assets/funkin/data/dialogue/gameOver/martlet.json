@@ -1,0 +1,59 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Martlet Game Over 1",
+            "parameters":
+            {
+                "defaultDialogue": false,
+                "deathCount": 1
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "Ha! Talk about \"freezing up!\""
+                },
+                {
+                    "character": "Flowey",
+                    "string": "Heh, I guess you can't laugh at that one because, uh... yeah."
+                }
+            ]
+        },
+        {
+            "name": "Martlet Game Over 2",
+            "parameters":
+            {
+                "defaultDialogue": false,
+                "deathCount": 2
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "Remember, your AT and DF both affect your HP!"
+                },
+                {
+                    "character": "Flowey",
+                    "string": "If you can't keep up, try finding some better equipment!"
+                }
+            ]
+        },
+        {
+            "name": "Martlet Game Over 3",
+            "parameters":
+            {
+                "defaultDialogue": true,
+                "deathCount": 3
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "This bird-brained ditz has got nothing on you!"
+                },
+                {
+                    "character": "Flowey",
+                    "string": "You got this, Clover!"
+                }
+            ]
+        }
+    ]
+}

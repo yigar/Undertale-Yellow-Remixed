@@ -1,0 +1,77 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Flowey Game Over 1",
+            "parameters":
+            {
+                "defaultDialogue": false,
+                "deathCount": 1
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "Wow, how did you lose to ME?"
+                },
+                {
+                    "character": "Flowey",
+                    "string": "I'm barely even TRYING!"
+                }
+            ]
+        },
+        {
+            "name": "Flowey Game Over 2",
+            "parameters":
+            {
+                "defaultDialogue": true,
+                "deathCount": 2
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "Come on... this is the TUTORIAL song!"
+                },
+                {
+                    "character": "Flowey",
+                    "string": "You can do better than THAT!"
+                }
+            ]
+        },
+        {
+            "name": "Flowey Game Over 3",
+            "parameters":
+            {
+                "defaultDialogue": false,
+                "deathCount": 3
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "Okay... I get it."
+                },
+                {
+                    "character": "Flowey",
+                    "string": "Are you losing just to see what happens?"
+                },
+                {
+                    "character": "Flowey",
+                    "string": "Heh... you're just like I was."
+                }
+            ]
+        },
+        {
+            "name": "Flowey Game Over 4",
+            "parameters":
+            {
+                "defaultDialogue": false,
+                "deathCount": 4
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "string": "Don't you have anything better to do?"
+                }
+            ]
+        }
+    ]
+}

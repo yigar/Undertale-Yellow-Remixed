@@ -33,6 +33,10 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
     var currentCharacter:String = "NONE"; //for tracking when to update the sprite (character as in like a person, not a letter lol)
 
     public var dialogueCompleted:Bool = false;
+    var portraitVisible = true;
+
+    public var defaultX:Int;
+    public var defaultY:Int;
 
     //finals for formatting & shit
     private final _defaultTextFormat:TextFormat;
@@ -73,6 +77,8 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
         add(portrait);
         add(narratedText);
 
+        setScreenPosition(x, y);
+
         //information like character icon sprite, voice tone, font, and the dialogue itself are read from these files
         //though font is really only relevant with sans and papyrus, who aren't in this game, so...
         //probably a good thing to add if the field exists, otherwise just make it pixela extreme.
@@ -92,7 +98,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
         //narratedText.addFormat(_defaultTextFormat);
     }
 
-    public function setScreenPosition(pos:String)
+    public function presetScreenPos(pos:String)
     {
         var newX = Std.int((FlxG.width / 2) - (window.width / 2));
         var newY;
@@ -103,7 +109,19 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
         else
             newY = 0;
 
-        window.setPosition(newX, newY);
+        setScreenPosition(newX, newY);
+    }
+
+    public function setScreenPosition(x:Int, y:Int)
+    {
+        defaultX = x;
+        defaultY = y;
+        updateScreenPosition();
+    }
+
+    public function updateScreenPosition()
+    {
+        window.setPosition(defaultX, defaultY);
 
         portrait.setPosition(
             Std.int(window.x + 40),
@@ -164,7 +182,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
                     narratedText.setFont(_defaultFont, _defaultLetterSpacing);
 
                 //SCREEN AND SPRITE POSITIONING
-                setScreenPosition("BOTTOM");
+                updateScreenPosition();
 
                 //TEXT SET
                 if(currentLineData.string != null)
@@ -191,8 +209,13 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
             //just update animation stuff instead
             updateEmotion(emotion);
         }
-        else if(character == null || character == "NONE" || character == "EMPTY" ||
-                character == "none" || character == "empty") //if there's no character
+        else if(
+            portraitVisible ||
+            character == null || 
+            character == "NONE" || 
+            character == "EMPTY" ||
+            character == "none" || 
+            character == "empty") //if there's no character
         {
             portrait.destroy();
 
@@ -214,6 +237,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
                 Std.int(window.x + 40),
                 Std.int(window.y + (window.height / 2)));
             add(portrait);
+            portrait.visible = portraitVisible;
             currentCharacter = character;
 
             updateEmotion(emotion);
@@ -295,5 +319,21 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
     public function skipLine()
     {
         narratedText.skipLine();
+    }
+
+    public function pause()
+    {
+        narratedText.pause();
+    }
+
+    public function resume()
+    {
+        narratedText.resume();
+    }
+
+    public function togglePortrait(?toggle:Bool)
+    {
+        portraitVisible = toggle ?? !portraitVisible;
+        portrait.visible = false;
     }
 }
