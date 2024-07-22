@@ -11,7 +11,7 @@ typedef GameClient = #if CRASH_HANDLER external.crash.FNFGame #else flixel.FlxGa
 
 class Main extends Sprite {
 	public static final initialFramerate:Int = 120;
-	public static final initialState = uty.states.Overworld; //funkin.states.menus.TitleScreen;
+	public static final initialState = uty.states.menus.SaveFileMenu; //funkin.states.menus.TitleScreen;
 	public static final version:String = "1.0.0-ALPHA";
 
 	public static var self:Main;

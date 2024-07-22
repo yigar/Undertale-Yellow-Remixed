@@ -5,8 +5,9 @@ import flixel.group.FlxSpriteGroup;
 import flixel.FlxSubState;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.math.FlxMath;
-import flixel.text.FlxText;
+import uty.objects.UTText;
 import flixel.sound.FlxSound;
+import flixel.text.FlxText;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
@@ -450,10 +451,10 @@ class PauseLetter extends FlxSprite
 class PauseDescription extends FlxSpriteGroup
 {
 	public var box:Window;
-	public var title:FlxText;
+	public var title:UTText;
 	public var titleColor:FlxColor;
-	public var stats:FlxText;
-	public var desc:FlxText;
+	public var stats:UTText;
+	public var desc:UTText;
 
 	private final _defaultFont:String = 'pixela-extreme';
 
@@ -464,15 +465,15 @@ class PauseDescription extends FlxSpriteGroup
 		box = new Window(0, 0, 420, 320);
 		add(box);
 
-		title = new FlxText(0, 0, box.width - 40);
-		stats = new FlxText(0, 0, box.width - 40);
-		desc = new FlxText(0, 0, box.width - 40);
+		title = new UTText(0, 0, box.width - 40);
+		stats = new UTText(0, 0, box.width - 40);
+		desc = new UTText(0, 0, box.width - 40);
 
 		updateInfo(data);
 
-		title.setFormat(AssetHelper.getAsset(_defaultFont, FONT), 64, titleColor, LEFT);
-		stats.setFormat(AssetHelper.getAsset("mars-needs-cunnilingus", FONT), 18, FlxColor.WHITE, LEFT);
-		desc.setFormat(AssetHelper.getAsset(_defaultFont, FONT), 32, FlxColor.WHITE, LEFT);
+		title.setFont(PIXELA, 60, titleColor);
+		stats.setFont(MARS, 16);
+		desc.setFont(PIXELA, 30, FlxColor.WHITE, LEFT);
 
 		title.updateHitbox();
 		stats.updateHitbox();
@@ -515,6 +516,8 @@ class PauseDescription extends FlxSpriteGroup
 			desc.text = "No data object provided";
 			titleColor = 0xAAAAAAAA;
 		}
+
+		title.setFont(PIXELA, 64, titleColor);
 	}
 
 	public function positionElements(x:Int, y:Int)
@@ -525,9 +528,9 @@ class PauseDescription extends FlxSpriteGroup
 		stats.x = x + 20;
 		desc.x = x + 20;
 
-		title.y = 0;
+		title.y = 5;
 		stats.y = title.y + title.height;
-		desc.y = stats.y + stats.height + 10;
+		desc.y = stats.y + stats.height + 20;
 	}
 
 	public function tweenElements(tweenIn:Bool)

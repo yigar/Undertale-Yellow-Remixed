@@ -9,6 +9,7 @@ import uty.components.NarratedText;
 import openfl.text.TextFormat;
 import uty.components.DialogueParser;
 import uty.ui.Window;
+import uty.objects.UTText;
 
 /*
     dialogue box for use in the overworld state.
@@ -72,7 +73,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
         portrait.antialiasing = false;
         
         narratedText = new NarratedText(100, 30, _boxWidth - 200, "", _defaultFont, _defaultFontSize);
-        narratedText.setFont("pixela-extreme", _defaultLetterSpacing);
+        narratedText.setFont(PIXELA, _defaultFontSize, FlxColor.WHITE, LEFT, _defaultLetterSpacing);
         add(window);
         add(portrait);
         add(narratedText);
@@ -176,10 +177,10 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
                 //FONT SET
                 if(currentLineData.font != null)
                 {
-                    narratedText.setFont(currentLineData.font, _defaultLetterSpacing);
+                    narratedText.setFont(currentLineData.font, _defaultFontSize, FlxColor.WHITE, LEFT, _defaultLetterSpacing);
                 }
                 else 
-                    narratedText.setFont(_defaultFont, _defaultLetterSpacing);
+                    narratedText.setFont(_defaultFont, _defaultFontSize, FlxColor.WHITE, LEFT, _defaultLetterSpacing);
 
                 //SCREEN AND SPRITE POSITIONING
                 updateScreenPosition();

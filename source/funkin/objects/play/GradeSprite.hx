@@ -3,7 +3,7 @@ package funkin.objects.play;
 import forever.display.ForeverSprite;
 import flixel.group.FlxGroup;
 import flixel.FlxObject;
-import flixel.text.FlxText;
+import uty.objects.UTText;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 
@@ -12,7 +12,7 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
     //objects
     public var letter:ForeverSprite;
     public var sign:ForeverSprite;
-    public var accText:FlxText;
+    public var accText:UTText;
 
     //state
     public var fc:Bool = true;
@@ -21,7 +21,6 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
     public var centerPoint:FlxPoint;
 
     //finals
-    public final _accFont:String = "mars-needs-cunnilingus";
     public final _validLetters:Array<String> = ["s", "a", "b", "c", "d"];
     public final _validsigns:Array<String> = ["+", "-"];
 
@@ -61,10 +60,9 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
 
     private function loadText()
     {
-        accText = new FlxText(0, 0, 0, "");
-        accText.setFormat(Paths.font(_accFont), 24, 0xFFFFFF, CENTER, OUTLINE, FlxColor.BLACK);
-        accText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
-        accText.antialiasing = false;
+        accText = new UTText(0, 0, 0, "");
+        accText.setFont(MARS, 24);
+        accText.setBorder();
     }
 
     private function position(?x:Float, y:Float)

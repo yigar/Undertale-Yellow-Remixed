@@ -3,7 +3,7 @@ package funkin.objects.play;
 import forever.display.ForeverSprite;
 import flixel.group.FlxGroup;
 import flixel.FlxObject;
-import flixel.text.FlxText;
+import uty.objects.UTText;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
 
@@ -11,7 +11,7 @@ class MissCounter extends FlxTypedGroup<FlxObject>
 {
     //objects
     public var heart:ForeverSprite;
-    public var missText:FlxText;
+    public var missText:UTText;
 
     //state
     public var fc:Bool = true;
@@ -49,10 +49,9 @@ class MissCounter extends FlxTypedGroup<FlxObject>
 
     private function loadText()
     {
-        missText = new FlxText(0, 0, heart.width * .60, "");
-        missText.setFormat(Paths.font(_missFont), 32, 0xFFFFFF, CENTER, OUTLINE, FlxColor.BLACK);
-        missText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
-        missText.antialiasing = false;
+        missText = new UTText(0, 0, heart.width * .60, "");
+        missText.setFont(MARS, 32);
+        missText.setBorder();
     }
 
     private function position(?x:Float, y:Float)

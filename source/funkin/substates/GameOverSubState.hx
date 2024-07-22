@@ -4,7 +4,7 @@ import flixel.sound.FlxSound;
 import funkin.states.PlayState;
 import flixel.FlxSubState;
 import flixel.util.FlxTimer;
-import flixel.text.FlxText;
+import uty.objects.UTText;
 import flixel.tweens.FlxTween;
 
 import funkin.states.menus.StoryMenu;
@@ -38,8 +38,8 @@ class GameOverSubState extends FlxSubState {
     public var gameOverText:ForeverSprite;
     public var enter:ForeverSprite;
     public var back:ForeverSprite;
-    public var enterTxt:FlxText;
-    public var backTxt:FlxText;
+    public var enterTxt:UTText;
+    public var backTxt:UTText;
 
     public var diaBox:DialogueBox;
     public var sndMngr:SoundManager;
@@ -108,16 +108,14 @@ class GameOverSubState extends FlxSubState {
         add(back);
         back.alpha = 0.0;
 
-        enterTxt = new FlxText(0, 0, 0, "Retry");
-        enterTxt.setFormat(Paths.font("pixela-extreme"), 38, 0xFFFFFF, CENTER);
-        enterTxt.antialiasing = false;
+        enterTxt = new UTText(0, 0, 0, "Retry");
+        enterTxt.setFont();
         enterTxt.updateHitbox();
         add(enterTxt);
         enterTxt.alpha = 0.0;
 
-        backTxt = new FlxText(0, 0, 0, "Back to Save");
-        backTxt.setFormat(Paths.font("pixela-extreme"), 38, 0xFFFFFF, CENTER);
-        backTxt.antialiasing = false;
+        backTxt = new UTText(0, 0, 0, "Back to Save");
+        backTxt.setFont();
         backTxt.updateHitbox();
         add(backTxt);
         backTxt.alpha = 0.0;

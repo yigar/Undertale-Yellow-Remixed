@@ -2,8 +2,7 @@ package uty.ui;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxSpriteGroup;
 import flixel.util.FlxColor;
-import flixel.text.FlxText;
-import openfl.text.TextFormat;
+import uty.objects.UTText;
 import flixel.math.FlxMath;
 
 enum MenuOption {
@@ -21,7 +20,7 @@ class Window extends FlxSpriteGroup
     public var centerClr:FlxColor = FlxColor.BLACK;
 
     public var menu:WindowMenu;
-    public var textItems:Array<WindowText> = [];
+    public var textItems:Array<UTText> = [];
     public var sub:Window;
 
 
@@ -73,9 +72,13 @@ class Window extends FlxSpriteGroup
         this.add(menu);
     }
 
-    public function addText(x:Float, y:Float, text:String = "", ?font:String, ?size:Int, ?spacing:Float, ?leading:Int)
+    public function addText(x:Float, y:Float, fieldWidth:Float = 0, text:String = "", ?font:UTFont = PIXELA, 
+        ?size:Int= 38, ?border:Bool = true, ?spacing:Float = 1, ?leading:Int, ?color:FlxColor = 0xFFFFFFFF)
     {
-        var text:WindowText = new WindowText(x, y, text, font, size, spacing, leading);
+        var text:UTText = new UTText(Std.int(x), Std.int(y), fieldWidth, text);
+        text.setFont(font, size, color, CENTER, spacing, leading);
+        if(border)
+            text.setBorder();
         textItems.push(text);
         this.add(text);
     }
@@ -93,7 +96,7 @@ class Window extends FlxSpriteGroup
 class WindowMenu extends FlxSpriteGroup
 {
     public var soul:FlxSprite;
-    public var list:Array<WindowText> = [];
+    public var list:Array<UTText> = [];
     public var funcMap:Array<Void->Void> = [];
 
     //private; i don't want this being changed directly
@@ -119,10 +122,11 @@ class WindowMenu extends FlxSpriteGroup
         //text setup
         for(i in 0...items.length)
         {
-            var item:WindowText = new WindowText(
-                x + ((i % perRow) * columnSpacing), 
-                y + (Math.floor(i / perRow) * rowSpacing),
+            var item:UTText = new UTText(
+                Std.int(x + ((i % perRow) * columnSpacing)), 
+                Std.int(y + (Math.floor(i / perRow) * rowSpacing)), 0,
                 items[i].getParameters()[0]);
+            item.setBorder();
             //center stuff later
             list.push(item);
             add(item);
@@ -246,45 +250,5 @@ class WindowMenu extends FlxSpriteGroup
     public function isControlEnabled():Bool
     {
         return controlEnabled;
-    }
-}
-
-class WindowText extends FlxText
-{
-    public var format:TextFormat;
-
-    private final _defaultFont:String = "pixela-extreme";
-    private final _defaultFontSize:Int = 38;
-    private final _defaultLetterSpacing:Float = 3.0;
-    private final _defaultLeading:Int = 10;
-
-    public function new(x:Float, y:Float, text:String = "", ?font:String, ?size:Int, ?spacing:Float, ?leading:Int)
-    {
-        super(x, y);
-        formatSetup(
-            font ?? _defaultFont, 
-            size ?? _defaultFontSize, 
-            spacing ?? _defaultLetterSpacing, 
-            leading ?? _defaultLeading);
-
-        this.text = text;
-        updateHitbox();
-    }
-
-    public function formatSetup(font:String, size:Int, spacing:Float, leading:Int)
-    {
-        format = new TextFormat(
-            AssetHelper.getAsset(font, FONT), 
-            size, 
-            0xFFFFFFFF
-        );
-        format.leading = leading;
-        format.letterSpacing = spacing;
-
-        //seriously i don't even know why i wrote this code
-        //this.textField.defaultTextFormat = format;
-        
-        setFormat(AssetHelper.getAsset(font, FONT), size, 0xFFFFFFFF, LEFT);
-        this.antialiasing = false;
     }
 }

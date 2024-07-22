@@ -5,7 +5,6 @@ import flixel.graphics.frames.FlxFrame;
 import flixel.math.FlxPoint;
 import forever.display.ForeverSprite;
 import haxe.ds.Vector;
-import flixel.text.FlxText;
 import flixel.ui.FlxBar;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
@@ -15,6 +14,7 @@ import flixel.util.FlxColor;
 import flixel.math.FlxPoint;
 import flixel.FlxObject;
 import funkin.components.Timings;
+import uty.objects.UTText;
 
 class HealthBar extends FlxSpriteGroup
 {
@@ -22,8 +22,8 @@ class HealthBar extends FlxSpriteGroup
     //but i need dynamic bar width and not a lot of fancy visual stuff, sorry!
     public var bar:FlxBar;
     public var border:FlxSprite;
-    public var hpText:FlxText;
-    public var loveText:FlxText;
+    public var hpText:UTText;
+    public var loveText:UTText;
     public var hpSprite:FlxSprite;
 
     public var lvData:Dynamic;
@@ -55,17 +55,15 @@ class HealthBar extends FlxSpriteGroup
 
         border = new FlxSprite().makeGraphic(Std.int(bar.width + (borderThickness * 2)), Std.int(bar.height + (borderThickness * 2)), FlxColor.BLACK);
 
-        loveText = new FlxText(0, 0, 0, "");
-        loveText.setFormat(Paths.font(_font), 24, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
-        loveText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
+        loveText = new UTText();
+        loveText.setFont(MARS, 24);
+        loveText.setBorder();
         loveText.text = "LV " + love;
         loveText.updateHitbox();
-        loveText.antialiasing = false;
 
-        hpText = new FlxText(0, 0, 0, "");
-        hpText.setFormat(Paths.font(_font), 30, FlxColor.WHITE, CENTER, OUTLINE, FlxColor.BLACK);
-        hpText.setBorderStyle(OUTLINE, FlxColor.BLACK, 4);
-        hpText.antialiasing = false;
+        hpText = new UTText();
+        hpText.setFont(MARS, 30);
+        hpText.setBorder();
 
         hpSprite = new FlxSprite();
         hpSprite.loadGraphic(Paths.image('ui/undertale/hp'));

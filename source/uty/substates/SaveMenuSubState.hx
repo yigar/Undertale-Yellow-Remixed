@@ -77,7 +77,8 @@ class SaveMenuSubState extends FlxSubState
         //technical
         menuState = SAVED;
 
-        StoryUtil.setSpawn(Overworld.current.curRoomName, Std.int(savePoint.spawnPoint.x), Std.int(savePoint.spawnPoint.y));
+        StoryUtil.updateSavePoint(savePoint.name, Overworld.current.curRoomName, 
+            Std.int(savePoint.spawnPoint.x), Std.int(savePoint.spawnPoint.y));
 
         StoryData.saveData();
         saveWindow.menu.toggleControl(false);

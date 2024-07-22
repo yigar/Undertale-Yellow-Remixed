@@ -2,7 +2,7 @@ package uty.components;
 
 import flixel.FlxSprite;
 import flixel.FlxObject;
-import flixel.text.FlxText;
+import uty.objects.UTText;
 import forever.display.ForeverSprite;
 import forever.display.RecycledSpriteGroup;
 import openfl.media.Sound;
@@ -19,7 +19,7 @@ import openfl.text.TextField;
     thanks to the poopshitters mod for reference code.
 */
 
-class NarratedText extends FlxText
+class NarratedText extends UTText
 {
     public var finalText:String = ""; //the text that will eventually be read out
     public var curLetterInt:Int = 0;
@@ -47,7 +47,6 @@ class NarratedText extends FlxText
     //formats seem to be useful because you can apply them to specific portions of a text field.
     //if you wanted to make a single word red for example (genocides)
     //but i think I also have to use them for proper leading and spacing
-    public var format:TextFormat;
 
     public final _ignoreCharacters:Array<String> = ["`", "~", "*", "(", ")", "-", "_", "=", "+", "{", "}", "[", "]", '"', "'", "\\", "\n", "\t", "|", "<", ">", "/", "^", " ", ""];
 	public final _punctuationCharacters:Array<String> = [".", ",", "!", "?", ":", ";"];
@@ -60,7 +59,7 @@ class NarratedText extends FlxText
             shid.narrate();
     */
 
-    public function new(x:Float, y:Float, width:Int, text:String, ?font:String = "pixela-extreme", size:Int, color:FlxColor = FlxColor.WHITE)
+    public function new(x:Int, y:Int, width:Int, text:String, ?font:String = "pixela-extreme", size:Int, color:FlxColor = FlxColor.WHITE)
         {
             super(x, y, width);
             //ORDER IS IMPORTANT
@@ -77,13 +76,6 @@ class NarratedText extends FlxText
     {
         finalText = text;
         length = finalText.length;
-    }
-
-    //for updating the font after the constructor
-    public function setFont(font:String = "pixela-extreme", ?spacing:Float)
-    {
-        setFormat(AssetHelper.getAsset(font, FONT), size, 0xFFFFFFFF, LEFT);
-        trace('FORMAT: font $font size $size');
     }
 
     public function narrate(?delayOverride:Float)

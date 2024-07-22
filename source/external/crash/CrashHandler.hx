@@ -24,7 +24,7 @@ import openfl.ui.Keyboard;
  * @author crowplexus
 **/
 class CrashHandler extends Sprite {
-	final font:String = Paths.font("vcr");
+	final font:String = Paths.font("pixela-extreme");
 
 	var errorTitle:RotatableTextField;
 	var loggedError:TextField;
@@ -36,30 +36,7 @@ class CrashHandler extends Sprite {
 	var random = new flixel.math.FlxRandom();
 
 	final imagineBeingFunny:Array<String> = [
-		// crowplexus
-		"Fatal Error!",
-		"!rorrE lataF",
-		"Enough of your puns SANS.",
-		"Forever riddled with bugs.",
-		"Welcome to game development!",
-		"Anything wrong with your script buddy?",
-		"Take a break and listen to something nice -> watch?v=Zqa2mgjbOIM",
-		// Keoiki
-		"I wish i was funny so i could come up with a funny",
-		"Let me guess, Null Object Reference?",
-		// Totally Wizard
-		"Gay gay gay gay gay gay gay gay gay gay gay",
-		// Ne_Eo
-		"U fucking messed up, i can't believe you",
-		"What are you??? A idiot program -Godot RAMsey",
-		'I told you, ${#if DISCORD DiscordWrapper.username ?? #end "the human"} was gonna crash the engine',
-		// SrtHero278
-		"GET IN THE CAR I FUCKED UP",
-		"...Oh dear. Your brain       is... a                  underwhelming. ",
-		// Zyfix
-		"IT WAS A MISS INPUT, MISS INPUT CALM DOWN, YOU CALM THE FUCK DOWN",
-		// RapperGF
-		"Thats not very forever engine fnf of you.",
+		"GAME CRASH"
 	];
 
 	public function new(stack:String):Void {
@@ -109,8 +86,8 @@ class CrashHandler extends Sprite {
 		loggedError.defaultTextFormat = tf;
 		loggedError.text = '\n\n${stack}\n'
 			#if MODS + "\nPress R to Unload your mods if needed, Press ESCAPE to Reset" #end
-			+ "\nIf you feel like this error shouldn't have happened,"
-			+ "\nPlease report it to our GitHub Page by pressing SPACE";
+			+ "\nSorry for the inconvenience."
+			+ "\nPlease report this error log to us so we can hopefully fix it.";
 
 		// and position it properly
 		loggedError.autoSize = errorTitle.autoSize;
@@ -133,7 +110,7 @@ class CrashHandler extends Sprite {
 		errorTitle.x = centerX(errorTitle.width);
 
 		// Sound from codename
-		final sound:Sound = AssetHelper.getAsset('audio/sfx/errorReceived', SOUND);
+		final sound:Sound = AssetHelper.getAsset('audio/sfx/snd_soul_gameover_hit', SOUND);
 		final volume:Float = Tools.toFloatPercent(Settings.masterVolume);
 
 		sound.play(new SoundTransform(volume)).addEventListener(Event.SOUND_COMPLETE, (_) -> {
@@ -159,14 +136,13 @@ class CrashHandler extends Sprite {
 	var setupOrigin = false;
 
 	public function keyActions(e:KeyboardEvent):Void {
+		/*
 		switch e.keyCode {
 			case Keyboard.R:
 				#if MODS
 				forever.core.Mods.loadMod(null);
 				_modReset = true;
 				#end
-			case Keyboard.SPACE:
-				FlxG.openURL("https://github.com/crowplexus/Forever-Engine/issues");
 			case Keyboard.ESCAPE:
 				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, keyActions);
 				#if MODS if (_modReset) forever.core.Mods.resetGame();
@@ -177,7 +153,7 @@ class CrashHandler extends Sprite {
 				// now that the crash handler should be no longer active, remove it from the game container.
 				if (Main.self != null && Main.self.contains(this))
 					Main.self.removeChild(this);
-		}
+		*/
 	}
 
 	inline function centerX(w:Float):Float {

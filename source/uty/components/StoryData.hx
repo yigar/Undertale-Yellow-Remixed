@@ -3,12 +3,15 @@ package uty.components;
 import haxe.ds.StringMap;
 import flixel.FlxG;
 import uty.components.PlayerData;
+import flixel.util.FlxTimer;
 
 typedef StorySave =
 {
     playerSave:PlayerSave,
     followers:Array<String>,
     deaths:StringMap<Int>,
+    secondsPlayed:Int,
+    savePointName:String,
     killedCharacters:Array<String>
 }
 
@@ -18,6 +21,8 @@ class StoryData
     private static var storySave:StorySave; //this one gets shared to the FlxSave: the saved game progress.
     public static var activeData:StorySave; //this one does NOT get bound to Flxsave: the current unsaved progress.
 
+    public static var gameClock:FlxTimer;
+
     public static function returnDefault():StorySave
     {
         //need to get a way of retrieving the song list later on, and generally organizing songs.
@@ -26,6 +31,8 @@ class StoryData
             playerSave: PlayerData.returnDefault(),
             followers: [],
             deaths: ["default" => 0],
+            secondsPlayed: 0,
+            savePointName: "Save Point",
             killedCharacters: []
         };
         return dummySave;
@@ -40,6 +47,8 @@ class StoryData
             playerSave: PlayerData.launderData(save.playerSave),
             followers: save.followers,
             deaths: save.deaths,
+            secondsPlayed: save.secondsPlayed,
+            savePointName: save.savePointName,
             killedCharacters: save.killedCharacters
         };
         return newSave;
@@ -133,9 +142,22 @@ class StoryUtil
         StoryData.setActiveData(dum);
     }
 
+    //keep in mind that the player's spawn and save point aren't necessarily the same
+    //this can set the player's spawn somewhere else without updating the save point display location
     public static function setSpawn(room:String, x:Int, y:Int)
     {
         var dum:StorySave = StoryData.getActiveData();
+        dum.playerSave.room = room;
+        dum.playerSave.posX = x;
+        dum.playerSave.posY = y;
+        StoryData.setActiveData(dum);
+        trace('spawn set to: x${x} y${y}');
+    }
+
+    public static function updateSavePoint(name:String, room:String, x:Int, y:Int)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        dum.savePointName = name;
         dum.playerSave.room = room;
         dum.playerSave.posX = x;
         dum.playerSave.posY = y;
@@ -160,4 +182,35 @@ class StoryUtil
         if(d == null) d = 0;
         return d;
     }
+
+    public static function startClock()
+    {
+        StoryData.gameClock = new FlxTimer().start(1.0, function(tmr:FlxTimer){
+            addToClock(1);
+        }, 0);
+    }
+
+    public static function stopClock()
+    {
+        if(StoryData.gameClock != null)
+            StoryData.gameClock.cancel();
+    }
+
+    public static function addToClock(seconds:Int)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        dum.secondsPlayed += seconds;
+        StoryData.setActiveData(dum);
+    }
+
+    public static function getActiveTimeString():String
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        var totalSecs:Int = dum.secondsPlayed ?? 0;
+        var h:Int = Math.floor(totalSecs / 3600);
+        var m:Int = Math.floor(totalSecs / 60) - h;
+        var mStr:String = (m < 10 ? '0' : '') + m;
+        return '${h}:${mStr}';
+    }
+
 }
