@@ -163,7 +163,7 @@ class GameOverSubState extends FlxSubState {
         var diaGrp:DialogueGroup = parser.getDialogueFromParameter("deathCount", StoryUtil.getDeaths(PlayState.current.songMeta.name), true);
         diaBox = new DialogueBox(0, 0, diaGrp);
         add(diaBox);
-        diaBox.setScreenPosition(-25, 450);
+        diaBox.setScreenPosition(50, 450);
         diaBox.window.setTransparent();
         diaBox.togglePortrait(false);
     }

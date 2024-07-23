@@ -169,31 +169,19 @@ class PauseMenu extends FlxSubState {
 
 		if (!closing) {
 			final callback = pauseItems[curSel].getParameters()[1];
-			if (callback != null && Controls.ACCEPT)
+			if (callback != null && (Controls.ACCEPT || Controls.UT_ACCEPT_P))
 			{
 				FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_confirm', SOUND));
 				callback();
 			}
 			
-			if (Controls.BACK)
+			if (Controls.BACK || Controls.UT_CANCEL_P)
 				resumeSong();
 
 			if (pauseGroup.members.length > 1)
-				if (Controls.LEFT_P || Controls.RIGHT_P)
-					updateSelection(Controls.LEFT_P ? -1 : 1);
+				if (Controls.UI_LEFT_P || Controls.UI_RIGHT_P)
+					updateSelection(Controls.UI_LEFT_P ? -1 : 1);
 		}
-
-		//DEBUG
-		/*
-		if(FlxG.keys.pressed.LEFT)
-			this.camera.x -= 5;
-		if(FlxG.keys.pressed.RIGHT)
-			this.camera.x += 5;
-		if(FlxG.keys.pressed.UP)
-			this.camera.y -= 5;
-		if(FlxG.keys.pressed.DOWN)
-			this.camera.y += 5;
-		*/
 	}
 
 	function abruptOptionSelect(?sound:String)

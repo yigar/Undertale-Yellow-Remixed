@@ -11,6 +11,8 @@ import flixel.math.FlxRect;
 import flixel.system.ui.FlxSoundTray;
 import haxe.ds.StringMap;
 import uty.components.StoryData;
+import forever.Controls;
+import flixel.input.keyboard.FlxKey;
 
 /**
  * This is the initialization class, it simply modifies and initializes a few important variables
@@ -20,23 +22,37 @@ class Init extends FlxState {
 	override function create():Void {
 		super.create();
 
+		setupDefaults();
+		setupTransition();
+		precacheAssets();
+
 		FlxG.save.bind('Settings', "yigar/UTYRemixed/forever");
 		if (FlxG.save.data != null)
 		{
-			FlxG.sound.muted = FlxG.save.data.mute;
-			FlxG.sound.volume = FlxG.save.data.volume;
+			FlxG.sound.muted = FlxG.save.data.mute ?? false;
+			FlxG.sound.volume = FlxG.save.data.volume ?? 1.0;
+			//retrieve saved controls
+			var m:Map<String, Array<FlxKey>> = FlxG.save.data.savedControls;
+			if(m != null)
+				Controls.current.setControlsFromMap(m);
 		}
 
+		//the meta save file is a necessary file for the context of undertale.
+		//this will store variables and actions of things that cannot be reversed.
+		//in this case it's just checking if this is the first time we've opened the game.
+		FlxG.save.bind('meta', 'yigar/UTYRemixed');
+		if (FlxG.save.data.firstBoot == null) 
+			FlxG.save.data.firstBoot = true;
+		else if(FlxG.save.data.firstBoot == true) 
+			FlxG.save.data.firstBoot = false;
+		FlxG.save.flush();
+
+		//rebinding to the story save file is handled in the StoryData class, so it shouldn't be much of a concern.
 		FlxG.save.bind('utyRemixed', 'yigar/UTYRemixed/uty');
-		if (FlxG.save.data.firstBoot == null) FlxG.save.data.firstBoot = true;
 		if(FlxG.save.data != null)
 		{
 			StoryData.loadData();
 		}
-
-		setupDefaults();
-		setupTransition();
-		precacheAssets();
 
 		// -- CUSTOM SPLASH SCREEN -- //
 

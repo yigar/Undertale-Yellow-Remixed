@@ -3,6 +3,7 @@ package forever;
 import flixel.FlxG;
 import flixel.input.FlxInput;
 import flixel.input.keyboard.FlxKey;
+import forever.Settings;
 
 /**
  * Handles the base of the controls class, has helper functions to detect
@@ -14,27 +15,24 @@ class ControlsManager {
 	 * or resetting your key settings
 	**/
 	public static final defaultControls:Map<String, Array<FlxKey>> = [
-		"left" => [A, LEFT],
-		"down" => [S, DOWN],
-		"up" => [W, UP],
-		"right" => [D, RIGHT],
+		"left" => [A],
+		"down" => [S],
+		"up" => [W],
+		"right" => [D],
 		//
-		"ui_left" => [A, LEFT],
-		"ui_down" => [S, DOWN],
-		"ui_up" => [W, UP],
-		"ui_right" => [D, RIGHT],
+		"ui_left" => [A],
+		"ui_down" => [S],
+		"ui_up" => [W],
+		"ui_right" => [D],
 		//
 		"accept" => [ENTER, SPACE],
 		"back" => [BACKSPACE, ESCAPE],
 		"pause" => [ENTER, ESCAPE],
-		"reset" => [R, R],
+		"reset" => [R],
 		//
-		"ut_accept" => [J, Z],
-		"ut_cancel" => [K, X],
-		"ut_menu" => [L, C],
-		#if MODS
-		"switch mods" => [SLASH, CONTROL],
-		#end
+		"ut_accept" => [J],
+		"ut_cancel" => [K],
+		"ut_menu" => [L],
 	];
 
 	/** Your own Custom Controls. **/
@@ -53,7 +51,7 @@ class ControlsManager {
 		["USER INTERFACE"],
 		["ui_left", "ui_down", "ui_up", "ui_right", "accept", "back", "pause"],
 		["DEBUG"],
-		["reset"#if MODS ,"switch mods" #end],
+		["reset"],
     ];
 
 	/** Indicator set if you are playing with a controller. **/
@@ -63,6 +61,13 @@ class ControlsManager {
 	public function new():Void {
 		myControls = cloneControlsMap();
 		gamepadMode = false;
+	}
+
+	public function setControlsFromMap(newCtrls:Map<String, Array<FlxKey>>):Map<String, Array<FlxKey>>
+	{
+		for (key => value in newCtrls)
+			myControls[key] = value.copy();
+		return myControls;
 	}
 
 	/** Checks if a Control Key is held. **/
@@ -115,4 +120,11 @@ class ControlsManager {
 		}
 		return action;
 	}
+
+	@:dox(hide) public inline function flushControls() {
+		Settings.savedControls = Controls.current.myControls;
+		Settings.flush();
+	}
+
+	//public inline function loadControlsFromSave()
 }

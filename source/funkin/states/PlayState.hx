@@ -83,6 +83,7 @@ class PlayState extends FNFState {
 
 	//custom live components
 	public var invTimer:Float = 0.0;
+	public var resetTimer:Float = 0.0; //this has to be separate from the invTimer, otherwise resetting could be abused for i-frames
 	public var gameOvered:Bool = false;
 	public var suicideClock:Float = 0.0; //for a fun little reset button effect
 
@@ -236,6 +237,7 @@ class PlayState extends FNFState {
 		super.update(elapsed);
 
 		invTimer -= elapsed;
+		resetTimer -= elapsed;
 
 		final updateEvt:CancellableEvent = new CancellableEvent();
 		callFunPack("update", [elapsed, updateEvt]);
@@ -273,8 +275,12 @@ class PlayState extends FNFState {
 	{
 		if (Controls.RESET_HELD && Settings.resetButton)
 		{
-			damagePlayer(-2 + Std.int(suicideClock * 8));
-			invTimer -= elapsed * (2 + (Math.pow(suicideClock * 2, 3)));
+			if(resetTimer <= 0)
+			{
+				damagePlayer(-2 + Std.int(suicideClock * 5), true);
+				resetTimer = 1.0;
+			}
+			resetTimer -= elapsed * (2 + (Math.pow(suicideClock * 2, 3)));
 			suicideClock += elapsed;
 		} 
 		else
@@ -460,7 +466,8 @@ class PlayState extends FNFState {
 		var damage:Int = StatsCalculator.calculateDamage(at, PlayerData.getActiveDF(), PlayerData.getActiveHP());
 		Timings.health -= damage;
 		FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_hurt', SOUND));
-		invTimer = Timings.inv;
+		if(!ignoreInv)
+			invTimer = Timings.inv;
 		deathCheck(player);
 	}
 

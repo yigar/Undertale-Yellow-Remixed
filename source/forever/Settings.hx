@@ -3,6 +3,8 @@ package forever;
 import haxe.ds.StringMap;
 import openfl.filters.BitmapFilter;
 import openfl.filters.ColorMatrixFilter;
+import forever.Controls;
+import flixel.input.keyboard.FlxKey;
 
 /**
  * Contains Default Values for Settings
@@ -18,6 +20,12 @@ import openfl.filters.ColorMatrixFilter;
 @:build(forever.macros.ConfigHelper.buildSaveMacro())
 class Settings {
 	// -- GENERAL -- //
+
+	//controls
+	//alright from my understanding, the macro that saves shit takes all the variables from this class
+	//and saves them to [company]/UTYRemixed/forever/Settings.sol
+	//whatever variables are added to this, they should save and be accessible through FlxG.save.data.[var] after binding to Settings
+	public static var savedControls:Map<String, Array<FlxKey>> = [];
 
 	/** Check this if you want the game not to pause when unfocusing the window. **/
 	public static var autoPause:Bool = false;
@@ -51,7 +59,7 @@ class Settings {
 	public static var framerateCap:Int = 60;
 
 	/** Whether to enable the reset (Quick Game Over) button during gameplay. **/
-	public static var resetButton:Bool = false;
+	public static var resetButton:Bool = true;
 
 	/** Defines the (spawn) offset of the notes. **/
 	public static var noteOffset:Float = 0.0;

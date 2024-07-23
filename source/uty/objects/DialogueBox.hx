@@ -211,7 +211,7 @@ class DialogueBox extends FlxTypedGroup<FlxObject>
             updateEmotion(emotion);
         }
         else if(
-            portraitVisible ||
+            !portraitVisible ||
             character == null || 
             character == "NONE" || 
             character == "EMPTY" ||
