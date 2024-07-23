@@ -110,11 +110,11 @@ class FirstBootState extends FNFState
             switch (state)
             {
                 case OVERWORLD:{
-                    owOption.addToSelection(-1);
+                    owOption.addToSelection(selInput);
                     owOption.position(Std.int(FlxG.width * 0.5), Std.int(FlxG.height * 0.5), true);
                 }
                 case FUNKIN:{
-                    fnfOption.addToSelection(-1);
+                    fnfOption.addToSelection(selInput);
                     fnfOption.position(Std.int(FlxG.width * 0.5), Std.int(FlxG.height * 0.5), true);
                 }
                 case CONFIRM: {}
@@ -240,6 +240,11 @@ class FirstBootState extends FNFState
                 Controls.current.setControlsFromMap(ControlPresets.fnfPreset_twohand);
         }
         Controls.current.flushControls();
+
+        FlxG.save.bind('meta', 'yigar/UTYRemixed');
+		FlxG.save.data.firstBoot = false;
+        FlxG.save.flush();
+
         proceedToTitle();
     }
 

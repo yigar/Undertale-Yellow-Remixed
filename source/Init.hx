@@ -43,8 +43,8 @@ class Init extends FlxState {
 		FlxG.save.bind('meta', 'yigar/UTYRemixed');
 		if (FlxG.save.data.firstBoot == null) 
 			FlxG.save.data.firstBoot = true;
-		else if(FlxG.save.data.firstBoot == true) 
-			FlxG.save.data.firstBoot = false;
+		//this is set to false when completing the firstBootState.
+
 		FlxG.save.flush();
 
 		//rebinding to the story save file is handled in the StoryData class, so it shouldn't be much of a concern.

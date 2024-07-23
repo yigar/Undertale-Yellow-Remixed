@@ -94,6 +94,8 @@ class SpriteScrollOption extends FlxSpriteGroup
         {
             sprite.addAtlasAnim('option${i}', names[i], 0, false);
         }
+        
+        sprite.playAnim('option${selection}');
     }
 
     public function addToSelection(add:Int){
