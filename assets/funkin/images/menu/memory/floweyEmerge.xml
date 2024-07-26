@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="floweyEmerge.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="emerge0" x="1" y="1" width="102" height="106"/>
+  <SubTexture name="emerge1" x="104" y="1" width="102" height="106"/>
+  <SubTexture name="emerge2" x="207" y="1" width="102" height="106"/>
+  <SubTexture name="emerge3" x="1" y="108" width="102" height="106"/>
+  <SubTexture name="emerge4" x="104" y="108" width="102" height="106"/>
+  <SubTexture name="emerge5" x="207" y="108" width="102" height="106"/>
+  <SubTexture name="emerge6" x="1" y="215" width="102" height="106"/>
+  <SubTexture name="emerge7" x="104" y="215" width="102" height="106"/>
+  <SubTexture name="emerge8" x="207" y="215" width="102" height="106"/>
+</TextureAtlas>

@@ -15,6 +15,8 @@ enum abstract UTFont(String) from String to String
 }
 
 //a class that extends FlxText to make setup easier and more included for most of my purposes.
+//this intentionally removes some control in order to streamline usage.
+//if you need a less restricted FlxText then just use that instead.
 class UTText extends FlxText
 {
     public var format:TextFormat;

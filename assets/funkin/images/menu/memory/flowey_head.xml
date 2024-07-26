@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="flowey_head.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0" x="1" y="1" width="88" height="72"/>
+  <SubTexture name="default1" x="90" y="1" width="88" height="72"/>
+  <SubTexture name="smug0" x="179" y="1" width="88" height="72"/>
+  <SubTexture name="smug1" x="268" y="1" width="88" height="72"/>
+  <SubTexture name="nervous0" x="357" y="1" width="88" height="72"/>
+  <SubTexture name="nervous1" x="1" y="74" width="88" height="72"/>
+  <SubTexture name="frown0" x="90" y="74" width="88" height="72"/>
+  <SubTexture name="frown1" x="179" y="74" width="88" height="72"/>
+  <SubTexture name="eager0" x="268" y="74" width="88" height="72"/>
+  <SubTexture name="eager1" x="357" y="74" width="88" height="72"/>
+  <SubTexture name="skull0" x="1" y="147" width="88" height="72"/>
+  <SubTexture name="skull1" x="90" y="147" width="88" height="72"/>
+  <SubTexture name="evil0" x="179" y="147" width="88" height="72"/>
+  <SubTexture name="evil1" x="268" y="147" width="88" height="72"/>
+  <SubTexture name="lookFrown0" x="357" y="147" width="88" height="72"/>
+  <SubTexture name="lookFrown1" x="1" y="220" width="88" height="72"/>
+  <SubTexture name="lookSmile0" x="90" y="220" width="88" height="72"/>
+  <SubTexture name="lookSmile1" x="179" y="220" width="88" height="72"/>
+</TextureAtlas>

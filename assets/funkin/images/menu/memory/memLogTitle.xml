@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="memLogTitle.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="boil0" x="1" y="1" width="252" height="32"/>
+  <SubTexture name="boil1" x="1" y="34" width="252" height="32"/>
+  <SubTexture name="boil2" x="1" y="67" width="252" height="32"/>
+</TextureAtlas>

@@ -41,6 +41,7 @@ class SaveFileMenu extends FNFState
         window.createMenu(60, 150, [
             MenuOption("Continue", loadOverworld),
             MenuOption("Reset", loadOverworld),
+            MenuOption("Memory Log", loadMemLog),
             MenuOption("Options", loadOverworld)
         ], 2, 60, 270);
 
@@ -81,5 +82,11 @@ class SaveFileMenu extends FNFState
     {
         FlxTransitionableState.skipNextTransOut = true;
         FlxG.switchState(new Overworld());
+    }
+
+    private function loadMemLog()
+    {
+        FlxTransitionableState.skipNextTransOut = true;
+        FlxG.switchState(new MemoryLogMenu());
     }
 }

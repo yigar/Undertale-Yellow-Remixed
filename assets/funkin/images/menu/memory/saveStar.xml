@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="saveStar.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="anim0" x="1" y="1" width="66" height="62"/>
+  <SubTexture name="anim1" x="68" y="1" width="66" height="62"/>
+  <SubTexture name="anim2" x="135" y="1" width="66" height="62"/>
+  <SubTexture name="anim3" x="1" y="64" width="66" height="62"/>
+  <SubTexture name="anim4" x="68" y="64" width="66" height="62"/>
+  <SubTexture name="anim5" x="135" y="64" width="66" height="62"/>
+</TextureAtlas>

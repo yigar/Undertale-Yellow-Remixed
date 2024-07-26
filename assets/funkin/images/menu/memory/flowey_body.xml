@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="flowey_body.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="sway0" x="1" y="1" width="45" height="38"/>
+  <SubTexture name="sway1" x="47" y="1" width="45" height="38"/>
+  <SubTexture name="sway2" x="93" y="1" width="45" height="38"/>
+  <SubTexture name="sway3" x="1" y="40" width="45" height="38"/>
+  <SubTexture name="sway4" x="1" y="1" width="45" height="38"/>
+  <SubTexture name="sway5" x="47" y="40" width="45" height="38"/>
+  <SubTexture name="sway6" x="93" y="40" width="45" height="38"/>
+  <SubTexture name="sway7" x="1" y="40" width="45" height="38"/>
+</TextureAtlas>
