@@ -18,7 +18,7 @@ class SpriteScrollOption extends FlxSpriteGroup
     private var options:Array<String>;
     public var selection:Int = 0;
 
-    public function new(?x:Int = 0, ?y:Int = 0, ?graphic:String, ?textOnTop:Bool = false, ?resize:Float = 3.0)
+    public function new(?x:Int = 0, ?y:Int = 0, ?graphic:String, ?textOnTop:Bool = false, ?resize:Float)
     {
         super(x, y);
         options = new Array<String>();

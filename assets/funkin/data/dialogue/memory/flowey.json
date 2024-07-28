@@ -1,0 +1,50 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Flowey",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "locked": false
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "frown",
+                    "string": "Who, me?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "I'm just your friendly flower companion!"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "lookSmile",
+                    "string": "Just helping you on your journey to get to the King..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smug",
+                    "string": "Nothing wrong with that, right?"
+                }
+            ]
+        },
+        {
+            "name": "Flowey",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "locked": true
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "Pass my test in the Ruins to unlock this!"
+                }
+            ]
+        }
+    ]
+}

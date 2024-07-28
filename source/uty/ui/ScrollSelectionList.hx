@@ -34,10 +34,10 @@ class ScrollSelectionList extends FlxSpriteGroup
         optionList.push(opt);
 
         this.add(optionList[l]);
-        addSelection(0);
+        addToSelection(0);
     }
 
-    public function addSelection(add:Int):Int
+    public function addToSelection(add:Int):Int
     {
         return changeSelection(selection + add);
     }

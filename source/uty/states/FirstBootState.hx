@@ -62,12 +62,12 @@ class FirstBootState extends FNFState
         add(header);
         add(footer);
 
-        owOption = new SpriteScrollOption(0, 0, 'images/menu/firstBoot/overworld');
+        owOption = new SpriteScrollOption(0, 0, 'images/menu/firstBoot/overworld', false, 3.0);
         owOption.addAtlasAnims(['WASD', 'arrows']);
         owOption.addOptionArray(['WASD Movement', 'Classic']);
         add(owOption);
 
-        fnfOption = new SpriteScrollOption(0, 0, 'images/menu/firstBoot/funkin');
+        fnfOption = new SpriteScrollOption(0, 0, 'images/menu/firstBoot/funkin', false, 3.0);
         fnfOption.addAtlasAnims(['one-handed_left', 'one-handed_right', 'two-handed']);
         fnfOption.addOptionArray(['Left Hand', 'Right Hand', 'Two Hands']);
         add(fnfOption);

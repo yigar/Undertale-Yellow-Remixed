@@ -1,0 +1,22 @@
+# -- 
+folder: "flowey"
+
+art:
+ - {
+      file: "test1",
+      resize: 3.0,
+      antialiasing: false,
+      animated: false,
+      frameRate: 0,
+      dialogueName: "Flowey 1",
+      unlock: "Flowey"
+    }
+ - {
+      file: "test2",
+      resize: 1.0,
+      antialiasing: true,
+      animated: false,
+      frameRate: 0,
+      dialogueName: "Flowey 1",
+      unlock: "Flowey"
+    }

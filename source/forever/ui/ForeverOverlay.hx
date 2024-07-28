@@ -56,7 +56,7 @@ class ForeverOverlay extends TextField {
 		x = 10;
 		y = 10;
 
-		defaultTextFormat = new TextFormat("assets/funkin/fonts/crypt-of-tomorrow.ttf", 12, 0xFFFFFFFF);
+		defaultTextFormat = new TextFormat("assets/funkin/fonts/crypt-of-tomorrow.ttf", 10, 0x68FFFFFF);
 		mouseEnabled = selectable = false;
 		multiline = true;
 		autoSize = LEFT;
@@ -77,7 +77,7 @@ class ForeverOverlay extends TextField {
 		if (visible) {
 			text = '${currentFPS} FPS';
 			#if cpp 
-			text += '\n${FlxStringUtil.formatBytes(Memory.getCurrentUsage())} / ${FlxStringUtil.formatBytes(Memory.getPeakUsage())} RAM'; 
+			//text += '\n${FlxStringUtil.formatBytes(Memory.getCurrentUsage())} / ${FlxStringUtil.formatBytes(Memory.getPeakUsage())} RAM'; 
 			#end 
 			//text += '\n${FlxStringUtil.formatBytes(staticRAM)} / ${FlxStringUtil.formatBytes(peakRAM)} [GC]';
 		}
