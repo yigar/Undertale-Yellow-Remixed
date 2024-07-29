@@ -59,18 +59,18 @@ class NarratedText extends UTText
             shid.narrate();
     */
 
-    public function new(x:Int, y:Int, width:Int, text:String, ?font:String = "pixela-extreme", size:Int, color:FlxColor = FlxColor.WHITE)
-        {
-            super(x, y, width);
-            //ORDER IS IMPORTANT
-            setFormat(AssetHelper.getAsset(font, FONT), size, color, LEFT);
-            setText(text);
-            
-            antialiasing = false;
-            scrollFactor.set();
+    public function new(x:Int, y:Int, width:Int, ?text:String = '', ?font:UTFont = PIXELA, ?size:Int = 38, ?color:FlxColor = FlxColor.WHITE)
+    {
+        super(x, y, width, text, size);
+        //ORDER IS IMPORTANT
+        setFont(font, size, color, LEFT);
+        setText(text);
+        
+        antialiasing = false;
+        scrollFactor.set();
 
-            narrateSound = new FlxSound();
-        }
+        narrateSound = new FlxSound();
+    }
 
     public function setText(text:String)
     {

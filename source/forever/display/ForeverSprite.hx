@@ -55,6 +55,11 @@ class ForeverSprite extends FlxSprite {
 		return this;
 	}
 
+	public function createEmpty()
+	{
+		makeGraphic(0, 0, 0x00000000);
+	}
+
 	/**
 	 * Adds an animation from a sparrow/packer atlas file to this sprite.
 	 * @param name                  Name of the animation.

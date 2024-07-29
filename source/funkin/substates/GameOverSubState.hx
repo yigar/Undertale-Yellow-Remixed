@@ -164,7 +164,7 @@ class GameOverSubState extends FlxSubState {
         diaBox = new DialogueBox(0, 0, diaGrp);
         add(diaBox);
         diaBox.setScreenPosition(50, 450);
-        diaBox.window.setTransparent();
+        diaBox.boxSprites.visible = false;
         diaBox.togglePortrait(false);
     }
 

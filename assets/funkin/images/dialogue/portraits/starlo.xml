@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="starlo.png">
   <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
-  <SubTexture name="smile_down0" x="0" y="0" width="57" height="61"/>
-  <SubTexture name="smile_down1" x="57" y="0" width="57" height="61"/>
+  <SubTexture name="down_smile0" x="0" y="0" width="57" height="61"/>
+  <SubTexture name="down_smile1" x="57" y="0" width="57" height="61"/>
   <SubTexture name="smile0" x="114" y="0" width="57" height="61"/>
   <SubTexture name="smile1" x="171" y="0" width="57" height="61"/>
   <SubTexture name="grin0" x="228" y="0" width="57" height="61"/>
   <SubTexture name="grin1" x="285" y="0" width="57" height="61"/>
   <SubTexture name="smug0" x="342" y="0" width="57" height="61"/>
   <SubTexture name="smug1" x="0" y="61" width="57" height="61"/>
-  <SubTexture name="blush_happy0" x="57" y="61" width="57" height="61"/>
-  <SubTexture name="blush_happy1" x="114" y="61" width="57" height="61"/>
-  <SubTexture name="blush_squint0" x="171" y="61" width="57" height="61"/>
-  <SubTexture name="blush_squint1" x="228" y="61" width="57" height="61"/>
+  <SubTexture name="happy_blush0" x="57" y="61" width="57" height="61"/>
+  <SubTexture name="happy_blush1" x="114" y="61" width="57" height="61"/>
+  <SubTexture name="squint_blush0" x="171" y="61" width="57" height="61"/>
+  <SubTexture name="squint_blush1" x="228" y="61" width="57" height="61"/>
   <SubTexture name="serious0" x="285" y="61" width="57" height="61"/>
   <SubTexture name="serious1" x="342" y="61" width="57" height="61"/>
   <SubTexture name="sneer0" x="0" y="122" width="57" height="61"/>
