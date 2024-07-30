@@ -116,7 +116,7 @@ class DialogueSubState extends FlxSubState
             {
                 closeDialogue();
             }
-            else if(!dialogueBox.narratedText.narrating && dialogueBox.narratedText.allowContinue) //if not currently reading, and we can continue
+            else //if not currently reading, and we can continue
             {
                 dialogueBox.nextDialogueLine();
             }

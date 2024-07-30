@@ -2,7 +2,7 @@
     "dialogueGroups":
     [
         {
-            "name": "Flowey",
+            "name": "Flowey 1",
             "parameters": 
             {
                 "defaultDialogue": true,
@@ -32,7 +32,22 @@
             ]
         },
         {
-            "name": "Flowey",
+            "name": "Flowey 2",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "locked": false
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "Don't you have anything better to do?"
+                }
+            ]
+        },
+        {
+            "name": "Flowey Locked",
             "parameters": 
             {
                 "defaultDialogue": false,

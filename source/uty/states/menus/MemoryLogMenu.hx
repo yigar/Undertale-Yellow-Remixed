@@ -16,6 +16,8 @@ import uty.ui.ScrollSelectionList;
 import uty.ui.SpriteScrollOption;
 import uty.ui.Window;
 import flixel.math.FlxMath;
+import uty.objects.DialogueObject;
+import uty.components.DialogueParser;
 
 typedef CharacterOption = {
     name:String, //the display name of the character.
@@ -47,17 +49,21 @@ class MemoryLogMenu extends BaseMenuState
     public var optBattle:ForeverSprite;
     public var optInfo:ForeverSprite;
     public var window:Window;
+    public var spBubble:ForeverSprite;
 
     public var floweyEmerge:ForeverSprite;
     public var flowey:FlxSpriteGroup;
     public var floweyHead:ForeverSprite;
     public var floweyStem:ForeverSprite;
 
+    public var diaBubble:DialogueObject;
+
     public var charListData:Array<CharacterOption>;
     public var artDisplay:ArtDisplay;
 
     public var menuState:MemoryMenuState = MAIN;
     public var boxOptSel:Int = 0;
+    private var parser:DialogueParser;
 
     public final spriteDir:String = 'images/menu/memory/';
 
@@ -73,8 +79,8 @@ class MemoryLogMenu extends BaseMenuState
         {
             name: "Martlet",
             icon: "martlet",
-            artData: "flowey",
-            dialogue: "flowey",
+            artData: "martlet",
+            dialogue: "martlet",
             songs: ["Martlet"],
             secret: false
         }
@@ -83,6 +89,7 @@ class MemoryLogMenu extends BaseMenuState
     override function create()
     {
         charListData = new Array<CharacterOption>();
+        parser = new DialogueParser();
 
         add(bg = new FlxSprite().makeSolid(FlxG.width, FlxG.height, 0xFF000000));
 
@@ -111,6 +118,8 @@ class MemoryLogMenu extends BaseMenuState
         }
 
         loadArt(charListData[characterList.changeSelection(0)].artData); //updates stuff
+
+        add(spBubble);
     }
 
     private function setupSprites()
@@ -172,6 +181,11 @@ class MemoryLogMenu extends BaseMenuState
         floweyStem.scale.set(3.0, 3.0);
         floweyStem.updateHitbox();
 
+        spBubble = new ForeverSprite(0, 0, '${spriteDir}spBubble');
+        spBubble.antialiasing = false;
+        spBubble.scale.set(3.0, 3.0);
+        spBubble.updateHitbox();
+
         add(star);
         add(title);
         add(window);
@@ -183,6 +197,7 @@ class MemoryLogMenu extends BaseMenuState
 
         floweyHead.visible = false;
         floweyStem.visible = false;
+        spBubble.visible = false;
         floweyEmerge.setPosition(0, 400);
         floweyHead.setPosition(30, 433);
         floweyStem.setPosition(24, 595);
@@ -213,6 +228,30 @@ class MemoryLogMenu extends BaseMenuState
         optBattle.setPosition(window.x, 600);
         optInfo.setPosition(window.x + window.width - optInfo.width, 600);
         title.setPosition(160, 25);
+        spBubble.setPosition(270, 500);
+    }
+
+    private function setDialogue(file:String, diaName:String, ?locked:Bool)
+    {
+        var diaGrp:DialogueGroup;
+        parser.updateDialogueJson(file, 'memory');
+        diaGrp = parser.getDialogueFromName(diaName);
+
+        var sprGrp:FlxSpriteGroup = new FlxSpriteGroup(0, 0);
+        sprGrp.setPosition(spBubble.x, spBubble.y);
+        spBubble.setPosition(0, 0);
+        sprGrp.add(spBubble);
+
+        if(diaBubble == null)
+            diaBubble = new DialogueObject(Std.int(spBubble.x), Std.int(spBubble.y), diaGrp, floweyHead, sprGrp);
+        else
+            diaBubble.setDialogueGroup(diaGrp);
+
+        diaBubble.controlCharPos = false;
+        diaBubble.defaultFontSetup(DOTUMCHE, 28, FlxColor.BLACK, LEFT, 2.0, 12);
+        diaBubble.setTextOffset(60, 30);
+        diaBubble.narratedText.fieldWidth = spBubble.width - 90;
+        add(diaBubble);
     }
     
     override function update(elapsed:Float)
@@ -225,10 +264,12 @@ class MemoryLogMenu extends BaseMenuState
     {
         if(Controls.UI_DOWN_P)
         {
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
             loadArt(charListData[characterList.addToSelection(1)].artData);
         }
         if(Controls.UI_UP_P)
         {
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
             loadArt(charListData[characterList.addToSelection(-1)].artData);
         }
         if(Controls.UI_RIGHT_P)
@@ -237,11 +278,15 @@ class MemoryLogMenu extends BaseMenuState
             {
                 case MAIN: //switch the art
                 {
+                    var n = artDisplay.selection;
                     if(artDisplay != null)
                         artDisplay.addToSelection(1);
+                    if(n != artDisplay.selection)
+                        FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
                 }
                 case SUB: //switch the option select
                 {
+                    FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
                     addOptionSelect(1);
                 }
                 case SONG: {}
@@ -254,11 +299,15 @@ class MemoryLogMenu extends BaseMenuState
             {
                 case MAIN: //switch the art
                 {
+                    var n = artDisplay.selection;
                     if(artDisplay != null)
                         artDisplay.addToSelection(-1);
+                    if(n != artDisplay.selection)
+                        FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
                 }
                 case SUB: //switch the option select
                 {
+                    FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_mainmenu_select', SOUND));
                     addOptionSelect(-1);
                 }
                 case SONG: {}
@@ -275,10 +324,43 @@ class MemoryLogMenu extends BaseMenuState
                     menuState = SUB;
                     boxOptSel = 0;
                     addOptionSelect(0);
+                    FlxG.sound.play(Paths.sound('snd_confirm'));
                 }
-                case SUB: {}
-                case SONG: {}
-                case INFO: {}
+                case SUB: 
+                {
+                    FlxG.sound.play(Paths.sound('snd_confirm'));
+                    if(boxOptSel == 0)
+                    {
+
+                    }
+                    else if(boxOptSel == 1)
+                    {
+                        menuState = INFO;
+                        setDialogue(charListData[characterList.selection].dialogue, artDisplay.returnDialogueNameFromSel());
+                        diaBubble.skipLine();
+                        diaBubble.nextDialogueLine();
+                        diaBubble.visible = true;
+                        spBubble.visible = true;
+                    }
+                }
+                case SONG: 
+                {
+
+                }
+                case INFO: 
+                {
+                    diaBubble.nextDialogueLine();
+                    if(diaBubble.dialogueCompleted)
+                    {
+                        trace('closing dialogue');
+                        menuState = MAIN;
+                        optBattle.playAnim('deselect');
+                        optInfo.playAnim('deselect');
+                        diaBubble.visible = false;
+                        spBubble.visible = false;
+                        floweyHead.animation.play('default');
+                    }
+                }
             }
         }
         if(Controls.UT_CANCEL_P)
@@ -296,7 +378,10 @@ class MemoryLogMenu extends BaseMenuState
                     optInfo.playAnim('deselect');
                 }
                 case SONG: {}
-                case INFO: {}
+                case INFO: 
+                {
+                    diaBubble.skipLine();
+                }
             }
         }
     }
@@ -317,6 +402,7 @@ class MemoryLogMenu extends BaseMenuState
                     data.art[i].frameRate ?? 0,
                     data.art[i].resize ?? 1.0,
                     data.art[i].antialiasing ?? true);
+                artDisplay.addDialogueName(data.art[i].dialogueName);
             }
         }
         artDisplay.updateSelection(0);
@@ -338,6 +424,7 @@ class ArtDisplay extends SpriteScrollOption
 {
     //images could use information like resize, animation data, and when to unlock in a yaml file.
     public var spriteList:Array<ForeverSprite>;
+    public var dialogueList:Array<String>;
     public var windowWidth:Int;
     public var windowHeight:Int;
 
@@ -350,6 +437,7 @@ class ArtDisplay extends SpriteScrollOption
         windowHeight = winHeight;
 
         spriteList = new Array<ForeverSprite>();
+        dialogueList = new Array<String>();
     }
 
     public function addSprite(file:String, folder:String, animated:Bool, frameRate:Int = 0, resize:Float = 1.0, aa:Bool = true)
@@ -375,6 +463,16 @@ class ArtDisplay extends SpriteScrollOption
         spr.y = this.y + (windowHeight * 0.5) - (spr.height * 0.5);
     }
 
+    public inline function addDialogueName(dia:String)
+    {
+        dialogueList.push(dia);
+    }
+
+    public inline function returnDialogueNameFromSel():String
+    {
+        return dialogueList[selection];
+    }
+
     override function updateSelection(sel:Int)
     {
         selection = sel;
@@ -394,8 +492,6 @@ class ArtDisplay extends SpriteScrollOption
         {
             spriteList[i].visible = (i == selection);
         }
-
-        trace(selection + ' OF ' + spriteList.length);
     }
     
     public function clearArray()
@@ -405,5 +501,6 @@ class ArtDisplay extends SpriteScrollOption
             spr.destroy();
         }
         spriteList = new Array<ForeverSprite>();
+        dialogueList = new Array<String>();
     }
 }

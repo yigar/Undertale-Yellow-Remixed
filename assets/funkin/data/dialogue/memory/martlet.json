@@ -1,0 +1,110 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Martlet 1",
+            "parameters": 
+            {
+                "defaultDialogue": true,
+                "locked": false
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "Oh, yeah. Bird-brain."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "eager",
+                    "string": "Seems like she's a member of the Royal Guard."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "But don't let that intimidate you. She's a complete klutz!"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smug",
+                    "string": "How did that airhead even get the job, anyways?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "frown",
+                    "string": "She can't do ANYTHING without needing that guidebook of hers."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "lookFrown",
+                    "string": "At least she's a half-decent carpenter..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smug",
+                    "string": "If you wanna call a bunch of dinky puzzles \"carpentry\"."
+                }
+            ]
+        },
+        {
+            "name": "Martlet 2",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "locked": false
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "lookFrown",
+                    "string": "One thing I will give her, though."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "frown",
+                    "string": "At least she's not a coward."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "nervous",
+                    "string": "And just between you and me, kid?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "I'd tone down the violence around her, if I were you."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "lookSmile",
+                    "string": "If she gets the idea that you're a \"threat to all monsters\" or something..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "lookSmile",
+                    "string": "Heh, well."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "skull",
+                    "string": "You'll have problems. Let's leave it at that."
+                }
+            ]
+        },
+        {
+            "name": "Martlet Locked",
+            "parameters": 
+            {
+                "defaultDialogue": false,
+                "locked": true
+            },
+            "dialogue": [
+                {
+                    "character": "Flowey",
+                    "emotion": "default",
+                    "string": "Beat an enemy in Snowdin to unlock this!"
+                }
+            ]
+        }
+    ]
+}

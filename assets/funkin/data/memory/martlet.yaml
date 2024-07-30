@@ -1,0 +1,40 @@
+# -- 
+folder: "martlet"
+
+art:
+ - {
+      file: "martlet1",
+      resize: 1.0,
+      antialiasing: true,
+      animated: false,
+      frameRate: 0,
+      dialogueName: "Martlet 1",
+      unlock: "Martlet"
+    }
+ - {
+      file: "martlet2",
+      resize: 1.0,
+      antialiasing: true,
+      animated: false,
+      frameRate: 0,
+      dialogueName: "Martlet 1",
+      unlock: "Martlet"
+    }
+ - {
+      file: "martlet3",
+      resize: 1.0,
+      antialiasing: true,
+      animated: false,
+      frameRate: 0,
+      dialogueName: "Martlet 2",
+      unlock: "Martlet"
+    }
+ - {
+      file: "martlet4",
+      resize: 1.0,
+      antialiasing: true,
+      animated: false,
+      frameRate: 0,
+      dialogueName: "Martlet 2",
+      unlock: "Martlet"
+    }

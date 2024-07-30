@@ -12,6 +12,7 @@ import openfl.text.TextFormat;
 import uty.components.DialogueParser;
 import uty.ui.Window;
 import uty.objects.UTText;
+import flixel.util.FlxColor;
 
 class DialogueBox extends DialogueObject
 {
@@ -25,7 +26,7 @@ class DialogueBox extends DialogueObject
 
     public function new(x:Int, y:Int, dialogueGroup:DialogueGroup)
     {
-        defaultSetup();
+        defaultFontSetup(PIXELA, 38, FlxColor.WHITE, LEFT, 3.0, 10);
 
         var window:Window = new Window(0, 0, _boxWidth, _boxHeight);
 
@@ -38,16 +39,6 @@ class DialogueBox extends DialogueObject
         setBoxOffset(0, 0);
         setCharOffset(40, Std.int((window.height * 0.5) - (portrait.height * 0.5)));
         setTextOffset(Std.int(100 + portrait.width), 20);
-    }
-
-    private function defaultSetup()
-    {
-        _defaultFont = PIXELA;
-        _defaultFontSize = 38;
-        _defaultAlign = LEFT;
-        _defaultLetterSpacing = 3.0;
-        _defaultLeading = 10;
-        _defaultSound = "default";
     }
 
     override function updateCharSprite(?char:String = "NONE", ?anim:String = "default", ?frameRate:Int = 4)

@@ -12,6 +12,7 @@ import uty.components.DialogueParser;
 import uty.ui.Window;
 import uty.objects.UTText;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
 
 /*
     dialogue box for use in the overworld state.
@@ -33,16 +34,18 @@ class DialogueObject extends FlxTypedGroup<FlxObject>
     public var textOffset:FlxPoint;
 
     //data
-    var dialogueParser:DialogueParser;
     var dialogueGroup:DialogueGroup;
     var curLineData:DialogueLine; //for storing the current line's dialogue info
     var curDiaLine:Int = -1;
 
     public var dialogueCompleted:Bool = false;
+    public var controlBoxPos:Bool = true; //if false, box position will not be updated unless forced
+    public var controlCharPos:Bool = true; //if false, char sprite position will not be updated unless forced
 
     //some vars for customizing the text formatting of child classes, in case you want that consistent.
     private var _defaultFont:UTFont = PIXELA;
     private var _defaultFontSize:Int = 38;
+    private var _defaultColor:FlxColor;
     private var _defaultAlign:FlxTextAlign = LEFT;
     private var _defaultLetterSpacing:Float = 3.0;
     private var _defaultLeading:Int = 10;
@@ -65,13 +68,39 @@ class DialogueObject extends FlxTypedGroup<FlxObject>
         setCharOffset(0, 0);
         setBoxOffset(0, 0);
         setTextOffset(0, 0);
-        setScreenPosition(x, y);
+        //i don't wanna update shit just yet
+        defaultX = x;
+        defaultY = y;
 
         //information like character icon sprite, voice tone, font, and the dialogue itself are read from these files
         //though font is really only relevant with sans and papyrus, who aren't in this game, so...
         //probably a good thing to add if the field exists, otherwise just make it pixela extreme.
 
         this.dialogueGroup = dialogueGroup;
+    }
+
+    public function resetDialogue()
+    {
+        curDiaLine = -1;
+        dialogueCompleted = false;
+    }
+
+    public function setDialogueGroup(diaGrp:DialogueGroup)
+    {
+        resetDialogue();
+        this.dialogueGroup = diaGrp;
+    }
+
+    public function defaultFontSetup(font:UTFont = PIXELA, size:Int = 38, color:FlxColor = FlxColor.WHITE,
+        align:FlxTextAlign = LEFT, spacing:Float = 3.0, leading:Int = 10)
+    {
+        _defaultFont = font;
+        _defaultFontSize = size;
+        _defaultColor = color;
+        _defaultAlign = align;
+        _defaultLetterSpacing = spacing;
+        _defaultLeading = leading;
+        _defaultSound = "default";
     }
 
     //you have to set the sprite up in whatever child object or external state
@@ -118,17 +147,17 @@ class DialogueObject extends FlxTypedGroup<FlxObject>
         updateScreenPosition();
     }
 
-    public function updateScreenPosition(?txt:Bool = true, ?box:Bool = true, ?char:Bool = true)
+    public function updateScreenPosition(?txt:Bool = true, ?box:Bool, ?char:Bool)
     {
         if(txt && narratedText != null){
             narratedText.x = Std.int(defaultX + textOffset.x ?? 0);
             narratedText.y = Std.int(defaultY + textOffset.y ?? 0);
         }
-        if(box && boxSprites != null){
+        if((box ?? controlBoxPos) && boxSprites != null){
             boxSprites.x = Std.int(defaultX + boxOffset.x ?? 0);
             boxSprites.y = Std.int(defaultY + boxOffset.y ?? 0);
         }
-        if(char && charSprite != null){
+        if((char ?? controlCharPos) && charSprite != null){
             charSprite.x = Std.int(defaultX + charOffset.x ?? 0);
             charSprite.y = Std.int(defaultY + charOffset.y ?? 0);
         }
@@ -146,8 +175,11 @@ class DialogueObject extends FlxTypedGroup<FlxObject>
         }
     }
 
-    public function nextDialogueLine()
+    public function nextDialogueLine(?force:Bool = false)
     {
+        if(!(force || (!narratedText.narrating && narratedText.allowContinue)))
+            return;
+
         //update what line we're on, first line is 0
         curDiaLine += 1;
         //clear current dialogue
@@ -162,11 +194,11 @@ class DialogueObject extends FlxTypedGroup<FlxObject>
 
                 //CHARACTER SPRITE + SOUND SETUP
                 narratedText.setSound(curLineData.character ?? _defaultSound);
-                updateCharSprite(curLineData.character, curLineData.emotion, 4);
+                updateCharSprite(curLineData.character, curLineData.emotion, 3);
 
                 //FONT SET
                 narratedText.setFont(curLineData.font ?? _defaultFont, _defaultFontSize, 
-                    FlxColor.WHITE, _defaultAlign, _defaultLetterSpacing);
+                    _defaultColor, _defaultAlign, _defaultLetterSpacing, _defaultLeading);
 
                 //SCREEN AND SPRITE POSITIONING
                 updateScreenPosition();
@@ -190,12 +222,12 @@ class DialogueObject extends FlxTypedGroup<FlxObject>
     }
 
     //this is meant to be overrided for children that replace the sprite
-    public function updateCharSprite(?char:String = "NONE", ?anim:String = "default", ?frameRate:Int = 4)
+    public function updateCharSprite(?char:String = "NONE", ?anim:String = "default", ?frameRate:Int = 3)
     {
         updateCharAnim(anim ?? "default", frameRate);
     }
 
-    public function updateCharAnim(?anim:String = "default", ?frameRate:Int = 4)
+    public function updateCharAnim(?anim:String = "default", ?frameRate:Int = 3)
     {
         if(charSprite != null)
         {

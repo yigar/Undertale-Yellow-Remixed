@@ -200,8 +200,6 @@ class NarratedText extends UTText
         {
             lineLengths.push(this.textField.getLineLength(lineLengths.length));
         }
-        trace("LINE LENGTHS: " + lineLengths);
-        trace("FIELD WIDTH: " + this.fieldWidth);
 
         //now add \n to the text based on the line lengths
         var addLength:Int = 0;
