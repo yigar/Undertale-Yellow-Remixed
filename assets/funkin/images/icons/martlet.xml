@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="martlet.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="default0" x="1" y="1" width="40" height="40"/>
+  <SubTexture name="default1" x="42" y="1" width="40" height="40"/>
+  <SubTexture name="default2" x="83" y="1" width="40" height="40"/>
+  <SubTexture name="transition0" x="124" y="1" width="40" height="40"/>
+  <SubTexture name="lose0" x="165" y="1" width="40" height="40"/>
+  <SubTexture name="lose1" x="206" y="1" width="40" height="40"/>
+  <SubTexture name="lose2" x="247" y="1" width="40" height="40"/>
+</TextureAtlas>

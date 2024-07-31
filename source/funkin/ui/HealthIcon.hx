@@ -6,6 +6,7 @@ import forever.display.ForeverSprite;
 import funkin.states.PlayState;
 import haxe.ds.IntMap;
 
+//temporarily leaving this class in the game so it doesn't crash in the freeplay menu.
 class HealthIcon extends ChildSprite {
 	public var initialWidth:Float = 0.0;
 	public var initialHeight:Float = 0.0;
@@ -48,7 +49,7 @@ class HealthIcon extends ChildSprite {
 
 			loadGraphic(file); // load graphic to get the width and height
 			loadGraphic(file, true, Std.int(width / _width), Std.int(file.height));
-
+				
 			initialWidth = width;
 			initialHeight = height;
 

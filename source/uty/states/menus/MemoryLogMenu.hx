@@ -337,7 +337,6 @@ class MemoryLogMenu extends BaseMenuState
                     {
                         menuState = INFO;
                         setDialogue(charListData[characterList.selection].dialogue, artDisplay.returnDialogueNameFromSel());
-                        diaBubble.skipLine();
                         diaBubble.nextDialogueLine();
                         diaBubble.visible = true;
                         spBubble.visible = true;

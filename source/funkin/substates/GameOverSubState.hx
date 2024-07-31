@@ -180,6 +180,7 @@ class GameOverSubState extends FlxSubState {
                 textTimer -= elapsed;
                 if(textTimer <= 0)
                 {
+                    diaBox.skipLine();
                     diaBox.nextDialogueLine();
                     textTimer = 2.0;
                     timerActive = false;

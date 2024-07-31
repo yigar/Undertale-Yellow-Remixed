@@ -33,7 +33,7 @@ class NarratedText extends UTText
 
     public var narrating:Bool = false;
     public var finished:Bool = false;
-    public var allowContinue:Bool = false; //if true, you can press the confirm key to go to the next line if the narration is done
+    public var allowContinue:Bool = true; //if true, you can press the confirm key to go to the next line if the narration is done
     public var allowSkip:Bool = true; //if false, you cannot fast read this line and must wait for it to read out. for important lines.
     public var automated:Bool = false; //if true, it will finish on a timer. use with dialogue interruptions, etc. and allowSkip = false
     public var length:Int = 0;

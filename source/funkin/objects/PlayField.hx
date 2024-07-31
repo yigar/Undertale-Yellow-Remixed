@@ -13,7 +13,7 @@ import funkin.components.parsers.ChartFormat.NoteData;
 import funkin.objects.play.*;
 import funkin.states.PlayState;
 import funkin.ui.HealthBar;
-import funkin.ui.HealthIcon;
+import funkin.ui.UTIcon;
 
 import haxe.ds.Vector;
 
@@ -44,8 +44,8 @@ class PlayField extends FlxGroup {
 	public var centerMark:ForeverText;
 
 	public var healthBar:HealthBar;
-	public var iconP1:HealthIcon;
-	public var iconP2:HealthIcon;
+	public var iconP1:UTIcon;
+	public var iconP2:UTIcon;
 
 	public var rpcText:String;
 
@@ -82,8 +82,8 @@ class PlayField extends FlxGroup {
 
 		add(healthBar = new HealthBar(FlxG.width / 2, FlxG.height - 100, StoryData.getActiveData().playerSave.love));
 
-		add(iconP1 = new HealthIcon(PlayState.current?.player?.icon ?? "face", true));
-		add(iconP2 = new HealthIcon(PlayState.current?.enemy?.icon ?? "face", false));
+		add(iconP1 = new UTIcon(PlayState.current?.player?.icon ?? "face", true));
+		add(iconP2 = new UTIcon(PlayState.current?.enemy?.icon ?? "face", false));
 		for (i in [iconP1, iconP2]) i.y = healthBar.y - (i.height * 0.5);
 		
 		iconP1.x = FlxG.width - 150 - (iconP1.width * 0.50);
