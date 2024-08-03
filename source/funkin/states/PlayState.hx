@@ -25,6 +25,8 @@ import uty.components.PlayerData;
 import uty.components.StoryData;
 import funkin.components.StatsCalculator;
 import uty.components.Opponents;
+import uty.states.Overworld;
+import uty.states.menus.MemoryLogMenu;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -49,7 +51,7 @@ class PlayState extends FNFState {
 	public static var current:PlayState;
 
 	public var songMeta:PlaySong = {name: "Test", folder: "test", difficulty: "normal"};
-	public var playMode:Int = FREEPLAY;
+	public var playMode:Int = STORY;
 	public var songState:Int = STOPPED;
 
 	public var bg:ForeverSprite;
@@ -743,13 +745,13 @@ class PlayState extends FNFState {
 		}
 
 		switch (playMode) {
-			case STORY: FlxG.switchState(new MainMenu());
+			case STORY: FlxG.switchState(new Overworld());
 			#if FE_DEV
 			case CHARTER:
 				Conductor.init();
 				openChartEditor();
 			#end
-			case _: FlxG.switchState(new FreeplayMenu());
+			case _: FlxG.switchState(new MemoryLogMenu());
 		}
 	}
 

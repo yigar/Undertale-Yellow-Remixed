@@ -55,7 +55,7 @@ class Overworld extends FNFState
     public var roomParser:RoomParser;
     public var npcs:FlxTypedGroup<NPC>;
     public var followers:FlxTypedGroup<Follower>;
-    public var followerController:CharacterController;
+    public var followerControllers:Array<CharacterController>;
     public var foregroundDecals:Array<FlxSprite>;
     public var foregroundTiles:FlxTilemap;
     //for object draw order organization
@@ -307,8 +307,8 @@ class Overworld extends FNFState
         //this needs to be based off of the player's save file.
         //for now though, i'll just force it in.
         //REPLACE THIS SHIT LATER
-        var followerSave:Array<String> = new Array<String>();
-        followerSave.push("ceroba");
+        var followerSave:Array<String> = StoryData.getActiveData().followers;
+        //followerSave.push("ceroba");
 
         for(i in followerSave)
         {
@@ -322,7 +322,9 @@ class Overworld extends FNFState
             followers.add(follower);
         }
 
-        followerController = new CharacterController(followers.members[0]);
+        followerControllers = new Array<CharacterController>();
+        for (f in followers)
+            followerControllers.push(new CharacterController(f));
     }
 
     function initialSorterAdd()
@@ -452,6 +454,11 @@ class Overworld extends FNFState
             FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_battle_item_equip', SOUND));
         }
 
+        if(FlxG.keys.justPressed.M)
+        {
+            StoryProgress.flag("FloweySongBeaten");
+        }
+
         /*
         if(FlxG.keys.justPressed.SPACE)
         {
@@ -560,9 +567,12 @@ class Overworld extends FNFState
                 followers.members[i].updateTargetCoords(followers.members[i-1].bottomCenter.x, followers.members[i-1].bottomCenter.y);
             }
         }
-        followerController.update();
-        followerController.setMovingFromPoint(followers.members[0].calculateMoveInput());
-        followerController.setRunning(followers.members[0].isRunningDistance());
+        for(i in 0...followerControllers.length)
+        {
+            followerControllers[i].update();
+            followerControllers[i].setMovingFromPoint(followers.members[i].calculateMoveInput());
+            followerControllers[i].setRunning(followers.members[i].isRunningDistance());
+        }
     }
 
     //simply sorting by sprite Y doesn't really work when there's sprites of different sizes
@@ -647,6 +657,13 @@ class Overworld extends FNFState
             playerCenterScreenPoint.x, playerCenterScreenPoint.y);
         soulSubstate.camera = camHUD;
         openSubState(soulSubstate);
+    }
+
+    public function warp(room:String, x:Int, y:Int)
+    {
+        roomCleanup();
+        load(room, x, y);
+        FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_flowey_glitch_yellow', SOUND));
     }
 }
 

@@ -66,9 +66,9 @@ class OverworldMenuSubState extends FlxSubState
         optionWindow = new Window(50, 250, 210, 240);
         add(optionWindow);
         optionWindow.createMenu(75, 30, [
-            MenuOption("ITEM", openItemMenu),
-            MenuOption("STATS", openStatsMenu),
-            MenuOption("MAIL", openStatsMenu)
+            MenuOption("ITEM", openItemMenu, StoryData.getActiveData().playerSave.inventory.food.length > 0),
+            MenuOption("STATS", openStatsMenu, true),
+            MenuOption("MAIL", openStatsMenu, false)
         ], 1, 60, 50);
     }
 
@@ -103,18 +103,18 @@ class OverworldMenuSubState extends FlxSubState
             StoryData.getActiveData().playerSave.inventory.food[2].name ?? "null"
         ];
         optionWindow.sub.createMenu(75, 45, [
-            MenuOption(itemGrab[0], openSubItemState),
-            MenuOption(itemGrab[1], openSubItemState),
-            MenuOption(itemGrab[2], openSubItemState)
+            MenuOption(itemGrab[0], openSubItemState, true),
+            MenuOption(itemGrab[1], openSubItemState, true),
+            MenuOption(itemGrab[2], openSubItemState, true)
         ], 1, 60, 50);
 
 
         optionWindow.sub.addSubWindow(0, 400, 500, 100);
         optionWindow.sub.sub.setTransparent(true);
         optionWindow.sub.sub.createMenu(115, 30, [
-            MenuOption("USE", openSubItemState),
-            MenuOption("INFO", openSubItemState),
-            MenuOption("DROP", openSubItemState)
+            MenuOption("USE", openSubItemState, true),
+            MenuOption("INFO", openSubItemState, true),
+            MenuOption("DROP", openSubItemState, true)
         ], 3, 50, 140);
         optionWindow.sub.sub.menu.centerOptions();
         optionWindow.sub.sub.menu.toggleControl(false);

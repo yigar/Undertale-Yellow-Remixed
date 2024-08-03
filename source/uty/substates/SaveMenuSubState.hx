@@ -10,12 +10,22 @@ import uty.ui.Window;
 import uty.components.StoryData;
 import uty.components.PlayerData;
 import uty.objects.SavePoint;
+import flixel.util.FlxTimer;
 
 enum abstract SaveMenuState(String) to String{
     var CLOSE = "CLOSE";
     var MAIN = "MAIN";
     var SAVED = "SAVED"; //pre-close "file saved" state
+    var WARP = "WARP";
 } 
+
+typedef WarpData = {
+    name:String,
+    room:String,
+    posX:Int,
+    posY:Int,
+    unlock:String
+}
 
 @:access(funkin.states.Overworld)
 class SaveMenuSubState extends FlxSubState
@@ -24,31 +34,49 @@ class SaveMenuSubState extends FlxSubState
     public var savePoint:SavePoint; //for data retrieval
     public var saveData:StorySave;
 
+    public static final warpList:Array<WarpData> = [
+        {
+            name: "Dark Ruins",
+            room: "darkRuins_2",
+            posX: 400,
+            posY: 400,
+            unlock: "FloweySongBeaten"
+        },
+        {
+            name: "Snowdin Outskirts",
+            room: "snowdin_1",
+            posX: 400,
+            posY: 400,
+            unlock: "FloweySongBeaten"
+        }
+    ];
+
+    public var unlockedWarps:Array<WarpData>;
+
     public var menuState:String = MAIN;
 
     public function new(savePoint:SavePoint, camera:FlxCamera)
     {
         super();
         fetchSave();
+        updateUnlockedWarps();
         this.savePoint = savePoint;
 
         StoryUtil.restoreHP(99); //heal clover when he interacts with the save point.
 
-        saveWindow = new Window(150, 240, 660, 240);
+        saveWindow = new Window(150, 200, 660, 320);
         add(saveWindow);
         saveWindow.cameras = [camera];
 
-        saveWindow.addText(60, 45, 'Clover          LV ${saveData.playerSave.love}           0:00');
+        saveWindow.addText(60, 45, 'Clover          LV ${saveData.playerSave.love}           ${StoryUtil.getActiveTimeString()}');
         saveWindow.addText(60, 110, savePoint.name);
 
         saveWindow.createMenu(90, 180, [
-            MenuOption("Save", saveFunction),
-            MenuOption("Warp", saveFunction),
-            MenuOption("Remember", saveFunction),
-            MenuOption("Return", close)
-        ], 2, 60, 200);
-
-        trace('created save menu successfully');
+            MenuOption("Save", saveFunction, true),
+            MenuOption("Warp", openWarpMenu, (unlockedWarps.length > 0)),
+            MenuOption("Memory Log", saveFunction, true),
+            MenuOption("Return", close, true)
+        ], 2, 60, 300);
     }
 
     override function update(elapsed:Float)
@@ -91,9 +119,60 @@ class SaveMenuSubState extends FlxSubState
         saveWindow.menu.visible = false;
     }
 
+    private function openWarpMenu()
+    {
+        menuState = WARP;
+
+        updateUnlockedWarps();
+        var optArr:Array<MenuOption> = new Array<MenuOption>();
+        for (i in 0...unlockedWarps.length) {
+            optArr.push(MenuOption(unlockedWarps[i].name, warpFunction,
+                (unlockedWarps[i].room != Overworld.current.curRoomName)));
+        }
+
+        saveWindow.addSubWindow(80, -100, 500, 520);
+        saveWindow.sub.createMenu(60, 50, optArr, 1, 60, 50);
+        saveWindow.sub.visible = true;
+        saveWindow.controlSubMenu(true);
+
+        //create a sub-menu listing the warps.
+        //gray out the current one.
+    }
+
+    private function warpFunction()
+    {
+        var sel:Int = saveWindow.sub.menu.selection;
+        new FlxTimer().start(0.5, function(tmr:FlxTimer){
+            Overworld.current.warp(unlockedWarps[sel].room, unlockedWarps[sel].posX, unlockedWarps[sel].posY);
+        });
+        close();
+    }
+
+    private function updateUnlockedWarps():Array<WarpData>
+    {
+        unlockedWarps = new Array<WarpData>();
+        for(i in 0...warpList.length)
+            {
+                if(StoryProgress.checkFlag(warpList[i].unlock)) //checks if a flag named the same as the unlock var has been unlocked
+                    unlockedWarps.push(warpList[i]);
+            }
+        return unlockedWarps;
+    }
+
     private function cancelPress()
     {
-        close();
+        switch (menuState)
+        {
+            case SAVED, MAIN: {
+                close();
+            }
+            case WARP: {
+                saveWindow.sub.visible = false;
+                saveWindow.controlSubMenu(false);
+                saveWindow.menu.toggleControl(true);
+                menuState = MAIN;
+            }
+        }
     }
 
     private function confirmPress()
@@ -107,6 +186,10 @@ class SaveMenuSubState extends FlxSubState
             case MAIN:
             {
                 saveWindow.menu.callSelectedFunction();
+            }
+            case WARP:
+            {
+                saveWindow.sub.menu.callSelectedFunction();
             }
         }
     }

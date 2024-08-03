@@ -116,6 +116,22 @@ class Timings {
 		}
 	}
 
+	public static function returnHigherRank(rank1:String, rank2:String):String
+	{
+		var rank1num = null; 
+		var rank2num = null;
+		for (r in 0...rankings.length)
+		{
+			if(rank1num != null && rankings[r].getParameters()[0] == rank1)
+				rank1num = r;
+			if(rank2num != null && rankings[r].getParameters()[0] == rank2)
+				rank2num = r;
+		}
+		if(rank1num == null) rank1num = rankings.length;
+		if(rank2num == null) rank2num = rankings.length;
+		return (rank1num >= rank2num ? rank2 : rank1); //return the lowest
+	}
+
 	public static function increaseJudgeHits(name:String, increment:Int = 1):Void {
 		if (judgementsHit.exists(name))
 			judgementsHit.set(name, judgementsHit.get(name) + increment);

@@ -9,10 +9,28 @@ typedef StorySave =
 {
     playerSave:PlayerSave,
     followers:Array<String>,
-    deaths:StringMap<Int>,
+    songs:StringMap<StorySongSave>,
     secondsPlayed:Int,
     savePointName:String,
-    killedCharacters:Array<String>
+    flags:StoryFlags
+}
+
+//NOTE: STORY UNLOCK SHOULD BE DIFFERENT FROM FREEPLAY UNLOCK
+//i.e. warp unlocks should not be based on the same system as memory unlocks
+typedef StorySongSave = 
+{
+    played:Bool,
+    beaten:Bool,
+    deaths:Int
+}
+
+//stores string flags for marking various events happening in the game.
+//this is the main way the story is "progressed"
+//completed songs, spawnable items, characters being killed, etc.
+typedef StoryFlags = 
+{
+    main:Array<String>,
+    geno:Array<String>
 }
 
 class StoryData
@@ -30,26 +48,29 @@ class StoryData
         var dummySave:StorySave = {
             playerSave: PlayerData.returnDefault(),
             followers: [],
-            deaths: ["default" => 0],
+            songs: new StringMap<StorySongSave>(),
             secondsPlayed: 0,
             savePointName: "Save Point",
-            killedCharacters: []
+            flags: {
+                main: new Array<String>(),
+                geno: new Array<String>()
+            }
         };
         return dummySave;
     }
 
-    //writing these functions to separate storySave from activeData.
-    //simply setting them equal to each other doesn't work, it makes them the same object.
-    //this is probably a really dumbass solution. dont ask. i'm not a good programmer -yigar
+    //laudry function creates a copy of an object, divorcing it from other variables.
+    //it also null-safeties in the case of a corrupted/outdated save file.
     public static function launderData(save:StorySave):StorySave
     {
+        var def = returnDefault();
         var newSave = {
             playerSave: PlayerData.launderData(save.playerSave),
-            followers: save.followers,
-            deaths: save.deaths,
-            secondsPlayed: save.secondsPlayed,
-            savePointName: save.savePointName,
-            killedCharacters: save.killedCharacters
+            followers: save.followers ?? def.followers,
+            songs: save.songs ?? def.songs,
+            secondsPlayed: save.secondsPlayed ?? def.secondsPlayed,
+            savePointName: save.savePointName ?? def.savePointName,
+            flags: save.flags ?? def.flags
         };
         return newSave;
     }
@@ -58,9 +79,6 @@ class StoryData
     public static function setActiveData(data:StorySave):Void
     {
         activeData = data;
-        trace('ACTIVE LV: ${activeData.playerSave.love}');
-        trace('STORY LV: ${storySave.playerSave.love}');
-        trace('DUMMY LV: ${returnDefault().playerSave.love}');
     }
 
     //returns the active data variable that reflects immediate game status
@@ -168,17 +186,15 @@ class StoryUtil
     //adds one to the death count for a particular song
     public static function addDeath(song:String)
     {
-        var dum:StorySave = StoryData.getActiveData();
-        if(dum.deaths == null) 
-            dum.deaths = new StringMap<Int>();
-        dum.deaths.set(song, getDeaths(song) + 1);
-        StoryData.setActiveData(dum);
+        var d = getDeaths(song);
+        d += 1;
+        _setStorySong(song, {deaths: d});
     }
 
     public static function getDeaths(song:String):Int
     {
         var d = null;
-        d = StoryData.getActiveData().deaths?.get(song);
+        d = _getStorySong(song).deaths;
         if(d == null) d = 0;
         return d;
     }
@@ -213,4 +229,57 @@ class StoryUtil
         return '${h}:${mStr}';
     }
 
+    public static function getPlayedStory(song:String):Bool
+    {
+        var ss:StorySongSave = _getStorySong(song);
+        return ss.played;
+    }
+
+    public static function getBeatenStory(song:String):Bool
+    {
+        var ss:StorySongSave = _getStorySong(song);
+        return ss.beaten;
+    }
+
+    private static function _getStorySong(song:String):StorySongSave
+    {
+        return StoryData.getActiveData().songs.get(song);
+    }
+
+    private static function _setStorySong(song:String, values:Dynamic)
+    {
+        var save:StorySave = StoryData.getActiveData();
+        var oldSS:StorySongSave = _getStorySong(song);
+        var newSS:StorySongSave = {
+            played: values.played ?? oldSS.played,
+            beaten: values.beaten ?? oldSS.beaten,
+            deaths: values.deaths ?? oldSS.deaths,
+        }
+        save.songs.set(song, newSS);
+        StoryData.setActiveData(save);
+    }
+
+}
+
+//this could be moved to the storyUtil class, but im leaving it separate for now
+class StoryProgress
+{
+    public static function flag(flag:String)
+    {
+        var flags = _getActiveFlags();
+        if(!flags.main.contains(flag))
+            flags.main.push(flag);
+    }
+
+    public static function checkFlag(flag:String):Bool
+    {
+        var flags = _getActiveFlags();
+        return flags.main.contains(flag);
+    }
+
+    private static function _getActiveFlags():StoryFlags
+    {
+        var data:StorySave = StoryData.getActiveData();
+        return data.flags;
+    }
 }

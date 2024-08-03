@@ -8,7 +8,7 @@ import forever.display.ForeverSprite;
 import forever.display.ForeverText;
 import funkin.components.ChartLoader;
 import funkin.components.Difficulty;
-import funkin.components.Highscore;
+import funkin.components.FunkinData;
 import funkin.states.base.BaseMenuState;
 import funkin.ui.Alphabet;
 import funkin.ui.HealthIcon;
@@ -225,7 +225,7 @@ class FreeplayMenu extends BaseMenuState {
 			FlxG.sound.play(AssetHelper.getAsset('audio/sfx/scrollMenu', SOUND));
 
 		difficultyTxt.text = '« ${Difficulty.list[curAltSel].toUpperCase()} »';
-		intendedScore = Highscore.getSongScore(songs[curSel].folder).score;
+		intendedScore = FunkinUtil.getHighscore(songs[curSel].folder).score;
 		lastDiff = Difficulty.list[curAltSel];
 	}
 }

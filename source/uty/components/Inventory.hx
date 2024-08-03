@@ -17,7 +17,7 @@ typedef Item =
     name:String,
     abbreviation:String,
     info:String,
-    type:String,
+    type:ItemType,
     stats:ItemStats
 }
 
@@ -72,8 +72,9 @@ class Inventory
 
     public static function launderData(invt:InventoryItems):InventoryItems
     {
+        var def = returnDefault();
         var newInvt:InventoryItems = {
-            food: invt.food,
+            food: invt.food ?? def.food,
             weapon: _launderItem(invt.weapon),
             armor: _launderItem(invt.armor),
             ammo: _launderItem(invt.ammo),
@@ -145,15 +146,15 @@ class Inventory
     private static function _launderItem(item:Item):Item
     {
         var newItem = {
-            name: item.name,
-            abbreviation: item.abbreviation,
-            info: item.info,
-            type: item.type,
+            name: item.name ?? "N/A",
+            abbreviation: item.abbreviation ?? "N/A",
+            info: item.info ?? "Item data is missing. Most likely a mistyped file.",
+            type: item.type ?? FOOD,
             stats: {
-                hp: item.stats.hp,
-                at: item.stats.at,
-                df: item.stats.df,
-                inv: item.stats.inv
+                hp: item.stats.hp ?? 0,
+                at: item.stats.at ?? 0,
+                df: item.stats.df ?? 0,
+                inv: item.stats.inv ?? 0
             }
         };
         return newItem;

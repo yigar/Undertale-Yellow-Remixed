@@ -68,16 +68,18 @@ class PlayerData
         return dummySave;
     }
 
+    //returns a new variable and null-safeties it.
     public static function launderData(save:PlayerSave):PlayerSave
     {
+        var def = returnDefault();
         var newSave:PlayerSave = {
-            love: save.love,
-            health: save.health,
-            room: save.room,
-            posX: save.posX,
-            posY: save.posY,
+            love: save.love ?? def.love,
+            health: save.health ?? def.health,
+            room: save.room ?? def.room,
+            posX: save.posX ?? def.posX,
+            posY: save.posY ?? def.posY,
             inventory: Inventory.launderData(save.inventory),
-            gold: save.gold
+            gold: save.gold ?? def.gold
         };
         return newSave;
     }

@@ -39,10 +39,10 @@ class SaveFileMenu extends FNFState
         window.addText(0, 0, 0, 'Clover         LV${displayData.playerSave.love}         ${StoryUtil.getActiveTimeString()}', PIXELA, 38, true, 3);
         window.addText(0, 60, 0, displayData.savePointName, PIXELA, 38, true, 3);
         window.createMenu(60, 150, [
-            MenuOption("Continue", loadOverworld),
-            MenuOption("Reset", loadOverworld),
-            MenuOption("Memory Log", loadMemLog),
-            MenuOption("Options", loadOverworld)
+            MenuOption("Continue", loadOverworld, true),
+            MenuOption("Reset", loadOverworld, true),
+            MenuOption("Memory Log", loadMemLog, true),
+            MenuOption("Options", loadOverworld, true)
         ], 2, 60, 270);
 
         sndMngr = new SoundManager();

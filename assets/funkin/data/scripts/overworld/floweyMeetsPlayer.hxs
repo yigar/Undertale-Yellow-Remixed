@@ -8,7 +8,7 @@ function emerge()
 {
     var flowey = new OverworldCharacter("flowey", 380, 440, "down");
     flowey.playBasicAnimation('emerge', 'down');
-    Overworld.current.objectSorterGroup.add(flowey);
+    Overworld.current.visMngr.addSprite(flowey);
     new FlxTimer().start(1.5, dialogue1);
 }
 

@@ -9,7 +9,7 @@ import forever.display.ForeverSprite;
 import forever.display.ForeverText;
 import funkin.components.ChartLoader;
 import funkin.components.Difficulty;
-import funkin.components.Highscore;
+import funkin.components.FunkinData;
 import funkin.states.base.BaseMenuState;
 import flixel.FlxSprite;
 import uty.ui.ScrollSelectionList;

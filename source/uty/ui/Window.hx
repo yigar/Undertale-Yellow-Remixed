@@ -6,7 +6,7 @@ import uty.objects.UTText;
 import flixel.math.FlxMath;
 
 enum MenuOption {
-    MenuOption(text:String, call:Void->Void);
+    MenuOption(text:String, call:Void->Void, enabled:Bool);
 }
 
 class Window extends FlxSpriteGroup
@@ -98,6 +98,7 @@ class WindowMenu extends FlxSpriteGroup
     public var soul:FlxSprite;
     public var list:Array<UTText> = [];
     public var funcMap:Array<Void->Void> = [];
+    public var enabledList:Array<Bool> = [];
 
     //private; i don't want this being changed directly
     private var controlEnabled:Bool = true;
@@ -126,9 +127,11 @@ class WindowMenu extends FlxSpriteGroup
                 Std.int(x + ((i % perRow) * columnSpacing)), 
                 Std.int(y + (Math.floor(i / perRow) * rowSpacing)), 0,
                 items[i].getParameters()[0]);
+            item.setFont(PIXELA, 38, items[i].getParameters()[2] ? 0xFFFFFFFF : 0xFF888888);
             item.setBorder();
             //center stuff later
             list.push(item);
+            enabledList.push(items[i].getParameters()[2]);
             add(item);
             funcMap.push(items[i].getParameters()[1]);
         }
@@ -163,13 +166,23 @@ class WindowMenu extends FlxSpriteGroup
         }
     }
 
-    public function callSelectedFunction()
+    public function callSelectedFunction():Bool
     {
         if(funcMap[selection] != null) 
         {
-            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_confirm', SOUND));
-            funcMap[selection]();
+            if(enabledList[selection])
+            {
+                FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_confirm', SOUND));
+                funcMap[selection]();
+                return true;
+            }
+            else
+            {
+                FlxG.sound.play(AssetHelper.getAsset('audio/sfx/snd_fail', SOUND));
+                return false;
+            }
         }
+        return false;
     }
 
     public function updateSelection(select:Int, ?sound:Bool = true)
