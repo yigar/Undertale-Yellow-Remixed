@@ -135,6 +135,10 @@ class StoryData
 class StoryUtil
 {
     //utility class for setting some values quickly
+    public static var songFlags:StringMap<String> = [
+        "Flowey" => "FloweySongBeaten",
+        "Martlet" => "MartletSongBeaten"
+    ];
 
     public static function restoreHP(heal:Int, ?overheal:Bool = false)
     {
@@ -241,6 +245,11 @@ class StoryUtil
         return ss.beaten;
     }
 
+    public static function getFlagFromSong(song:String)
+    {
+        return songFlags.get(song);
+    }
+
     private static function _getStorySong(song:String):StorySongSave
     {
         return StoryData.getActiveData().songs.get(song);
@@ -266,6 +275,7 @@ class StoryProgress
 {
     public static function flag(flag:String)
     {
+        flag = flag.toLowerCase(); //doing this to remove problems with inconsistent casing (pascal, camel, etc.)
         var flags = _getActiveFlags();
         if(!flags.main.contains(flag))
             flags.main.push(flag);
@@ -273,7 +283,9 @@ class StoryProgress
 
     public static function checkFlag(flag:String):Bool
     {
+        flag = flag.toLowerCase();
         var flags = _getActiveFlags();
+        trace("flags: " + flags);
         return flags.main.contains(flag);
     }
 

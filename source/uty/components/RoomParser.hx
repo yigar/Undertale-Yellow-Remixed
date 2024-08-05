@@ -9,6 +9,7 @@ import flixel.group.FlxSpriteGroup;
 import uty.states.Overworld;
 import uty.objects.OverworldSprite;
 import uty.objects.OverworldTilemap;
+import uty.components.StoryData;
 
 class RoomParser
 {
@@ -164,7 +165,7 @@ class RoomParser
         return entityLayers;
     }
 
-    public function getAllEntities():Array<EntityData>
+    public function getAllEntities(?ignoreTags:Bool = false):Array<EntityData>
     {
         //flattens all entity layers into one array of entitydatas and returns it
         var entityList:Array<EntityData> = new Array<EntityData>();
@@ -173,6 +174,7 @@ class RoomParser
         {
             for(entity in layer.entities)
             {
+                if(ignoreTags || checkEntityFlags(entity)) //only add if flags are met or we're just ignoring them
                 entityList.push(cast entity);
             }
         }
@@ -206,6 +208,45 @@ class RoomParser
             }
         }
         return typedEntities;
+    }
+
+    //checks an entity's listed "required" and "forbidden" flags.
+    public function checkEntityFlags(entity:EntityData):Bool
+    {
+        if(Reflect.hasField(entity, "values"))
+        {
+            //if any required flag is not found, returns false.
+            if(Reflect.hasField(entity.values, "requiredFlags"))
+            {
+                var reqFlags = _flagStringToArray(entity.values.requiredFlags);
+                if(reqFlags.length > 0) trace('required flags: ' + reqFlags);
+                for(f in reqFlags)
+                {
+                    if(!StoryProgress.checkFlag(f))
+                    {
+                        trace('required flag not found');
+                        return false;
+                    }
+                }
+            }
+            //if any forbidden flag is found, returns false.
+            if(Reflect.hasField(entity.values, "forbiddenFlags"))
+            {
+                var forbFlags = _flagStringToArray(entity.values.forbiddenFlags);
+                if(forbFlags.length > 0) trace('forbidden flags: ' + forbFlags);
+                for(f in forbFlags)
+                {
+                    if(StoryProgress.checkFlag(f))
+                    {
+                        trace('forbidden flag found');
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        else 
+            return true;
     }
 
     //from what I understand, decals are just sections of a map that are untiled and use png assets
@@ -381,6 +422,32 @@ class RoomParser
         }
 
         return sprite;
+    }
+
+    function _flagStringToArray(str:String):Array<String>
+    {
+        var arr:Array<String> = new Array<String>();
+        var substr:String = "";
+        while(str.length > 0)
+        {
+            if(StringTools.isSpace(str, 0))
+            {
+                if(substr.length > 0)
+                {
+                    arr.push(substr);
+                    substr = "";
+                }
+            }
+            else
+            {
+                substr += str.charAt(0);
+            }
+            str = str.substr(1);
+            //check if the string is done for the last push
+            if(str.length == 0)
+                arr.push(substr);
+        }
+        return arr;
     }
 }
 

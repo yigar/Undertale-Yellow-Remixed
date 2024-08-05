@@ -15,6 +15,7 @@ class SoulTransitionSubState extends FlxSubState
 {
     //create the soul and flicker effect to go from the overworld into the playstate
     public var song:PlaySong;
+    public var playMode:GameplayMode;
 
     public var soul:ForeverSprite;
     public var black:ForeverSprite;
@@ -39,7 +40,7 @@ class SoulTransitionSubState extends FlxSubState
 
     private var _pixelScaleRatio:Float = 3.0;
 
-    public function new(song:PlaySong, soulX:Float, soulY:Float)
+    public function new(song:PlaySong, soulX:Float, soulY:Float, ?mode:GameplayMode = STORY)
     {
         super();
 
@@ -63,6 +64,7 @@ class SoulTransitionSubState extends FlxSubState
         setSoulEndPosition();
 
         this.song = song;
+        playMode = mode;
     }
 
     override public function update(elapsed:Float)
@@ -145,7 +147,7 @@ class SoulTransitionSubState extends FlxSubState
         trace("CHART: " + Chart.current + "\nSONG: " + song);
 
         Chart.current = ChartLoader.load(song.folder, song.difficulty);
-        FlxG.switchState(new PlayState(song));
+        FlxG.switchState(new PlayState(song, playMode));
         
         //FlxG.switchState(new FreeplayMenu());
 

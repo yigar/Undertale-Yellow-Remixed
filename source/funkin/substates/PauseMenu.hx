@@ -76,7 +76,7 @@ class PauseMenu extends FlxSubState {
 			PauseButton('restart', function():Void {
 				closing = true;
 				abruptOptionSelect();
-				FlxG.switchState(new PlayState(PlayState.current.songMeta));
+				FlxG.switchState(new PlayState(PlayState.current.songMeta, PlayState.current.playMode));
 			}),
 			PauseButton('options', function():Void {
 				abruptOptionSelect();

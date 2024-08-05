@@ -1,0 +1,19 @@
+function start()
+{
+    trace("SONG BEATEN SCRIPT");
+    room = 'darkRuins_2';
+    x = 400;
+    y = 400;
+    StoryProgress.flag(StoryUtil.getFlagFromSong('Flowey'));
+}
+
+function prepareOverworld()
+{
+    if(Overworld.current != null)
+    {
+        // i guess flxtimer delaying scripts just fucking fixes everything lmao
+        new FlxTimer().start(0.05, function(){
+            Overworld.current.openDialogue("floweySongBeaten", 'cutscenes', 0, "Flowey Beaten 1");
+        });
+    }
+}

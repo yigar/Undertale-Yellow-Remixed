@@ -6,7 +6,7 @@ import flixel.FlxSprite;
 import uty.objects.DialogueBox;
 import uty.components.DialogueParser;
 import flixel.FlxCamera;
-import forever.core.scripting.HScript;
+import uty.scripts.UTScript;
 
 @:access(funkin.states.Overworld)
 class DialogueSubState extends FlxSubState
@@ -15,7 +15,7 @@ class DialogueSubState extends FlxSubState
     var dialogueBox:DialogueBox;
 
     //script callbacks
-    public var script:HScript;
+    public var script:UTScript;
     public var callbackFunc:String;
     public var args:Array<Dynamic>;
 
@@ -65,7 +65,7 @@ class DialogueSubState extends FlxSubState
     
     public function setScriptCallback(script:String, func:String, ?args:Array<Dynamic>)
     {
-        this.script = new HScript(AssetHelper.getAsset('data/scripts/overworld/${script}', HSCRIPT));
+        this.script = new UTScript(AssetHelper.getAsset('data/scripts/overworld/${script}', HSCRIPT));
         scriptSet();
         callbackFunc = func;
         this.args = args;
@@ -74,12 +74,7 @@ class DialogueSubState extends FlxSubState
     //the event trigger and the dialoguesubstate BOTH have a scriptSet() command. Might wanna modularize this, just keep that in mind
     private function scriptSet()
     {
-        script.set("PlayState", funkin.states.PlayState);
-        script.set("PlaySong", funkin.states.PlayState.PlaySong);
-        script.set("Overworld", uty.states.Overworld);
-        script.set("OverworldCharacter", uty.objects.OverworldCharacter);
-        script.set("DialogueSubState", uty.substates.DialogueSubState);
-        script.set("DialogueGroup", uty.components.DialogueParser);
+        script.preset();
 
         script.set("currentDiaSubState", this);
     }

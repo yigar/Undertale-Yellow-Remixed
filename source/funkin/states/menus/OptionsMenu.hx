@@ -6,6 +6,7 @@ import forever.display.ForeverSprite;
 import forever.display.ForeverText;
 import forever.tools.ForeverOption;
 import funkin.states.PlayState.PlaySong;
+import funkin.states.PlayState.GameplayMode;
 import funkin.states.base.BaseMenuState;
 import funkin.states.menus.*;
 import funkin.states.options.*;
@@ -53,10 +54,13 @@ class OptionsMenu extends BaseMenuState {
 	var infoText:ForeverText;
 
 	var gameplayMusic:PlaySong = null;
+	var playMode:GameplayMode;
 
-	public function new(gameplayMusic:PlaySong = null):Void {
+	public function new(gameplayMusic:PlaySong = null, ?mode:GameplayMode):Void {
 		super();
 		this.gameplayMusic = gameplayMusic;
+		if(mode != null)
+			playMode = mode;
 	}
 
 	override function create():Void {
@@ -298,7 +302,7 @@ class OptionsMenu extends BaseMenuState {
 	function exitMenu():Void {
 		Settings.flush();
 		if (gameplayMusic != null)
-			FlxG.switchState(new funkin.states.PlayState(gameplayMusic));
+			FlxG.switchState(new funkin.states.PlayState(gameplayMusic, playMode ?? FREEPLAY));
 		else
 			FlxG.switchState(new MainMenu());
 	}

@@ -118,7 +118,7 @@ class FreeplayMenu extends BaseMenuState {
 					if (i == curSel) {
 						songGroup.members[i].flicker(0.5, 0.08, false, true, (flick:FlxFlicker) -> {
 							Chart.current = ChartLoader.load(song.folder, song.difficulty);
-							FlxG.switchState(new funkin.states.PlayState(song));
+							FlxG.switchState(new funkin.states.PlayState(song, FREEPLAY));
 						});
 						iconGroup.members[i].flicker(0.5, 0.08, false, true);
 					}

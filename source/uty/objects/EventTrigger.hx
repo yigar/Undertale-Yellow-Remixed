@@ -2,7 +2,7 @@ package uty.objects;
 
 import flixel.FlxSprite;
 import uty.components.Collision;
-import forever.core.scripting.HScript;
+import uty.scripts.UTScript;
 
 class EventTrigger extends FlxSprite
 {
@@ -10,7 +10,7 @@ class EventTrigger extends FlxSprite
     public var isButton:Bool = false; //if true, only activate on ACCEPT key press. if false, activate when colliding.
     public var disableAfterUses:Int = 1; //set to a negative number for infinite uses
 
-    public var script:HScript;
+    public var script:UTScript;
     public var collision:Collision;
 
     public function new(x:Float, y:Float, width:Float, height:Float, script:String, ?isButton:Bool = false, ?uses:Int = 1)
@@ -20,22 +20,10 @@ class EventTrigger extends FlxSprite
         alpha = 0.0;
         collision = new Collision(x, y, width, height);
 
-        this.script = new HScript(AssetHelper.getAsset('data/scripts/overworld/${script}', HSCRIPT));
-        scriptSet();
+        this.script = new UTScript(AssetHelper.getAsset('data/scripts/overworld/${script}', HSCRIPT));
 
         this.isButton = isButton;
         disableAfterUses = uses;
-    }
-
-    //the event trigger and the dialoguesubstate BOTH have a scriptSet() command. Might wanna modularize this, just keep that in mind
-    private function scriptSet()
-    {
-        script.set("PlayState", funkin.states.PlayState);
-        script.set("Overworld", uty.states.Overworld);
-        script.set("OverworldCharacter", uty.objects.OverworldCharacter);
-        script.set("DialogueSubState", uty.substates.DialogueSubState);
-        script.set("DialogueGroup", uty.components.DialogueParser);
-        script.set("PlaySong", funkin.states.PlayState.PlaySong);
     }
 
     public function callScript()

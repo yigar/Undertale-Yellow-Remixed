@@ -144,7 +144,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "snowdin_1", "toX": 160, "toY": 70}
+          "values": {"toRoom": "snowdin_1", "toX": 160, "toY": 70, "requiredFlags": "", "forbiddenFlags": ""}
         },
         {
           "name": "LoadingZone",
@@ -156,7 +156,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "darkRuins_1", "toX": 160, "toY": 140}
+          "values": {"toRoom": "darkRuins_1", "toX": 160, "toY": 140, "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     },
@@ -180,7 +180,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"script": "floweyMeetsPlayer", "isButton": false, "useCount": 1}
+          "values": {"script": "floweyMeetsPlayer", "isButton": false, "useCount": 1, "requiredFlags": "", "forbiddenFlags": "FloweySongBeaten MartletSongBeaten StarloSongBeaten"}
         }
       ]
     },
@@ -213,7 +213,7 @@
           "y": 140,
           "originX": 0,
           "originY": 0,
-          "values": {"pointName": "Ruins Save", "skin": "flowey", "spawnX": 100, "spawnY": 140, "dialogue": "firstSaveExample"}
+          "values": {"pointName": "Ruins Save", "skin": "flowey", "spawnX": 100, "spawnY": 140, "dialogue": "firstSaveExample", "requiredFlags": "", "forbiddenFlags": ""}
         },
         {
           "name": "SavePoint",
@@ -223,7 +223,7 @@
           "y": 140,
           "originX": 0,
           "originY": 0,
-          "values": {"pointName": "Ruins Save", "skin": "flowey", "spawnX": 100, "spawnY": 140, "dialogue": "firstSaveExample"}
+          "values": {"pointName": "Ruins Save", "skin": "flowey", "spawnX": 100, "spawnY": 140, "dialogue": "firstSaveExample", "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     }

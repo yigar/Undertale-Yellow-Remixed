@@ -19,10 +19,7 @@ function playMusic()
 
 function dialogue1()
 {
-    Overworld.current.dialogueParser.updateDialogueJson("floweyMeetsPlayer");
-    var diaGrp:DialogueParser.DialogueGroup = Overworld.current.dialogueParser.getDialogueFromName("Flowey Intro 1");
-    final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, Overworld.current.camHUD);
-    Overworld.current.openSubState(dialogueSubstate);
+    Overworld.current.openDialogue("floweyMeetsPlayer", null, 0, "Flowey Intro 1");
     return;
 }
 

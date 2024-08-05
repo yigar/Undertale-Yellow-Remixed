@@ -216,7 +216,7 @@ class GameOverSubState extends FlxSubState {
             else {
                 enter.color = 0xFFFFFF00;
                 camera.fade(FlxColor.BLACK, 1.0, false, () -> {
-                    FlxG.switchState(new PlayState(PlayState.current.songMeta));
+                    FlxG.switchState(new PlayState(PlayState.current.songMeta, PlayState.current.playMode));
                 });
             }
         }

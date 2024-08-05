@@ -27,6 +27,7 @@ import funkin.components.StatsCalculator;
 import uty.components.Opponents;
 import uty.states.Overworld;
 import uty.states.menus.MemoryLogMenu;
+import uty.scripts.UTScript;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -51,7 +52,7 @@ class PlayState extends FNFState {
 	public static var current:PlayState;
 
 	public var songMeta:PlaySong = {name: "Test", folder: "test", difficulty: "normal"};
-	public var playMode:Int = STORY;
+	public var playMode:GameplayMode = FREEPLAY;
 	public var songState:Int = STOPPED;
 
 	public var bg:ForeverSprite;
@@ -93,9 +94,11 @@ class PlayState extends FNFState {
 	 * Constructs the Gameplay State
 	 * @param songInfo 			Assigns a new song to the PlayState.
 	**/
-	public function new(songInfo:PlaySong):Void {
+	public function new(songInfo:PlaySong, mode:GameplayMode):Void {
 		super();
 		this.songMeta = songInfo;
+
+		playMode = mode;
 	}
 
 	@:dox(hide) override function create():Void {
@@ -745,13 +748,28 @@ class PlayState extends FNFState {
 		}
 
 		switch (playMode) {
-			case STORY: FlxG.switchState(new Overworld());
+			case STORY:
+			{
+				Conductor.init();
+				//assign songs specific scripts later
+				var script:UTScript = new UTScript(AssetHelper.getAsset('data/scripts/overworld/floweySongBeaten', HSCRIPT));
+				script.set('room', 'testLevel');
+				script.set('x', 0);
+				script.set('y', 0);
+				// ^ set these variables to their proper values in the script. 
+				script.call("start");
+				FlxG.switchState(new Overworld(script.get('room'), script.get('x'), script.get('y'), script.get('prepareOverworld')));
+				//FOR NOW, THIS SCRIPT SETUP WORKS.
+				//obviously should ideally make it more dynamic than this in the future
+			} 
 			#if FE_DEV
 			case CHARTER:
 				Conductor.init();
 				openChartEditor();
 			#end
-			case _: FlxG.switchState(new MemoryLogMenu());
+			case _:
+				Conductor.init(); 
+				FlxG.switchState(new MemoryLogMenu());
 		}
 	}
 

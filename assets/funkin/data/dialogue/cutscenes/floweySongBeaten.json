@@ -1,0 +1,140 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Flowey Beaten 1",
+            "parameters": {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue":
+            [
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Great! That should cover the basics."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "plain",
+                    "string": "Now."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "I can tell by that look on your face."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "squint",
+                    "string": "You know this isn't your first time here, don't you?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Haha... seems like you're FINALLY catching on!"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "That means you're probably aware that I can SAVE."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "side",
+                    "string": "But in your absence, I've been... experimenting."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "eager",
+                    "string": "Turns out, I can go FORWARD in time, too!"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "As long as you have a strong memory of what happens next..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "side",
+                    "string": "Perhaps, from another time..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "I can 'WARP' you to that point!"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "worriedSmile",
+                    "string": "But it's... a work-in-progress."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "plain",
+                    "string": "I can't take you THAT far ahead. Just a few minutes at a time."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "But hopefully that'll be enough to hurry you along."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Alright?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "plain",
+                    "string": "..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "plain",
+                    "string": "Why did you come back here, Clover?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "plain",
+                    "string": "Are you bored?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smug",
+                    "string": "Or did you just want to see your friends again?"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Or, maybe..."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Maybe you're not satisfied."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "eager",
+                    "string": "Maybe you think you can get a better ending."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smug",
+                    "string": "Well, whatever your reason is, don't forget:"
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "evil",
+                    "string": "I'M still in control here."
+                },
+                {
+                    "character": "Flowey",
+                    "emotion": "smile",
+                    "string": "Go to ASGORE. Got it?"
+                }
+            ]
+        }
+    ]
+}

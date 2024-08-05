@@ -38,6 +38,8 @@ class Overworld extends FNFState
     public static var current:Overworld;
 
     public var curRoomName:String = "testLevel";
+    var spawnX:Int;
+    var spawnY:Int;
     public var room:TiledRoom;
     public var player:Player;
     public var playerController:CharacterController;
@@ -68,11 +70,21 @@ class Overworld extends FNFState
     var centerHeight = FlxG.height / 2;
 
     var roomTransitionTime:Float = 0.7;
+    var loadCallback:Void->Void;
 
     public static var pixelRatio:Int = 3; //scale all non-funkin state sprites by this value
 
     public var isPlayerInLoadingZone:Bool = true; //for various loading zone features
     //such as not triggering a loading zone when spawning within one, and only triggering the transition once
+
+    public function new(?room:String, ?x:Int, ?y:Int, ?callback:Void->Void)
+    {
+        super();
+        curRoomName = room ?? StoryData.getActiveData().playerSave.room;
+        spawnX = x ?? StoryData.getActiveData().playerSave.posX;
+        spawnY = y ?? StoryData.getActiveData().playerSave.posY;
+        setLoadCallback(callback);
+    }
 
     override function create()
     {
@@ -90,28 +102,10 @@ class Overworld extends FNFState
 
         dialogueParser = new DialogueParser();
         soundMngr = new SoundManager();
-        
-        
-        //load the save data before generating the assets
-        //setting of all values through StoryData.getActiveData() is to be done in this function
-        loadSaveData();
 
-        //except these, which are one-off enough to do here
-        var spawnX = StoryData.getActiveData().playerSave.posX;
-        var spawnY = StoryData.getActiveData().playerSave.posY;
         load(curRoomName, spawnX, spawnY);
 
         current = this;
-    }
-
-    
-    /*
-    * NOTE: may want to make loading the save file or the active data part of an external thing or a create() parameter
-    * for more control
-    */
-    function loadSaveData()
-    {
-        curRoomName = StoryData.getActiveData().playerSave.room ?? "testLevel";
     }
 
     override function update(elapsed:Float)
@@ -226,6 +220,9 @@ class Overworld extends FNFState
 
         setCameraBounds(0, 0);
         camGame.follow(player);
+
+        loadCallback();
+        setLoadCallback(null); //makes this callback happen only once.
     }
 
     function loadRoomVisuals()
@@ -325,6 +322,14 @@ class Overworld extends FNFState
         followerControllers = new Array<CharacterController>();
         for (f in followers)
             followerControllers.push(new CharacterController(f));
+    }
+
+    public function setLoadCallback(func:Void->Void)
+    {
+        if(func != null)
+            loadCallback = func;
+        else
+            loadCallback = function() {};
     }
 
     function initialSorterAdd()
@@ -484,10 +489,15 @@ class Overworld extends FNFState
         });
     }
 
-    public function openDialogue(dialogue:String, ?folder:String, ?checkCount:Int = 0)
+    public function openDialogue(dialogue:String, ?folder:String, ?checkCount:Int = 0, ?name:String)
     {
+        trace('dialogue opned');
         dialogueParser.updateDialogueJson(dialogue, folder ?? "");
-        var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(checkCount);
+        var diaGrp:DialogueGroup;
+        if(name != null)
+            diaGrp = dialogueParser.getDialogueFromName(name);
+        else    
+            diaGrp = dialogueParser.getDialogueFromCheckCount(checkCount);
         final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
         openSubState(dialogueSubstate);
     }
