@@ -13,7 +13,7 @@ import uty.states.Overworld;
 //contains some positioning info to pass to the save file too
 class SavePoint extends NPC
 {
-    public var name:String = "Save Point";
+    public var saveName:String = "Save Point";
     public var spawnPoint:FlxPoint;
     public var dialogue:String;
 
@@ -24,7 +24,7 @@ class SavePoint extends NPC
         ?name:String, ?file:String = "flowey", ?dialogue:String = "saveDialogueDefault")
     {
         spawnPoint = new FlxPoint(spawnX, spawnY);
-        if(name != null) this.name = name;
+        if(name != null) saveName = name;
 
         if(dialogue == null || dialogue == "")
         {

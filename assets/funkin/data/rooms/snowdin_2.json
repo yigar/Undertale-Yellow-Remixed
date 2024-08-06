@@ -1345,7 +1345,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "snowdin_1", "toX": 200, "toY": 20}
+          "values": {"toRoom": "snowdin_1", "toX": 200, "toY": 20, "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     },

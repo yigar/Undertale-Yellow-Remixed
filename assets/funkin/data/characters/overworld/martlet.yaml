@@ -1,11 +1,13 @@
-spritesheet: "ceroba"
+spritesheet: "martlet"
 
 animations:
- - {name: "idle_up", prefix: "walk_up", fps: 0, loop: false, indices: [0]}
- - {name: "idle_down", prefix: "walk_down", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_up", prefix: "talk_up", fps: 0, loop: false, indices: [0]}
+ - {name: "idle_down", prefix: "talk_down", fps: 0, loop: false, indices: [0]}
  - {name: "idle_left", prefix: "talk_left", fps: 0, loop: false, indices: [0]}
  - {name: "idle_right", prefix: "talk_right", fps: 0, loop: false, indices: [0]}
 
+ - {name: "talk_up", prefix: "talk_up", fps: 0, loop: false, indices: [0]}
+ - {name: "talk_down", prefix: "talk_down", fps: 3, loop: true, indices: [0, 1]}
  - {name: "talk_left", prefix: "talk_left", fps: 3, loop: true, indices: [0, 1]}
  - {name: "talk_right", prefix: "talk_right", fps: 3, loop: true, indices: [0, 1]}
 
@@ -18,6 +20,12 @@ animations:
  - {name: "run_down", prefix: "run_down", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
  - {name: "run_left", prefix: "run_left", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
  - {name: "run_right", prefix: "run_right", fps: 12, loop: true, indices: [0, 1, 2, 3, 4, 5]}
+
+ - {name: "sittingRustle", prefix: "sittingRustle", fps: 12, loop: true, indices: [0, 1, 2, 3]}
+ - {name: "sittingWake", prefix: "sittingWake", fps: 12, loop: false, indices: [0, 1, 2, 3, 4, 5, 4, 5, 4]}
+ - {name: "stand", prefix: "stand", fps: 12, loop: false, indices: [0, 1, 2, 3, 4, 5]}
+ - {name: "bookGrab", prefix: "holdBook", fps: 12, loop: false, indices: [0, 1, 2, 1, 2, 1, 2, 3, 7, 7, 4, 5, 6, 7]}
+ - {name: "bookTalk", prefix: "holdBook", fps: 12, loop: false, indices: [8, 7]}
 
 hitbox: {offsetX: 0, offsetY: -10, width: 70, height: 60}
  

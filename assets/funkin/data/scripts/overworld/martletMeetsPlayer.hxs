@@ -1,0 +1,29 @@
+var martlet:NPC;
+
+function start()
+{
+    Overworld.current.setLockAllInput(true);
+    martlet = Overworld.current.getNPCFromName("martlet");
+    if(martlet != null)
+    {
+        new FlxTimer().start(1.0, martletWakeUp);
+    }
+}
+
+function martletWakeUp()
+{
+    martlet.playSpecialAnimation('sittingWake');
+    new FlxTimer().start(1.0, function(tmr:FlxTimer) { 
+        Overworld.current.openDialogue("martletMeetsPlayer", null, 0, "Martlet Wakes Up"); } );
+}
+
+function martletWalkOver()
+{
+    
+}
+
+function startSong()
+{
+    var martSong:PlaySong = new PlaySong("Martlet", "martlet", "hard");
+    Overworld.current.initializeSongTransition(martSong);
+}

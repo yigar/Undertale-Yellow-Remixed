@@ -120,8 +120,8 @@ class Overworld extends FNFState
         playerHitbox.updatePosition(); //move the hitbox with the player
         playerCollisionCheck();
 
-        playerController.update();
-        followerControllerUpdate();
+        playerController.update(elapsed); //update AFTER the control call so the scripted stuff can override controls
+        followerControllerUpdate(elapsed);
 
         camGame.updateFollow();
 
@@ -461,7 +461,9 @@ class Overworld extends FNFState
 
         if(FlxG.keys.justPressed.M)
         {
-            StoryProgress.flag("FloweySongBeaten");
+            //var npcCtrl:CharacterController = new CharacterController(npcs[0]);
+            playerController.addScriptInput("right", false, 1.0);
+            playerController.addScriptInput("down", false, 1.0);
         }
 
         /*
@@ -563,7 +565,7 @@ class Overworld extends FNFState
             });
     }
 
-    public function followerControllerUpdate()
+    public function followerControllerUpdate(elapsed:Float)
     {
         //remember to go off of the bottom-center coords.
         for(i in 0...followers.members.length)
@@ -579,7 +581,7 @@ class Overworld extends FNFState
         }
         for(i in 0...followerControllers.length)
         {
-            followerControllers[i].update();
+            followerControllers[i].update(elapsed);
             followerControllers[i].setMovingFromPoint(followers.members[i].calculateMoveInput());
             followerControllers[i].setRunning(followers.members[i].isRunningDistance());
         }
@@ -634,6 +636,16 @@ class Overworld extends FNFState
             setLockAllInput(false);
         }
         super.closeSubState();
+    }
+
+    public function getNPCFromName(name:String):NPC
+    {
+        for(n in npcs)
+        {
+            if(n.name == name)
+                return n;
+        }
+        return null;
     }
 
     public function setLockAllInput(locked:Bool = true)

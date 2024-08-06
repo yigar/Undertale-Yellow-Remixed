@@ -1,5 +1,6 @@
 package uty.objects;
 
+import haxe.atomic.AtomicBool;
 import uty.states.Overworld;
 import flixel.FlxSprite;
 import flixel.math.FlxPoint;
@@ -7,6 +8,7 @@ import flixel.group.FlxSpriteGroup;
 import forever.display.ForeverSprite;
 import flixel.math.FlxMath;
 import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 import uty.components.Collision;
 
 enum abstract Direction(String) to String{
@@ -36,6 +38,8 @@ class OverworldCharacter extends OverworldSprite
     public var characterName:String = "clover";
 
     public var facingDirection:String = DOWN;
+    public var playingSpecialAnim:Bool = false;
+    public var specialAnimTimer:FlxTimer;
 
     private final _defaultDataDirectory:String = "data/characters/overworld/";
     private final _defaultSpriteDirectory:String = "images/overworld/characters/";
@@ -46,6 +50,7 @@ class OverworldCharacter extends OverworldSprite
     {
         super(x, y);
         characterName = charName;
+        name = charName;
         facingDirection = facing;
 
         //sprite stuff
@@ -96,28 +101,58 @@ class OverworldCharacter extends OverworldSprite
 
     public function playBasicAnimation(action:String = "idle", ?direction:String = "down", ?modifier:String = "")
     {
+        //do not override a special animation
+        if(playingSpecialAnim) 
+            return;
         if(modifier != "") 
             modifier += "_";
         updateAnim(modifier + action + "_" + direction);
     }
 
-    public function updateAnim(anim:String)
+    public function playSpecialAnimation(anim:String, ?cancelTime:Float = 0.0, ?cancelOnEnd:Bool = false)
     {
-        //takes care of attempting to play a playing animation issue
+        if(updateAnim(anim))
+        {
+            playingSpecialAnim = true;
+            if(cancelTime > 0.0)
+            {
+                specialAnimTimer = new FlxTimer().start(cancelTime, function(tmr:FlxTimer){ cancelSpecialAnimation(); });
+            }
+            else if(cancelOnEnd)
+            {
+                animation.finishCallback = function(name:String) {
+                    if(name == anim) cancelSpecialAnimation();
+                }
+            }
+        }
+    }
+
+    public function cancelSpecialAnimation()
+    {
+        playingSpecialAnim = false;
+    }
+
+    public function updateAnim(anim:String):Bool
+    {
+        //takes care of attempting to play a playing animation issue.
+        //returns true if the animation was successfully changed.
         if(sprite.animation.exists(anim) && sprite.animation.name != anim)
         {
             if(sprite.animation.name != anim)
             {
                 sprite.animation.play(anim);
+                return true;
                 //trace('playing animation ${anim} on character ${characterName}');
             }
             else
             {
+                return false;
                 //trace('note: animation ${anim} on character ${characterName} is already being played.');
             }
         }
         else
         {
+            return false;
             //trace('ERROR: animation does not exist.');
         }
     }
@@ -135,6 +170,10 @@ class OverworldCharacter extends OverworldSprite
     you get the idea
 */
 
+enum ScriptInput {
+    ScriptInput(direction:String, running:Bool, time:Float);
+}
+
 class CharacterController
 {
     public var character:OverworldCharacter; //the character to be controlled
@@ -147,6 +186,8 @@ class CharacterController
     public var isRunning:Bool = false;
     //the axes should be checked for collision separately
     public var prevPosition:FlxPoint; 
+
+    public var scriptInputList:Array<ScriptInput>;
     
     private final _diagonal = 0.707; //diagonal movement speed for characters: [(sqrt 2) / 2]
 
@@ -154,10 +195,24 @@ class CharacterController
     {
         character = char;
         prevPosition = new FlxPoint(character.x, character.y);
+
+        scriptInputList = new Array<ScriptInput>();
     }
 
-    public function update()
+    public function update(elapsed:Float)
     {
+        if(scriptInputList.length > 0)
+        {
+            var leadInput = scriptInputList[0].getParameters();
+            setMoving(leadInput[0], leadInput[0]);
+            setRunning(leadInput[1]);
+            //timer function
+            scriptInputList[0] = ScriptInput(leadInput[0], leadInput[1], leadInput[2] - elapsed);
+            if(leadInput[2] - elapsed <= 0.0)
+            {
+                scriptInputList.shift();
+            }
+        }
         //controller will move check constantly based on values
         move();
         updateFacingDirection();
@@ -190,22 +245,22 @@ class CharacterController
     {
         switch (horizontal)
         {
-            case NONE:
-                movingX = 0;
             case LEFT:
                 movingX = -1;
             case RIGHT:
                 movingX = 1;
+            default:
+                movingX = 0;
         }
 
         switch (vertical)
         {
-            case NONE:
-                movingY = 0;
             case UP:
                 movingY = -1;
             case DOWN:
                 movingY = 1;
+            default:
+                movingY = 0;
         }
 
         //checks if we're currently moving based on these inputs
@@ -262,5 +317,10 @@ class CharacterController
             action = (isRunning ? RUN : WALK);
 
         character.playBasicAnimation(action, character.facingDirection);
+    }
+
+    public function addScriptInput(direction:String, running:Bool, time:Float)
+    {
+        scriptInputList.push(ScriptInput(direction, running, time));
     }
 }

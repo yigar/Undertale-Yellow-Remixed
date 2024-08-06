@@ -38,7 +38,14 @@
           "originY": 0.5,
           "values": {"drawHeight": 50, "scrollFactorX": 1.5, "scrollFactorY": 1.5, "animated": false, "frameRate": 0}
         },
-        {"x": 378, "y": 184, "texture": "decal/pillar.png", "originX": 0.5, "originY": 0.5}
+        {
+          "x": 378,
+          "y": 184,
+          "texture": "decal/pillar.png",
+          "originX": 0.5,
+          "originY": 0.5,
+          "values": {"drawHeight": 50, "scrollFactorX": 1, "scrollFactorY": 1, "animated": false, "frameRate": 0}
+        }
       ],
       "folder": ""
     },
@@ -188,7 +195,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "darkRuins_1", "toX": 160, "toY": 720}
+          "values": {"toRoom": "darkRuins_1", "toX": 160, "toY": 700, "requiredFlags": "", "forbiddenFlags": ""}
         },
         {
           "name": "LoadingZone",
@@ -200,7 +207,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"toRoom": "snowdin_1", "toX": 160, "toY": 70}
+          "values": {"toRoom": "snowdin_1", "toX": 160, "toY": 70, "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     },
@@ -224,7 +231,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"script": "floweyMeetsPlayer", "isButton": false, "useCount": 1}
+          "values": {"script": "floweyMeetsPlayer", "isButton": false, "useCount": 1, "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     },
@@ -270,7 +277,7 @@
           "y": 120,
           "originX": 0,
           "originY": 0,
-          "values": {"pointName": "Save Point", "skin": "flowey", "spawnX": 340, "spawnY": 100, "dialogue": "saveDialogueDefault"}
+          "values": {"pointName": "Save Point", "skin": "flowey", "spawnX": 340, "spawnY": 100, "dialogue": "saveDialogueDefault", "requiredFlags": "", "forbiddenFlags": ""}
         },
         {
           "name": "NPC",
@@ -280,7 +287,7 @@
           "y": 80,
           "originX": 0,
           "originY": 0,
-          "values": {"characterName": "ceroba", "dialogue": "cerobaDialogue", "facing": "down"}
+          "values": {"characterName": "ceroba", "dialogue": "cerobaDialogue", "facing": "down", "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     }

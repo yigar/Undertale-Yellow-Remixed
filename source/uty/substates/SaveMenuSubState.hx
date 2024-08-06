@@ -69,7 +69,7 @@ class SaveMenuSubState extends FlxSubState
         saveWindow.cameras = [camera];
 
         saveWindow.addText(60, 45, 'Clover          LV ${saveData.playerSave.love}           ${StoryUtil.getActiveTimeString()}');
-        saveWindow.addText(60, 110, savePoint.name);
+        saveWindow.addText(60, 110, savePoint.saveName);
 
         saveWindow.createMenu(90, 180, [
             MenuOption("Save", saveFunction, true),
@@ -105,7 +105,7 @@ class SaveMenuSubState extends FlxSubState
         //technical
         menuState = SAVED;
 
-        StoryUtil.updateSavePoint(savePoint.name, Overworld.current.curRoomName, 
+        StoryUtil.updateSavePoint(savePoint.saveName, Overworld.current.curRoomName, 
             Std.int(savePoint.spawnPoint.x), Std.int(savePoint.spawnPoint.y));
 
         StoryData.saveData();

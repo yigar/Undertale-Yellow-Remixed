@@ -180,7 +180,7 @@
           "height": 20,
           "originX": 0,
           "originY": 0,
-          "values": {"script": "floweyMeetsPlayer", "isButton": false, "useCount": 1, "requiredFlags": "", "forbiddenFlags": "FloweySongBeaten MartletSongBeaten StarloSongBeaten"}
+          "values": {"script": "floweyMeetsPlayer", "isButton": false, "useCount": 1, "requiredFlags": "", "forbiddenFlags": "FloweySongBeaten"}
         }
       ]
     },

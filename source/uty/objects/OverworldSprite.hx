@@ -17,6 +17,7 @@ enum abstract DrawLayer(Int) to Int{
 //sprites with basic discernable variables needed for the overworld, particularly height
 class OverworldSprite extends FlxSpriteGroup
 {
+    public var name:String = "NewSprite"; //for identification
     public var sprite:ForeverSprite;
 
     public var worldHeight:Float; //determines draw order. do not change this.
@@ -28,12 +29,13 @@ class OverworldSprite extends FlxSpriteGroup
 
     private final _pixelRatio:Int = 3;
 
-    public function new(x:Float, y:Float, ?elevation:Float = 0.0, ?layer:Int = DEFAULT, ?drawHeight:Int = 0)
+    public function new(x:Float, y:Float, ?elevation:Float = 0.0, ?layer:Int = DEFAULT, ?drawHeight:Int = 0, ?name:String = "NewSprite")
     {
         super(x, y);
         sprite = new ForeverSprite(0, 0);
 
         worldHeight = this.y; //temporary
+        this.name = name;
         this.elevation = elevation;
         this.layer = layer;
         this.drawHeight = drawHeight;

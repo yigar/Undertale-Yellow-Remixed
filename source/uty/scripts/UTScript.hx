@@ -19,7 +19,9 @@ class UTScript extends HScript
         set("PlaySong", funkin.states.PlayState.PlaySong);
         //overworld functionality
         set("Overworld", uty.states.Overworld);
+        set("OverworldSprite", uty.objects.OverworldSprite);
         set("OverworldCharacter", uty.objects.OverworldCharacter);
+        set("NPC", uty.objects.NPC);
         set("DialogueSubState", uty.substates.DialogueSubState);
         set("DialogueGroup", uty.components.DialogueParser);
         //game data/save manipulation

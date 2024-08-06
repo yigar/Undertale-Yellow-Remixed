@@ -1,0 +1,120 @@
+{
+    "dialogueGroups":
+    [
+        {
+            "name": "Martlet Wakes Up",
+            "parameters": {
+                "defaultDialogue": true,
+                "checkCount": 0
+            },
+            "dialogue":
+            [
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "Hm? Oh, uh, hello!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "Sorry, I was zoned out for a moment there."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "You look like you're lost. Do you need directions?"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I'm no information kiosk, though it kind of looks like it..."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "But I know this place like the back of my wing!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I can get you wherever you need to go!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I can get you wherever you need to go!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "Wait..."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I'm gonna take a shot in the dark here, but..."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "You're a human! Right?"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I knew it! I knew I'd find one! You must be human! Right? Right?"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "Your hat! It's like in those human movies!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "They used to have a bunch of them over at the library."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I'm not sure what happened to them..."
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "Ah! I'm getting off-track again."
+                }
+            ],
+            "callback": {
+                "script": "martletMeetsPlayer",
+                "func": "startSong",
+                "args": []
+            }
+        },
+        {
+            "name": "Martlet Book",
+            "parameters": {
+                "defaultDialogue": false,
+                "checkCount": 0
+            },
+            "dialogue":
+            [
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "Time for some Royal Guard protocol!"
+                },
+                {
+                    "character": "Martlet",
+                    "emotion": "smile",
+                    "string": "I hope you're ready, 'cause I memorized it!"
+                }
+            ],
+            "callback": {
+                "script": "martletMeetsPlayer",
+                "func": "startSong",
+                "args": []
+            }
+        }
+    ]
+}
