@@ -215,7 +215,8 @@ class DialogueParser
             {
                 if(Reflect.hasField(group, "name"))
                 {
-                    if(group.name ==  name)
+                    //trace(group.name + " VS " + name);
+                    if(group.name.toLowerCase() ==  name.toLowerCase())
                     {
                         return group;
                     }

@@ -3,10 +3,11 @@ var martlet:NPC;
 function start()
 {
     Overworld.current.setLockAllInput(true);
+    Overworld.current.tweenCameraOffset(0, -250, 2.0);
     martlet = Overworld.current.getNPCFromName("martlet");
     if(martlet != null)
     {
-        new FlxTimer().start(1.0, martletWakeUp);
+        new FlxTimer().start(2.0, martletWakeUp);
     }
 }
 
@@ -14,16 +15,34 @@ function martletWakeUp()
 {
     martlet.playSpecialAnimation('sittingWake');
     new FlxTimer().start(1.0, function(tmr:FlxTimer) { 
-        Overworld.current.openDialogue("martletMeetsPlayer", null, 0, "Martlet Wakes Up"); } );
+        martlet.playSpecialAnimation('stand'); } );
+    new FlxTimer().start(2.0, function(tmr:FlxTimer) { 
+        Overworld.current.openDialogue("martletMeetsPlayer", 'cutscenes', 0, "Martlet Wakes Up"); } );
 }
 
 function martletWalkOver()
 {
-    
+    martlet = Overworld.current.getNPCFromName("martlet");
+    Overworld.current.setLockAllInput(true);
+    martlet.cancelSpecialAnimation();
+    Overworld.current.addNPCController("martlet");
+    //martlet should walk directly in front of wherever the player is
+    Overworld.current.addNPCScriptInput("martlet", "right", false, 0.8);
+    Overworld.current.addNPCScriptInput("martlet", "down", false, 0.7);
+    Overworld.current.addNPCScriptInput("martlet", "left", false, 0.8);
+    Overworld.current.addNPCScriptInput("martlet", "down", false, 0.01);
+    Overworld.current.addNPCScriptInput("martlet", "none", false, 1.0);
+    new FlxTimer().start(2.35, function(tmr:FlxTimer) { 
+        martlet.faceTowardsSpr(Overworld.current.player); } );
+    new FlxTimer().start(2.5, function(tmr:FlxTimer) { 
+        Overworld.current.openDialogue("martletMeetsPlayer", 'cutscenes', 0, "Martlet Book"); } );
 }
 
 function startSong()
 {
+    martlet = Overworld.current.getNPCFromName("martlet"); //if only you didn't have to reset the sprite each fucking time
+    martlet.playSpecialAnimation('bookGrab');
     var martSong:PlaySong = new PlaySong("Martlet", "martlet", "hard");
-    Overworld.current.initializeSongTransition(martSong);
+    new FlxTimer().start(2.0, function(tmr:FlxTimer) { 
+        Overworld.current.initializeSongTransition(martSong); } );
 }

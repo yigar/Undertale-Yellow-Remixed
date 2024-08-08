@@ -11,62 +11,57 @@
             [
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "shocked",
                     "string": "Hm? Oh, uh, hello!"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "nervousSweat",
                     "string": "Sorry, I was zoned out for a moment there."
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "smug",
                     "string": "You look like you're lost. Do you need directions?"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "nervousSmile",
                     "string": "I'm no information kiosk, though it kind of looks like it..."
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "happySquint",
                     "string": "But I know this place like the back of my wing!"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "cheery",
                     "string": "I can get you wherever you need to go!"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
-                    "string": "I can get you wherever you need to go!"
-                },
-                {
-                    "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "sneer",
                     "string": "Wait..."
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "sideSneer",
                     "string": "I'm gonna take a shot in the dark here, but..."
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "determined",
                     "string": "You're a human! Right?"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "determined",
                     "string": "I knew it! I knew I'd find one! You must be human! Right? Right?"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "cheery",
                     "string": "Your hat! It's like in those human movies!"
                 },
                 {
@@ -76,18 +71,18 @@
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "sideConfused",
                     "string": "I'm not sure what happened to them..."
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "shocked",
                     "string": "Ah! I'm getting off-track again."
                 }
             ],
             "callback": {
                 "script": "martletMeetsPlayer",
-                "func": "startSong",
+                "func": "martletWalkOver",
                 "args": []
             }
         },
@@ -101,12 +96,12 @@
             [
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "determined",
                     "string": "Time for some Royal Guard protocol!"
                 },
                 {
                     "character": "Martlet",
-                    "emotion": "smile",
+                    "emotion": "determined",
                     "string": "I hope you're ready, 'cause I memorized it!"
                 }
             ],

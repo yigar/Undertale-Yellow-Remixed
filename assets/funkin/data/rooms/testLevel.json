@@ -4,7 +4,7 @@
   "height": 360,
   "offsetX": 0,
   "offsetY": 0,
-  "values": {"music": "none", "ambience": "none"},
+  "values": {"music": "none", "ambience": "none", "weather": "snowy"},
   "layers": [
     {
       "name": "Foreground",
@@ -287,7 +287,7 @@
           "y": 80,
           "originX": 0,
           "originY": 0,
-          "values": {"characterName": "ceroba", "dialogue": "cerobaDialogue", "facing": "down", "requiredFlags": "", "forbiddenFlags": ""}
+          "values": {"characterName": "ceroba", "dialogue": "cerobaDialogue", "facing": "down", "animation": "", "requiredFlags": "", "forbiddenFlags": ""}
         }
       ]
     }

@@ -52,7 +52,8 @@ class RoomParser
     {
         return json.values ?? {
             music: "none",
-            ambience: "none"
+            ambience: "none",
+            weather: ""
         };
     }
 

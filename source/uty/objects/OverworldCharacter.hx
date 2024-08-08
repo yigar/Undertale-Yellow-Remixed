@@ -136,7 +136,7 @@ class OverworldCharacter extends OverworldSprite
     {
         //takes care of attempting to play a playing animation issue.
         //returns true if the animation was successfully changed.
-        if(sprite.animation.exists(anim) && sprite.animation.name != anim)
+        if(sprite.animation.exists(anim))
         {
             if(sprite.animation.name != anim)
             {
@@ -146,20 +146,40 @@ class OverworldCharacter extends OverworldSprite
             }
             else
             {
-                return false;
                 //trace('note: animation ${anim} on character ${characterName} is already being played.');
+                return false;
             }
         }
         else
         {
-            return false;
             //trace('ERROR: animation does not exist.');
+            return false;
         }
     }
 
     public function updateDirection(direction:String)
     {
         facingDirection = direction;
+    }
+
+    public function faceTowards(x:Float, y:Float)
+    {
+        var xDif = x - this.bottomCenter.x;
+        var yDif = y - this.bottomCenter.y;
+
+        if(Math.abs(xDif) > Math.abs(yDif))
+        {
+            updateDirection(xDif > 0 ? RIGHT : LEFT);
+        }
+        else
+        {
+            updateDirection(yDif > 0 ? DOWN : UP);
+        }
+    }
+
+    public function faceTowardsSpr(obj:OverworldSprite)
+    {
+        faceTowards(obj.bottomCenter.x, obj.bottomCenter.y);
     }
 }
 
@@ -322,5 +342,9 @@ class CharacterController
     public function addScriptInput(direction:String, running:Bool, time:Float)
     {
         scriptInputList.push(ScriptInput(direction, running, time));
+    }
+
+    public function getCharacterName():String {
+        return character.characterName;
     }
 }

@@ -4,7 +4,7 @@
   "height": 720,
   "offsetX": 0,
   "offsetY": 0,
-  "values": {"music": "none", "ambience": "none"},
+  "values": {"music": "none", "ambience": "none", "weather": "snowy"},
   "layers": [
     {
       "name": "Foreground",
@@ -1342,7 +1342,7 @@
           "x": 160,
           "y": 700,
           "width": 120,
-          "height": 20,
+          "height": 40,
           "originX": 0,
           "originY": 0,
           "values": {"toRoom": "snowdin_1", "toX": 200, "toY": 20, "requiredFlags": "", "forbiddenFlags": ""}
@@ -1358,7 +1358,20 @@
       "gridCellHeight": 20,
       "gridCellsX": 22,
       "gridCellsY": 36,
-      "entities": []
+      "entities": [
+        {
+          "name": "EventTrigger",
+          "id": 0,
+          "_eid": "73111238",
+          "x": 40,
+          "y": 260,
+          "width": 360,
+          "height": 20,
+          "originX": 0,
+          "originY": 0,
+          "values": {"script": "martletMeetsPlayer", "isButton": false, "useCount": 1, "requiredFlags": "", "forbiddenFlags": "MartletSongBeaten"}
+        }
+      ]
     },
     {
       "name": "interactables",
@@ -1380,7 +1393,18 @@
       "gridCellHeight": 20,
       "gridCellsX": 22,
       "gridCellsY": 36,
-      "entities": []
+      "entities": [
+        {
+          "name": "NPC",
+          "id": 0,
+          "_eid": "56176430",
+          "x": 220,
+          "y": 154,
+          "originX": 0,
+          "originY": 0,
+          "values": {"characterName": "martlet", "dialogue": "", "facing": "down", "animation": "sittingSleep", "requiredFlags": "", "forbiddenFlags": "MartletSongBeaten"}
+        }
+      ]
     }
   ]
 }

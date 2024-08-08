@@ -29,6 +29,7 @@ import uty.components.Inventory;
 import uty.components.SoundManager;
 import flixel.tile.FlxTilemap;
 import flixel.FlxBasic;
+import haxe.ds.StringMap;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -41,6 +42,7 @@ class Overworld extends FNFState
     var spawnX:Int;
     var spawnY:Int;
     public var room:TiledRoom;
+    public var weather:Weather;
     public var player:Player;
     public var playerController:CharacterController;
     public var playerHitbox:PlayerHitbox;
@@ -49,6 +51,8 @@ class Overworld extends FNFState
     public var camHUD:FlxCamera; //for dialogue, menus, transition screens, etc.
     public var camPoint:FlxObject;
     public var camBounds:FlxRect;
+    public var camPlayerLock:Bool = true;
+    public var camOffset:FlxPoint;
     //i'm just gonna make dialogue a single object in this state. 
     //there can only be one so it's probably better to reuse this object rather than spawn them spontaneously in other classes.
     public var dialogueBox:DialogueBox;
@@ -56,6 +60,7 @@ class Overworld extends FNFState
     //mainly for NPC parsing, i don't want NPCs in the room object but it makes sense to store them in the room file.
     public var roomParser:RoomParser;
     public var npcs:FlxTypedGroup<NPC>;
+    public var npcControllers:StringMap<CharacterController>;
     public var followers:FlxTypedGroup<Follower>;
     public var followerControllers:Array<CharacterController>;
     public var foregroundDecals:Array<FlxSprite>;
@@ -84,6 +89,8 @@ class Overworld extends FNFState
         spawnX = x ?? StoryData.getActiveData().playerSave.posX;
         spawnY = y ?? StoryData.getActiveData().playerSave.posY;
         setLoadCallback(callback);
+
+        persistentUpdate = true; //this should allow dialogue and stuff to NOT pause the game
     }
 
     override function create()
@@ -93,6 +100,7 @@ class Overworld extends FNFState
         //game camera
         camGame = new FlxCamera();
         camPoint = new FlxObject(0, 0);
+        camOffset = new FlxPoint(0, 0);
         FlxG.cameras.reset(camGame);
         FlxG.cameras.setDefaultDrawTarget(camGame, true);
         //UI camera
@@ -121,8 +129,11 @@ class Overworld extends FNFState
         playerCollisionCheck();
 
         playerController.update(elapsed); //update AFTER the control call so the scripted stuff can override controls
+        npcControllerUpdate(elapsed);
         followerControllerUpdate(elapsed);
 
+        if(camPlayerLock)
+            camPoint.setPosition(player.bottomCenter.x + camOffset.x, player.bottomCenter.y + camOffset.y);
         camGame.updateFollow();
 
         //debug
@@ -136,29 +147,7 @@ class Overworld extends FNFState
         //REGULAR COLLISION//
         if(room.collisionGrid.overlaps(playerHitbox, false, camGame))
         {
-            //i wrote all this code to prevent "sticky walls" (diagonal into a wall wouldn't fully stop you)
-            //but it's not working so i'm scrapping it for now
             playerController.previousPosition();
-
-            /*
-            var spr:FlxSprite = new FlxSprite(playerHitbox.prevPosition.x, playerHitbox.prevPosition.y);
-            spr.makeGraphic(Std.int(playerHitbox.width), Std.int(playerHitbox.height), 0x34FE2424);
-
-            //if the sprite overlaps on the X axis, roll back the X
-            spr.x = playerHitbox.x;
-            if(room.collisionGrid.overlaps(spr, false, camGame))
-            {
-                playerController.previousPosition(true, false);
-            }
-            spr.x = playerHitbox.prevPosition.x;
-
-            //same with Y
-            spr.y = playerHitbox.y;
-            if(room.collisionGrid.overlaps(spr, false, camGame))
-            {
-                playerController.previousPosition(false, true);
-            }
-            */
         }
 
         //NPC COLLISION//
@@ -219,7 +208,8 @@ class Overworld extends FNFState
         this.add(visMngr);
 
         setCameraBounds(0, 0);
-        camGame.follow(player);
+        camGame.follow(camPoint);
+        camPoint.setPosition(player.x + camOffset.x, player.y + camOffset.y);
 
         loadCallback();
         setLoadCallback(null); //makes this callback happen only once.
@@ -233,6 +223,8 @@ class Overworld extends FNFState
         visMngr.addTilemaps(room.tilemaps.members);
         visMngr.addForegroundObjects(room.foregroundDecals.members);
         visMngr.addForegroundObject(room.foregroundTilemap);
+        //weather stuff
+        visMngr.loadWeather(roomParser.getRoomValues().weather ?? "");
 
         //for(i in room.decals)
             //this.add(i);
@@ -290,13 +282,18 @@ class Overworld extends FNFState
         {
             var newNPC:NPC = new NPC(
                 i.values.characterName,
-                i.x * 3,
-                i.y * 3,
+                i.x * 3 + i.width * 1.5,
+                i.y * 3 + i.height * 1.5,
                 i.values.facing,
                 i.values.dialogue
             );
+            newNPC.x -= (newNPC.width * 0.5);
+            newNPC.y -= (newNPC.height * 0.5);
+            newNPC.playSpecialAnimation(i.values.animation ?? "");
             npcs.add(newNPC);
         }
+
+        npcControllers = new StringMap<CharacterController>();
     }
 
     function loadFollowers()
@@ -305,7 +302,6 @@ class Overworld extends FNFState
         //for now though, i'll just force it in.
         //REPLACE THIS SHIT LATER
         var followerSave:Array<String> = StoryData.getActiveData().followers;
-        //followerSave.push("ceroba");
 
         for(i in followerSave)
         {
@@ -332,9 +328,21 @@ class Overworld extends FNFState
             loadCallback = function() {};
     }
 
-    function initialSorterAdd()
+    public function addNPCController(name:String)
     {
-        //should probably just add objects to the sorter instead of directly to the scene, then add the sorter
+        for(n in npcs)
+        {
+            if(n.characterName == name) {
+                npcControllers.set(name, new CharacterController(n));
+                return;
+            }
+        }
+    }
+
+    public function addNPCScriptInput(name:String, direction:String, run:Bool, time:Float)
+    {
+        if(npcControllers.get(name) != null)
+            npcControllers.get(name).addScriptInput(direction, run, time);
     }
 
     function setCameraBounds(?expandX:Float = 0, ?expandY:Float = 0)
@@ -402,6 +410,7 @@ class Overworld extends FNFState
             }
             if(Controls.UT_MENU_P)
             {
+                setLockAllInput(true);
                 final menuSubstate:OverworldMenuSubState = new OverworldMenuSubState(camHUD);
                 openSubState(menuSubstate);
             }
@@ -494,6 +503,7 @@ class Overworld extends FNFState
     public function openDialogue(dialogue:String, ?folder:String, ?checkCount:Int = 0, ?name:String)
     {
         trace('dialogue opned');
+        setLockAllInput(true);
         dialogueParser.updateDialogueJson(dialogue, folder ?? "");
         var diaGrp:DialogueGroup;
         if(name != null)
@@ -502,6 +512,12 @@ class Overworld extends FNFState
             diaGrp = dialogueParser.getDialogueFromCheckCount(checkCount);
         final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
         openSubState(dialogueSubstate);
+    }
+
+    public function tweenCameraOffset(x:Int, y:Int, time:Float)
+    {
+        FlxTween.cancelTweensOf(camOffset);
+        FlxTween.tween(camOffset, {x: x, y: y}, time);
     }
 
     public function interactablesCheck()
@@ -563,6 +579,14 @@ class Overworld extends FNFState
                     return;
                 }
             });
+    }
+
+    public function npcControllerUpdate(elapsed:Float)
+    {
+        for(key in npcControllers.keys())
+        {
+            npcControllers.get(key).update(elapsed);
+        }
     }
 
     public function followerControllerUpdate(elapsed:Float)
@@ -666,6 +690,7 @@ class Overworld extends FNFState
 
     public function initializeSongTransition(song:PlaySong)
     {
+        setLockAllInput(true);
         //bigass fuckin bandaid
         var black:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
         black.camera = camHUD;
@@ -700,6 +725,7 @@ class OverworldVisualManager extends FlxTypedGroup<FlxBasic>
     public var room:TiledRoom;
     public var owSprites:FlxTypedGroup<OverworldSprite>;
     public var owTilemaps:FlxTypedGroup<OverworldTilemap>;
+    public var weather:Weather;
     //to prevent a ton of unnecessary array sorting each frame, probably best to separate into layers
     public var background:FlxTypedGroup<Dynamic>;
     public var foreground:FlxTypedGroup<Dynamic>;
@@ -710,11 +736,13 @@ class OverworldVisualManager extends FlxTypedGroup<FlxBasic>
         owSprites = new FlxTypedGroup<OverworldSprite>();
         owTilemaps = new FlxTypedGroup<OverworldTilemap>();
         background = new FlxTypedGroup<Dynamic>();
+        weather = new Weather();
         foreground = new FlxTypedGroup<Dynamic>();
         //this is the layer order:
         this.add(background);
         this.add(owTilemaps);
         this.add(owSprites);
+        this.add(weather);
         this.add(foreground);
     }
 
@@ -738,6 +766,31 @@ class OverworldVisualManager extends FlxTypedGroup<FlxBasic>
             FlxSort.byValues(FlxSort.ASCENDING, (a.worldHeight), (b.worldHeight)));
 
         return owSprites;
+    }
+
+    public function loadWeather(wthr:String)
+    {
+        if(wthr == null)
+            wthr = "";
+        wthr = wthr.toLowerCase();
+        if(weather == null)
+            weather = new Weather();
+
+        switch (wthr)
+        {
+            case "snow", "snowy", "snowing":
+            {
+                weather.snowIntensity = 3.0;
+            }
+            case "fog", "foggy":
+            {
+                weather.createFog();
+            }
+            default:
+            {
+                weather.clearWeather();
+            }
+        }
     }
 
     public function addTilemap(tilemap:OverworldTilemap)

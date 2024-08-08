@@ -4,7 +4,7 @@
   "height": 360,
   "offsetX": 0,
   "offsetY": 0,
-  "values": {"music": "darkruins", "ambience": "none"},
+  "values": {"music": "darkruins", "ambience": "none", "weather": ""},
   "layers": [
     {
       "name": "Foreground",

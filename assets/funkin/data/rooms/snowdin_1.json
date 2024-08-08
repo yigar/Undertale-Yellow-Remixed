@@ -4,7 +4,7 @@
   "height": 400,
   "offsetX": 0,
   "offsetY": 0,
-  "values": {"music": "none", "ambience": "none"},
+  "values": {"music": "none", "ambience": "none", "weather": ""},
   "layers": [
     {
       "name": "Foreground",
