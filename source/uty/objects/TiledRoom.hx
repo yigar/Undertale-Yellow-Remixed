@@ -12,6 +12,7 @@ import uty.objects.Interactable;
 import uty.objects.EventTrigger;
 import uty.components.Collision;
 import uty.objects.SavePoint;
+import uty.objects.Stairs;
 
 /*
     stores tilemap info from room files.
@@ -36,6 +37,7 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
     //entities
     public var loadingZones:FlxTypedGroup<LoadingZone>;
     public var interactables:FlxTypedGroup<Interactable>;
+    public var stairs:FlxTypedGroup<Stairs>;
     public var triggers:FlxTypedGroup<EventTrigger>;
     public var savePoint:SavePoint; //there's only gonna be at most one of these per room
 
@@ -100,6 +102,22 @@ class TiledRoom extends FlxTypedGroup<FlxObject>
             );
             interactables.add(newInter);
             add(newInter);
+        }
+
+        //loads all interactables (stuff you can check)
+        stairs = new FlxTypedGroup<Stairs>();
+        var stairsData:Array<EntityData> = parser.getEntitiesByName("Stairs");
+        for(i in stairsData)
+        {
+            var newStair:Stairs = new Stairs(
+                i.x * 3,
+                i.y * 3,
+                i.width * 3,
+                i.height * 3,
+                i.values.slope
+            );
+            stairs.add(newStair);
+            add(newStair);
         }
 
         //loads all event triggers

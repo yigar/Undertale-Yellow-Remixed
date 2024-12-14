@@ -27,6 +27,7 @@ import uty.components.PlayerData;
 import uty.components.StoryData;
 import uty.components.Inventory;
 import uty.components.SoundManager;
+import uty.components.OverworldInteractionManager;
 import flixel.tile.FlxTilemap;
 import flixel.FlxBasic;
 import haxe.ds.StringMap;
@@ -67,6 +68,8 @@ class Overworld extends FNFState
     public var foregroundTiles:FlxTilemap;
     //for object draw order organization
     public var visMngr:OverworldVisualManager;
+    //outsources some of the complex object interaction bullshit like collision to a helper class
+    public var actMngr:OverworldInteractionManager;
     //audio
     public var soundMngr:SoundManager;
 
@@ -140,6 +143,9 @@ class Overworld extends FNFState
         //trace('clover position: x${player.x} y${player.y}');
 
         visMngr.sortSprites();
+
+        //interaction manager stuff
+        actMngr.update(elapsed);
     }
 
     public function playerCollisionCheck()
@@ -147,7 +153,22 @@ class Overworld extends FNFState
         //REGULAR COLLISION//
         if(room.collisionGrid.overlaps(playerHitbox, false, camGame))
         {
-            playerController.previousPosition();
+            var setbackX:Bool = true;
+            var setbackY:Bool = true;
+            var realX = playerHitbox.x;
+            var realY = playerHitbox.y;
+
+            playerHitbox.x = playerHitbox.prevPosition.x;
+            if(!room.collisionGrid.overlaps(playerHitbox, false, camGame))
+                setbackX = false;
+            playerHitbox.x = realX;
+
+            playerHitbox.y = playerHitbox.prevPosition.y;
+            if(!room.collisionGrid.overlaps(playerHitbox, false, camGame))
+                setbackY = false;
+            playerHitbox.y = realY;
+
+            playerController.previousPosition(setbackX, setbackY);
         }
 
         //NPC COLLISION//
@@ -191,9 +212,8 @@ class Overworld extends FNFState
     function load(roomName:String, playerX:Float, playerY:Float)
     {
         curRoomName = roomName;
-
+        initiateManagers();
         roomParser = new RoomParser(curRoomName);
-        visMngr = new OverworldVisualManager();
         npcs = new FlxTypedGroup<NPC>();
         followers = new FlxTypedGroup<Follower>();
 
@@ -205,7 +225,7 @@ class Overworld extends FNFState
         loadFollowers();
         loadRoomVisuals();
         //now we add the sorter
-        this.add(visMngr);
+        
 
         setCameraBounds(0, 0);
         camGame.follow(camPoint);
@@ -213,6 +233,15 @@ class Overworld extends FNFState
 
         loadCallback();
         setLoadCallback(null); //makes this callback happen only once.
+    }
+
+    //sets up some of the manager classes that outsource labor to other classes
+    function initiateManagers()
+    {
+        visMngr = new OverworldVisualManager();
+        actMngr = new OverworldInteractionManager();
+
+        this.add(visMngr);
     }
 
     function loadRoomVisuals()
@@ -272,7 +301,6 @@ class Overworld extends FNFState
 
         playerHitbox = new PlayerHitbox(player);
         add(playerHitbox);
- 
     }
 
     function loadNPCs(roomName:String)
@@ -473,6 +501,12 @@ class Overworld extends FNFState
             //var npcCtrl:CharacterController = new CharacterController(npcs[0]);
             playerController.addScriptInput("right", false, 1.0);
             playerController.addScriptInput("down", false, 1.0);
+        }
+
+        //the ceroba summon button
+        if(FlxG.keys.justPressed.RBRACKET)
+        {
+            StoryUtil.addFollower(FlxG.keys.pressed.SHIFT ? "martlet" : "ceroba");
         }
 
         /*
@@ -854,52 +888,4 @@ class OverworldVisualManager extends FlxTypedGroup<FlxBasic>
 
         return foreground;
     }
-
-    /* OLD CODE
-    public function sortSprites():FlxTypedGroup<OverworldSprite>
-    {
-        var tempArray:Array<OverworldSprite> = owSprites.members;
-        var transferArray:Array<OverworldSprite> = new Array<OverworldSprite>();
-        var finalArray:Array<OverworldSprite> = new Array<OverworldSprite>();
-
-        //stores the draw heights into an array for optimization
-        var drawHeightArray:Array<Int> = new Array<Int>(); 
-        for (sprite in owSprites.members)
-        {
-            //only add if it's not added already
-            if(!drawHeightArray.contains(sprite.drawHeight))
-                drawHeightArray.push(sprite.drawHeight);
-        }
-        //lowest first; this becomes a list of all UNIQUE height values from least to greatest
-        drawHeightArray.sort((Order, a:Int, b:Int) -> FlxSort.byValues(FlxSort.ASCENDING, a, b));
-
-        while(drawHeightArray.length > 0) //run this until everything is sorted
-        {
-            //adds all sprites with the lowest draw priority to an array
-            for(i in 0...tempArray.length)
-            {
-                if(tempArray[i].drawHeight == drawHeightArray[0]) //if this sprite's drawheight = the lowest listed draw height
-                {
-                    transferArray.append(tempArray.splice(i, 1));
-                    i -= 1; //optimizing to prevent unnecessary recursion
-                }
-            }
-            //subsort by world height
-            if(transferArray.length > 1)
-                transferArray.sort((Order, a:OverworldSprite, b:OverworldSprite) -> 
-                FlxSort.byValues(FlxSort.ASCENDING, (a.worldHeight), (b.worldHeight)));
-
-            //add these lowest sprites to the final array and shorten the drawheightarray to the next lowest
-            for(s in transferArray.members)
-                finalArray.push(s);
-            transferArray.clear();
-            drawHeightArray.splice(0, 1);
-        }
-
-        owSprites.clear();
-        for (i in 0...finalArray.length)
-            owSprites.push(finalArray[i]);
-        return owSprites;
-    }
-    */
 }

@@ -35,7 +35,7 @@ class UTIcon extends ChildSprite {
 	function set_character(newChar:String):String {
 		var char:String = newChar;
 		if (!Tools.fileExists(AssetHelper.getPath('images/icons/${char}', IMAGE)))
-			char = "face";
+			char = "clover";
 
 		if (character != char) {
 			var file:FlxGraphic = AssetHelper.getAsset('images/icons/${char}', IMAGE);

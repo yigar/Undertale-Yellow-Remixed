@@ -203,6 +203,13 @@ class StoryUtil
         return d;
     }
 
+    public static function addFollower(follower:String)
+    {
+        var dum:StorySave = StoryData.getActiveData();
+        dum.followers.push(follower);
+        StoryData.setActiveData(dum);
+    }
+
     public static function startClock()
     {
         StoryData.gameClock = new FlxTimer().start(1.0, function(tmr:FlxTimer){

@@ -207,6 +207,10 @@ class CharacterController
     //the axes should be checked for collision separately
     public var prevPosition:FlxPoint; 
 
+    //this will determine if this object's update function takes care of movement.
+    //for things like the player controller, where collision checking elsewhere is imperative, it's good to disable this
+    public var autoUpdateMove:Bool = true;
+
     public var scriptInputList:Array<ScriptInput>;
     
     private final _diagonal = 0.707; //diagonal movement speed for characters: [(sqrt 2) / 2]
@@ -221,35 +225,46 @@ class CharacterController
 
     public function update(elapsed:Float)
     {
-        if(scriptInputList.length > 0)
-        {
-            var leadInput = scriptInputList[0].getParameters();
-            setMoving(leadInput[0], leadInput[0]);
-            setRunning(leadInput[1]);
-            //timer function
-            scriptInputList[0] = ScriptInput(leadInput[0], leadInput[1], leadInput[2] - elapsed);
-            if(leadInput[2] - elapsed <= 0.0)
-            {
-                scriptInputList.shift();
-            }
-        }
-        //controller will move check constantly based on values
-        move();
-        updateFacingDirection();
-        updateMoveAnimation();
-
-        /*
-        trace('DIRECTION: ${character.facingDirection} | 
-        MOVING: ${isMoving} | 
-        RUNNING: ${isRunning}');
-        */
+        updateScriptedMove();
+        if(autoUpdateMove)
+            updateMove();
     }
 
-    public function move()
+    public function updateMove(?noX:Bool = false, ?noY:Bool = false)
+    {
+        move(noX, noY);
+        updateFacingDirection();
+        updateMoveAnimation();
+    }
+
+    public function updateScriptedMove()
+    {
+        if(scriptInputList.length > 0)
+            {
+                var leadInput = scriptInputList[0].getParameters();
+                setMoving(leadInput[0], leadInput[0]);
+                setRunning(leadInput[1]);
+                //timer function
+                scriptInputList[0] = ScriptInput(leadInput[0], leadInput[1], leadInput[2] - elapsed);
+                if(leadInput[2] - elapsed <= 0.0)
+                {
+                    scriptInputList.shift();
+                }
+            }
+    }
+
+    public function move(?noX:Bool = false, ?noY:Bool = false)
     {
         //move character based on moving vars
         prevPosition.set(character.x, character.y);
 
+        var move:Array<Int> = calculateMove();
+        character.x += noX ? 0 : move[0];
+        character.y += noY ? 0 : move[1];
+    }
+
+    public function calculateMove():Array<Int>
+    {
         var moveAmount = (isRunning ? runSpeed : walkSpeed); //move by the run speed if we're running
         if(movingX != 0 && movingY != 0) //if moving diagonally
             moveAmount *= _diagonal;
@@ -257,8 +272,8 @@ class CharacterController
         //maybe it's inefficient to do all this multiplication shit each frame, but whatever. i want smooth movement
         var moveX = moveAmount * movingX;
         var moveY = moveAmount * movingY;
-        character.x += moveX;
-        character.y += moveY;
+
+        return [moveX, moveY];
     }
 
     public function setMoving(horizontal:String = NONE, vertical:String = NONE)

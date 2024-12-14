@@ -43,6 +43,7 @@ class Timings {
 		Judgement("shit", -150, 0, false)
 	];
 
+	//at 60fps: 2 frames, 5.5 frames, 8 frames, 10 frames
 	public static final timings:Array<Float> = [33.33, 91.67, 133.33, 166.67];
 
 	public static var score:Int = 0;
