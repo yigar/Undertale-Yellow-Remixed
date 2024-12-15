@@ -21,7 +21,7 @@ class Collision extends FlxRect
 
     public function checkOverlap(hitbox:FlxSprite):Bool
     {
-        //generic in-bounds check. returns true if player is overlapping this loading zone.
+        //generic in-bounds check. returns true if player is overlapping this area.
         if(hitbox.x + hitbox.width > this.left && hitbox.x < this.right) //horizontal check
         {
             if(hitbox.y + hitbox.height > this.top && hitbox.y < this.bottom) //vertical check

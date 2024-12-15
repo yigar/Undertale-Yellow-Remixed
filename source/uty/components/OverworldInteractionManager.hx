@@ -1,35 +1,12 @@
 package uty.components;
 
-import flixel.math.FlxPoint;
-import uty.objects.*;
-import uty.objects.Player;
-import flixel.tile.FlxTilemap;
-import flixel.FlxCamera;
-import flixel.math.FlxRect;
-import flixel.FlxObject;
-import flixel.util.typeLimit.OneOfTwo;
-import funkin.states.base.FNFState;
-import forever.display.ForeverSprite;
-import flixel.tweens.FlxTween;
-import uty.components.RoomParser;
-import uty.components.DialogueParser;
-import uty.objects.Interactable;
-import uty.substates.DialogueSubState;
-import uty.substates.OverworldMenuSubState;
-import uty.substates.SoulTransitionSubState;
-import flixel.system.ui.FlxSoundTray;
-import uty.objects.OverworldCharacter;
-import flixel.group.FlxGroup;
-import flixel.util.FlxSort;
-import funkin.states.PlayState;
-import uty.components.PlayerData;
-import uty.components.StoryData;
-import uty.components.Inventory;
-import uty.components.SoundManager;
-import flixel.tile.FlxTilemap;
+
 import flixel.FlxBasic;
 import haxe.ds.StringMap;
 import uty.components.OverworldUtil;
+import uty.states.Overworld;
+import uty.objects.NPC;
+import uty.objects.SavePoint;
 
 //manages objects interacting with each other in the overworld, like collision, etc.
 class OverworldInteractionManager extends FlxBasic
@@ -50,12 +27,45 @@ class OverworldInteractionManager extends FlxBasic
     //manages player movement and collision.
     public function playerMoveAndCollide()
     {
-        var futurePos:Array<Int> = Overworld.current.playerController.calculateMove();
-        var dirCol = OverworldUtil.isPlayerCollideAtCoords(futurePos[0], futurePos[1]);
-        //if we can at least move in a direction
-        if(dirCol[0] || dirCol[1])
+        var futurePos:Array<Float> = Overworld.current.playerController.calculateMove();
+
+        //ROOM COLLISION MAP
+        var dirCol = OverworldUtil.isPlayerTilemapCollideAfterMove(futurePos[0], futurePos[1]);
+
+        //NPCS
+        Overworld.current.npcs.forEach(function(n:NPC)
+            {
+                if(n.collision.enableCollide)
+                {
+                    dirCol = getBoolArrayOr(dirCol, OverworldUtil.isPlayerColOverlapAfterMove(
+                        n.collision, futurePos[0], futurePos[1]));
+                }
+            });
+
+        //SAVE POINT
+        if(Overworld.current.room.savePoint != null)
         {
-            Overworld.current.playerController.updateMove(dirCol[0], dirCol[1]);
+            dirCol = getBoolArrayOr(dirCol, OverworldUtil.isPlayerColOverlapAfterMove(
+                Overworld.current.room.savePoint.collision, futurePos[0], futurePos[1]));
         }
+
+        //if we can at least move in a direction
+        if(!dirCol[0] || !dirCol[1])
+        {
+            Overworld.current.playerController.move(dirCol[0], dirCol[1]);
+        }
+    }
+
+    //quick function to make bool overrides easier. orCheck will check if either of the bools is [true/false] and set it to that
+    private function getBoolArrayOr(ary1:Array<Bool>, ary2:Array<Bool>, ?orCheck:Bool = true):Array<Bool>
+    {
+        if(ary1.length != ary2.length)
+            return [false, false];
+        for(i in 0...ary1.length)
+        {
+            if(ary1[i] == orCheck || ary2[i] == orCheck)
+                ary1[i] = orCheck;
+        }
+        return ary1;
     }
 }

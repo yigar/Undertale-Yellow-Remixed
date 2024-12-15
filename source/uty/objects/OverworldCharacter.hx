@@ -225,19 +225,14 @@ class CharacterController
 
     public function update(elapsed:Float)
     {
-        updateScriptedMove();
+        updateScriptedMove(elapsed);
         if(autoUpdateMove)
-            updateMove();
-    }
-
-    public function updateMove(?noX:Bool = false, ?noY:Bool = false)
-    {
-        move(noX, noY);
+            move();
         updateFacingDirection();
         updateMoveAnimation();
     }
 
-    public function updateScriptedMove()
+    public function updateScriptedMove(elapsed:Float)
     {
         if(scriptInputList.length > 0)
             {
@@ -258,12 +253,12 @@ class CharacterController
         //move character based on moving vars
         prevPosition.set(character.x, character.y);
 
-        var move:Array<Int> = calculateMove();
+        var move:Array<Float> = calculateMove();
         character.x += noX ? 0 : move[0];
         character.y += noY ? 0 : move[1];
     }
 
-    public function calculateMove():Array<Int>
+    public function calculateMove():Array<Float>
     {
         var moveAmount = (isRunning ? runSpeed : walkSpeed); //move by the run speed if we're running
         if(movingX != 0 && movingY != 0) //if moving diagonally

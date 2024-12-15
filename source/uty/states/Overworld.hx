@@ -150,35 +150,9 @@ class Overworld extends FNFState
 
     public function playerCollisionCheck()
     {
-        //REGULAR COLLISION//
-        if(room.collisionGrid.overlaps(playerHitbox, false, camGame))
-        {
-            var setbackX:Bool = true;
-            var setbackY:Bool = true;
-            var realX = playerHitbox.x;
-            var realY = playerHitbox.y;
-
-            playerHitbox.x = playerHitbox.prevPosition.x;
-            if(!room.collisionGrid.overlaps(playerHitbox, false, camGame))
-                setbackX = false;
-            playerHitbox.x = realX;
-
-            playerHitbox.y = playerHitbox.prevPosition.y;
-            if(!room.collisionGrid.overlaps(playerHitbox, false, camGame))
-                setbackY = false;
-            playerHitbox.y = realY;
-
-            playerController.previousPosition(setbackX, setbackY);
-        }
+        //code removed
 
         //NPC COLLISION//
-        npcs.forEach(function(n:NPC)
-        {
-            if(n.collision.enableCollide && n.collision.checkOverlap(playerHitbox))
-            {
-                playerController.previousPosition();
-            }
-        });
 
         //LOADING ZONES//
 
@@ -203,10 +177,6 @@ class Overworld extends FNFState
         isPlayerInLoadingZone = isCol;
 
         //SAVE POINT//
-        if(room.savePoint != null && room.savePoint.collision.checkOverlap(playerHitbox))
-        {
-            playerController.previousPosition();
-        }
     }
 
     function load(roomName:String, playerX:Float, playerY:Float)
@@ -298,6 +268,7 @@ class Overworld extends FNFState
         player = new Player("clover", x, y, 1);
 
         playerController = new CharacterController(player);
+        playerController.autoUpdateMove = false;
 
         playerHitbox = new PlayerHitbox(player);
         add(playerHitbox);
