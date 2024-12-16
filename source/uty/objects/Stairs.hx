@@ -18,9 +18,4 @@ class Stairs extends OverworldSprite
         super(x, y);
         parallelogram = new Parallelogram(x, y, width, height, slope);
     }
-
-    public function moveVertical(obj:OverworldSprite, xMove:Float)
-    {
-        obj.y -= (xMove * parallelogram.slope);
-    }
 }

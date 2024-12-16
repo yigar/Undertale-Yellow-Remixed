@@ -204,6 +204,7 @@ class CharacterController
     public var movingY:Int = 0; //1: down, -1: up
     public var isMoving:Bool = false;
     public var isRunning:Bool = false;
+    public var slope:Float = 0; //will augment Y movement when moving X
     //the axes should be checked for collision separately
     public var prevPosition:FlxPoint; 
 
@@ -267,6 +268,8 @@ class CharacterController
         //maybe it's inefficient to do all this multiplication shit each frame, but whatever. i want smooth movement
         var moveX = moveAmount * movingX;
         var moveY = moveAmount * movingY;
+        //slope
+        moveY -= (moveX * slope);
 
         return [moveX, moveY];
     }

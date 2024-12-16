@@ -114,9 +114,9 @@ class Overworld extends FNFState
         dialogueParser = new DialogueParser();
         soundMngr = new SoundManager();
 
-        load(curRoomName, spawnX, spawnY);
-
         current = this;
+
+        load(curRoomName, spawnX, spawnY);
     }
 
     override function update(elapsed:Float)
@@ -129,12 +129,13 @@ class Overworld extends FNFState
         triggersCheck(); //interactables only need to be checked when ACCEPT is pressed; triggers do need to be checked constantly.
 
         playerHitbox.updatePosition(); //move the hitbox with the player
-        playerCollisionCheck();
 
+        //update controllers
         playerController.update(elapsed); //update AFTER the control call so the scripted stuff can override controls
         npcControllerUpdate(elapsed);
         followerControllerUpdate(elapsed);
 
+        //update camera
         if(camPlayerLock)
             camPoint.setPosition(player.bottomCenter.x + camOffset.x, player.bottomCenter.y + camOffset.y);
         camGame.updateFollow();
@@ -146,37 +147,6 @@ class Overworld extends FNFState
 
         //interaction manager stuff
         actMngr.update(elapsed);
-    }
-
-    public function playerCollisionCheck()
-    {
-        //code removed
-
-        //NPC COLLISION//
-
-        //LOADING ZONES//
-
-        //for every loading zone in loading zones
-        //if player's overlapping it, get that zone's data, transition, and warp to the next room
-
-        var isCol:Bool = false;
-        room.loadingZones.forEach(function(zone:LoadingZone)
-        {
-            if(zone.collision.checkOverlap(playerHitbox))
-            {
-                isCol = true;
-                //this only gets triggered once. is NOT called unless the player wasn't in a loading zone before.
-                if(!isPlayerInLoadingZone)
-                {
-                    isPlayerInLoadingZone = true;
-                    nextRoomTransition(zone.toRoom, zone.toX, zone.toY);
-                }
-            }
-        });
-        //will set this var to false if no collision happened
-        isPlayerInLoadingZone = isCol;
-
-        //SAVE POINT//
     }
 
     function load(roomName:String, playerX:Float, playerY:Float)
@@ -194,8 +164,10 @@ class Overworld extends FNFState
         loadNPCs(curRoomName);
         loadFollowers();
         loadRoomVisuals();
-        //now we add the sorter
-        
+
+        //add newly loaded objects to the managers for them to track
+        actMngr.setupInteractables();
+        actMngr.setupStairs();
 
         setCameraBounds(0, 0);
         camGame.follow(camPoint);
@@ -405,7 +377,7 @@ class Overworld extends FNFState
         {
             if(Controls.UT_ACCEPT_P)
             {
-                interactablesCheck();
+                actMngr.interactableCheck();
             }
             if(Controls.UT_MENU_P)
             {
@@ -507,7 +479,6 @@ class Overworld extends FNFState
 
     public function openDialogue(dialogue:String, ?folder:String, ?checkCount:Int = 0, ?name:String)
     {
-        trace('dialogue opned');
         setLockAllInput(true);
         dialogueParser.updateDialogueJson(dialogue, folder ?? "");
         var diaGrp:DialogueGroup;
@@ -523,67 +494,6 @@ class Overworld extends FNFState
     {
         FlxTween.cancelTweensOf(camOffset);
         FlxTween.tween(camOffset, {x: x, y: y}, time);
-    }
-
-    public function interactablesCheck()
-    {
-        //checks all interactables in the room, on npcs, and all relevant objects.
-
-        //check for any regular interactables nearby
-        room.interactables.forEach(function(i:Interactable)
-        {
-            if(i.collision.checkOverlap(playerHitbox))
-            {
-                setLockAllInput(true);
-                openDialogue(i.dialogueJson, i.checkCount);
-                //increment AFTER we retrieve the dialogue
-                i.checkIncrement();
-                return;
-            }
-        });
-
-        if(room.savePoint != null && room.savePoint.interactable.collision.checkOverlap(playerHitbox))
-        {
-            setLockAllInput(true);
-            room.savePoint.startDialogue();
-        }
-
-        //check the NPCs too
-        //i know this is shitty copied code... IDGAF!!!!!!
-        //add a function where npcs turn to you when talking to them
-        npcs.forEach(function(n:NPC)
-        {
-            if(n.interactable.collision.checkOverlap(playerHitbox) && n.interactable.areClicksReached(1))
-            {
-                setLockAllInput(true);
-                dialogueParser.updateDialogueJson(n.interactable.dialogueJson);
-
-                var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(n.interactable.checkCount);
-                //increment AFTER we retrieve the dialogue
-                n.interactable.checkIncrement();
-
-                final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
-                openSubState(dialogueSubstate);
-                return;
-            }
-        });
-
-        followers.forEach(function(f:Follower)
-            {
-                if(f.interactable.collision.checkOverlap(playerHitbox) && f.interactable.areClicksReached(1))
-                {
-                    setLockAllInput(true);
-                    dialogueParser.updateDialogueJson(f.interactable.dialogueJson);
-    
-                    var diaGrp:DialogueGroup = dialogueParser.getDialogueFromCheckCount(f.interactable.checkCount);
-                    //increment AFTER we retrieve the dialogue
-                    f.interactable.checkIncrement();
-    
-                    final dialogueSubstate:DialogueSubState = new DialogueSubState(diaGrp, camHUD);
-                    openSubState(dialogueSubstate);
-                    return;
-                }
-            });
     }
 
     public function npcControllerUpdate(elapsed:Float)
@@ -614,13 +524,6 @@ class Overworld extends FNFState
             followerControllers[i].setMovingFromPoint(followers.members[i].calculateMoveInput());
             followerControllers[i].setRunning(followers.members[i].isRunningDistance());
         }
-    }
-
-    //simply sorting by sprite Y doesn't really work when there's sprites of different sizes
-    //im sorting based on the collision boxes here
-    inline function sortOverworldCharacters(order:Int, a:OverworldCharacter, b:OverworldCharacter):Int
-    {
-        return Std.int((a.collision.y + a.collision.height) - (b.collision.y + b.collision.height));
     }
 
     public function nextRoomTransition(roomName:String, playerX:Float, playerY:Float)

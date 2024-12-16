@@ -67,7 +67,6 @@ class OverworldUtil
             bumpY = true;
         }
         spr.y = prevY;
-        trace(bumpX + " " + bumpY);
         return [bumpX, bumpY];
     }
 }
