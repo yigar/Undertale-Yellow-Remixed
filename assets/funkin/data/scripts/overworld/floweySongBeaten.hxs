@@ -4,7 +4,7 @@ function start()
     room = 'darkRuins_2';
     x = 400;
     y = 400;
-    StoryProgress.flag(StoryUtil.getFlagFromSong('Flowey'));
+    StoryProgress.flag(StoryUtil.getFlagFromSong('Budding Friendship'));
 }
 
 function prepareOverworld()

@@ -1,0 +1,19 @@
+characters: 
+ - {
+      name: "Flowey",
+      icon: "flowey",
+      artData: "flowey",
+      dialogue: "flowey",
+      songs: ["budding_friendship", "dummy"],
+      unlock: [],
+      secret: false
+    }
+ - {
+      name: "Martlet",
+      icon: "martlet",
+      artData: "martlet",
+      dialogue: "martlet",
+      songs: ["martlet"],
+      unlock: ["floweySongBeaten"],
+      secret: false
+    }

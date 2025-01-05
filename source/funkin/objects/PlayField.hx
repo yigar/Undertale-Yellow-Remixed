@@ -18,6 +18,7 @@ import funkin.ui.UTIcon;
 import haxe.ds.Vector;
 
 import uty.components.StoryData;
+import uty.objects.UTText;
 
 /**
  * Play Field contains basic objects to handle gameplay
@@ -41,7 +42,7 @@ class PlayField extends FlxGroup {
 
 	// -- UI NODES -- //
 
-	public var centerMark:ForeverText;
+	public var centerMark:UTText;
 
 	public var healthBar:HealthBar;
 	public var iconP1:UTIcon;
@@ -90,10 +91,12 @@ class PlayField extends FlxGroup {
 		iconP2.x = 150 - (iconP2.width * 0.50);
 
 		// [${play.songMeta.difficulty.toUpperCase()}] -'
-		centerMark = new ForeverText(0, (Settings.downScroll ? FlxG.height - 40 : 15), 0, '- ${play.songMeta.name} -', 20);
-		centerMark.alignment = CENTER;
+		//improve this song display later
+		var songString:String = play.songMeta.name.toUpperCase();
+		centerMark = new UTText(0, (Settings.downScroll ? FlxG.height - 40 : 15), 0, '- ${songString} -', 24);
 		centerMark.borderSize = 2.0;
 		centerMark.screenCenter(X);
+		centerMark.setBorder(3, 0x88000000);
 		add(centerMark);
 
 		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : plrStrums.x - 100, 90);

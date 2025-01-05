@@ -28,9 +28,12 @@ import uty.components.StoryData;
 import uty.components.Inventory;
 import uty.components.SoundManager;
 import uty.components.OverworldInteractionManager;
+import uty.ui.OverworldQuit;
+import uty.states.menus.SaveFileMenu;
 import flixel.tile.FlxTilemap;
 import flixel.FlxBasic;
 import haxe.ds.StringMap;
+import flixel.addons.display.FlxPieDial;
 
 //parse the json from the ogmo export using AssetHelper.parseAsset ?
 
@@ -85,6 +88,9 @@ class Overworld extends FNFState
     public var isPlayerInLoadingZone:Bool = true; //for various loading zone features
     //such as not triggering a loading zone when spawning within one, and only triggering the transition once
 
+    //quit
+    public var quit:OverworldQuit;
+
     public function new(?room:String, ?x:Int, ?y:Int, ?callback:Void->Void)
     {
         super();
@@ -117,13 +123,16 @@ class Overworld extends FNFState
         current = this;
 
         load(curRoomName, spawnX, spawnY);
+
+        quit = new OverworldQuit();
+        add(quit);
     }
 
     override function update(elapsed:Float)
     {
         super.update(elapsed);
 
-        controlInputCall(); //checks for inputs
+        controlInputCall(elapsed); //checks for inputs
         debugInputCall();
 
         triggersCheck(); //interactables only need to be checked when ACCEPT is pressed; triggers do need to be checked constantly.
@@ -343,7 +352,7 @@ class Overworld extends FNFState
         camGame.setScrollBoundsRect(camBounds.left, camBounds.top, camBounds.width, camBounds.height);
     }
 
-    function controlInputCall()
+    function controlInputCall(elapsed:Float)
     {
         //an update() function. poopshitters checked for input in the player object in order to move it but I think i should do that here.
         //i think this is necessary to prevent janky collision, and is cleaner anyways.
@@ -386,6 +395,21 @@ class Overworld extends FNFState
                 openSubState(menuSubstate);
             }
         }
+
+        /* ----------------------------------------------------
+        ---                      ESCAPE                     ---
+        -----------------------------------------------------*/
+        //might want to prevent escaping sometimes
+        if(FlxG.keys.pressed.ESCAPE) {
+            quit.dial.amount += elapsed;
+            if(quit.dial.amount >= 1)
+                returnToMenu();
+        }
+        else {
+            quit.dial.amount -= elapsed * 3;
+            if(quit.dial.amount <= 0)
+                quit.dial.amount = 0;
+        }
     }
 
     private function debugInputCall()
@@ -403,8 +427,8 @@ class Overworld extends FNFState
         if(FlxG.keys.justPressed.EIGHT)
             {
                 var song:PlaySong = {
-                    name: "Flowey",
-                    folder: "flowey",
+                    name: "Budding Friendship",
+                    folder: "budding_friendship",
                     difficulty: "hard"
                 };
                 initializeSongTransition(song);
@@ -612,6 +636,11 @@ class Overworld extends FNFState
             playerCenterScreenPoint.x, playerCenterScreenPoint.y);
         soulSubstate.camera = camHUD;
         openSubState(soulSubstate);
+    }
+
+    public function returnToMenu()
+    {
+        FlxG.switchState(new SaveFileMenu());
     }
 
     public function warp(room:String, x:Int, y:Int)

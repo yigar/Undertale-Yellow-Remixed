@@ -8,7 +8,7 @@ enum abstract UTFont(String) from String to String
 {
     var DEFAULT:String = "pixela-extreme";
     var PIXELA:String = "pixela-extreme";
-    var MARS:String = "mars-needs-cunnilingus";
+    var MARS:String = "mars-needs-cunnilingus"; //lol
     var DOTUMCHE:String = "dotumche-pixel";
     var CRYPT:String = "crypt-of-tomorrow";
     var SANS:String = "comic-sans-undertale";

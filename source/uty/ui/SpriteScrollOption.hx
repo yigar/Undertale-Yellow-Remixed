@@ -14,6 +14,7 @@ class SpriteScrollOption extends FlxSpriteGroup
     public var arrowR:ForeverSprite;
 
     public var textOnTop:Bool = false;
+    public var arrowsByText:Bool = false; //wraps the arrows around the text if true, instead of the sprite
 
     private var options:Array<String>;
     public var selection:Int = 0;
@@ -56,12 +57,27 @@ class SpriteScrollOption extends FlxSpriteGroup
         sprite.x = x - (center ? Std.int(sprite.width * 0.5) : 0);
         sprite.y = y - (center ? Std.int(sprite.height * 0.5) : 0);
 
-        text.x = Std.int(sprite.x + (sprite.width * 0.5) - (text.width * 0.5));
-        text.y = (textOnTop ? sprite.y - 30 : sprite.y + sprite.height + 30);
+        //shitty line of code, but this basically centers the text, above or below the sprite depending on the var
+        positionText(Std.int(sprite.x + (sprite.width * 0.5) - (text.width * 0.5)), //x
+            Std.int(textOnTop ? sprite.y - 30 : sprite.y + sprite.height + 30)); //y
 
-        var poopY = sprite.y + Std.int((sprite.height * 0.5) - (arrowL.height * 0.5));
-        arrowL.setPosition(sprite.x - 30 - arrowL.width, poopY);
-        arrowR.setPosition(sprite.x + Std.int(sprite.width) + 30, poopY);
+        positionArrows();
+    }
+
+    //breaking the position function up for customizability like in the memorylogmenu
+    public function positionText(x:Int = 0, y:Int = 0, ?center:Bool = false)
+    {
+        text.x = x - (center ? text.width * 0.5 : 0);
+        text.y = y;
+        text.updateHitbox();
+    }
+
+    public function positionArrows()
+    {
+        var obj = (arrowsByText ? text : sprite);
+        var poopY = obj.y + Std.int((obj.height * 0.5) - (arrowL.height * 0.5));
+        arrowL.setPosition(obj.x - 30 - arrowL.width, poopY);
+        arrowR.setPosition(obj.x + Std.int(obj.width) + 30, poopY);
     }
 
     public function setAtlas(atlas:String)
@@ -96,6 +112,14 @@ class SpriteScrollOption extends FlxSpriteGroup
         }
         
         sprite.playAnim('option${selection}');
+        sprite.updateHitbox();
+    }
+
+    public function setTextColor(color:FlxColor = FlxColor.WHITE)
+    {
+        arrowL.color = color;
+        arrowR.color = color;
+        text.color = color;
     }
 
     public function addToSelection(add:Int){

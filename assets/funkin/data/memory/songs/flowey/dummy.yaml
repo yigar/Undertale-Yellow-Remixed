@@ -1,0 +1,9 @@
+folder: "flowey"
+
+name: "Test"
+song: "budding_friendship"
+iconP: "flowey"
+iconO: "martlet"
+background: "ruins"
+unlock: ["floweySongBeaten"]
+unlockDesc: "This is a test."

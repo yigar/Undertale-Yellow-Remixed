@@ -25,6 +25,6 @@ function dialogue1()
 
 function startSong()
 {
-    var floweySong:PlaySong = new PlaySong("Flowey", "flowey", "hard");
+    var floweySong:PlaySong = new PlaySong("Budding Friendship", "budding_friendship", "hard");
     Overworld.current.initializeSongTransition(floweySong);
 }

@@ -136,7 +136,7 @@ class StoryUtil
 {
     //utility class for setting some values quickly
     public static var songFlags:StringMap<String> = [
-        "Flowey" => "FloweySongBeaten",
+        "Budding Friendship" => "FloweySongBeaten",
         "Martlet" => "MartletSongBeaten"
     ];
 
@@ -288,12 +288,30 @@ class StoryProgress
             flags.main.push(flag);
     }
 
+    //if the flag has been set using the flag() command, returns true.
     public static function checkFlag(flag:String):Bool
     {
         flag = flag.toLowerCase();
         var flags = _getActiveFlags();
         trace("flags: " + flags);
         return flags.main.contains(flag);
+    }
+
+    //check if all flags in an array are set. setting 'or' to true will check for one instead of all.
+    public static function checkFlagArray(ary:Array<String>, ?or:Bool = false):Bool
+    {
+        var trueCount:Int = 0;
+        for(i in 0...ary.length)
+        {
+            if(checkFlag(ary[i]))
+                trueCount++;
+        }
+        
+        if((or && trueCount > 0) || (trueCount >= ary.length))
+        {
+            return true;
+        }
+        else return false;
     }
 
     private static function _getActiveFlags():StoryFlags

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="start.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="deselect00" x="0" y="0" width="92" height="32"/>
+  <SubTexture name="select00" x="0" y="33" width="92" height="32"/>
+  <SubTexture name="select01" x="0" y="66" width="92" height="32"/>
+</TextureAtlas>

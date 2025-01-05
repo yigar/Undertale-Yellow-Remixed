@@ -103,7 +103,7 @@ class Init extends FlxState {
 		flixel.FlxSprite.defaultAntialiasing = forever.Settings.globalAntialias;
 		forever.Controls.current = new forever.ControlsManager();
 
-		#if DISCORD forever.core.DiscordWrapper.initialize("1157951594667708416"); #end
+		#if DISCORD forever.core.DiscordWrapper.initialize("1325211048801992715"); #end
 		#if MODS
 		forever.core.Mods.initialize();
 		if (FlxG.save.data.currentMod != null)

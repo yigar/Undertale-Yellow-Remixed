@@ -1,0 +1,9 @@
+folder: "flowey"
+
+name: "Budding Friendship"
+song: "budding_friendship"
+iconP: "clover"
+iconO: "flowey"
+background: "ruins"
+unlock: ["floweySongBeaten"]
+unlockDesc: "Beat Flowey to unlock."

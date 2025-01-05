@@ -1916,7 +1916,7 @@
 	"gameInfo": {
 		"noteSpeed": 1.5,
 		"chars": [
-			"clover",
+			"clover_geno",
 			"flowey"
 		],
 		"stageBG": "ruins-flowey",

@@ -70,6 +70,11 @@ class ScrollSelectionList extends FlxSpriteGroup
         scroll();
     }
 
+    public function getSel():ListOption
+    {
+        return optionList[selection];
+    }
+
     public function scroll()
     {
         if(!allowScroll)
