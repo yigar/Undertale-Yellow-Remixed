@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextureAtlas imagePath="strip.png">
-  <SubTexture name="ruins" x="0" y="0" width="400" height="60"/>
-  <SubTexture name="snowdin" x="0" y="0" width="400" height="60"/>
+  <SubTexture name="ruins" x="0" y="0" width="600" height="60"/>
+  <SubTexture name="snowdin" x="0" y="60" width="600" height="60"/>
 </TextureAtlas>

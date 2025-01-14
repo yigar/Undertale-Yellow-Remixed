@@ -1,9 +1,9 @@
 folder: "flowey"
 
 name: "Test"
-song: "budding_friendship"
+song: "test"
 iconP: "flowey"
 iconO: "martlet"
-background: "ruins"
+background: "snowdin"
 unlock: ["floweySongBeaten"]
 unlockDesc: "This is a test."

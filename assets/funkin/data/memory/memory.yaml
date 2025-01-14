@@ -4,7 +4,7 @@ characters:
       icon: "flowey",
       artData: "flowey",
       dialogue: "flowey",
-      songs: ["budding_friendship", "dummy"],
+      songs: ["budding_friendship", "test"],
       unlock: [],
       secret: false
     }

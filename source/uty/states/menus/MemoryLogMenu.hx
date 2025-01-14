@@ -25,6 +25,8 @@ import uty.components.DialogueParser;
 import flixel.addons.display.FlxBackdrop;
 import flixel.graphics.FlxGraphic;
 import flixel.math.FlxRect;
+import funkin.states.PlayState;
+import flixel.addons.transition.FlxTransitionableState;
 
 typedef CharacterOption = {
     name:String, //the display name of the character.
@@ -68,6 +70,7 @@ class MemoryLogMenu extends BaseMenuState
     public var optInfo:ForeverSprite;
     public var window:Window;
     public var spBubble:ForeverSprite;
+    public var startFlash:ForeverSprite;
 
     public var floweyEmerge:ForeverSprite;
     public var flowey:FlxSpriteGroup;
@@ -83,6 +86,7 @@ class MemoryLogMenu extends BaseMenuState
     public var menuState:MemoryMenuState = MAIN;
     public var boxOptSel:Int = 0;
     private var parser:DialogueParser;
+    public var lockControls:Bool = false;
 
     public final spriteDir:String = 'images/menu/memory/';
 
@@ -106,7 +110,7 @@ class MemoryLogMenu extends BaseMenuState
         parser = new DialogueParser();
 
         add(bg = new FlxSprite().makeSolid(FlxG.width, FlxG.height, 0xFF000000));
-
+        
         characterList = new ScrollSelectionList(30, 180);
         add(characterList);
 
@@ -118,22 +122,22 @@ class MemoryLogMenu extends BaseMenuState
 
         //adds characters to characterList
         for (i in 0...fullData.length)
-        {
-            if(StoryProgress.checkFlagArray(fullData[i].unlock)) //check for unlocked in save later
             {
-                characterList.addOption(fullData[i].name, '${spriteDir}icons/${fullData[i].icon}');
-                charListData.push(fullData[i]);
+                if(StoryProgress.checkFlagArray(fullData[i].unlock)) //check for unlocked in save later
+                {
+                    characterList.addOption(fullData[i].name, '${spriteDir}icons/${fullData[i].icon}');
+                    charListData.push(fullData[i]);
+                }
+                else if(fullData[i].secret) //check for if it's NOT secret
+                {
+                    characterList.addOption('?????', '${spriteDir}icons/empty');
+                    var lData:CharacterOption = lockedSongData;
+                    lData.unlock = fullData[i].unlock;
+                    lData.dialogue = fullData[i].dialogue;
+                    charListData.push(lData);
+                }
+                //otherwise it's secret and not added to the list at all
             }
-            else if(fullData[i].secret) //check for if it's NOT secret
-            {
-                characterList.addOption('?????', '${spriteDir}icons/empty');
-                var lData:CharacterOption = lockedSongData;
-                lData.unlock = fullData[i].unlock;
-                lData.dialogue = fullData[i].dialogue;
-                charListData.push(lData);
-            }
-            //otherwise it's secret and not added to the list at all
-        }
 
         //now that the data is loaded...
         songMenu = new SongSelectSubMenu();
@@ -141,6 +145,16 @@ class MemoryLogMenu extends BaseMenuState
         songMenu.setSongsData(charListData[0].songs, charListData[0].name);
         songMenu.setupSprites();
         add(songMenu);
+
+        //the cool fuckin flash thing goes on top of the song menu
+        startFlash = new ForeverSprite(0, 0, '${spriteDir}start_flash');
+        startFlash.visible = false;
+        startFlash.frames = AssetHelper.getAsset('${spriteDir}start_flash', ATLAS);
+        startFlash.addAtlasAnim('flash', 'flash', 24, false);
+        startFlash.antialiasing = false;
+        startFlash.scale.set(3.0, 3.0);
+        startFlash.updateHitbox();
+        add(startFlash);
 
         loadArt(charListData[characterList.changeSelection(0)].artData); //updates stuff
 
@@ -287,6 +301,9 @@ class MemoryLogMenu extends BaseMenuState
 
     public function menuControlCheck()
     {
+        if(lockControls)
+            return;
+
         var vDir = (Controls.UI_DOWN_P ? 1 : 0) - (Controls.UI_UP_P ? 1 : 0);
         var hDir = (Controls.UI_RIGHT_P ? 1 : 0) - (Controls.UI_LEFT_P ? 1 : 0);
 
@@ -381,6 +398,8 @@ class MemoryLogMenu extends BaseMenuState
                     {
                         if(Controls.UT_ACCEPT_P) {
                             //load song
+                            var song = songMenu.getSelectedSong();
+                            initiateSongTransition(song.name, song.song);
                         }
                     }
                 }
@@ -463,6 +482,33 @@ class MemoryLogMenu extends BaseMenuState
                 songMenu.open();
             }
         }
+    }
+
+    public function initiateSongTransition(song:String, folder:String)
+    {
+        lockControls = true;
+        FlxTransitionableState.skipNextTransOut = true;
+
+        FlxG.sound.play(AssetHelper.getAsset('audio/sfx/memory_load', SOUND));
+
+        startFlash.visible = true;
+        startFlash.animation.finishCallback = function(name:String){
+            if(name == 'flash')
+                startSong(song, folder);
+        }
+        startFlash.animation.play('flash');
+    }
+
+    private function startSong(song:String, folder:String)
+    {
+        //this will always be on HARD for now.
+        var playSong:PlaySong = {
+            name: song,
+            folder: folder,
+            difficulty: "hard"
+        };
+        Chart.current = ChartLoader.load(playSong.folder, playSong.difficulty);
+        FlxG.switchState(new PlayState(playSong, GameplayMode.FREEPLAY));
     }
 }
 
@@ -556,7 +602,6 @@ class SongSelectSubMenu extends FlxSpriteGroup
     //visual stuff
     public var shade:FlxSprite;
     public var window:Window;
-    public var title:UTText;
     public var artBackground:SpriteScrollOption;
     public var iconOpp:ForeverSprite;
     public var iconPlayer:ForeverSprite;
@@ -592,6 +637,11 @@ class SongSelectSubMenu extends FlxSpriteGroup
         add(shade);
         //the box
         window = new Window(0, 0, 640, 480);
+        //title text
+        window.addText(120, 30, 0, 'WHICH SONG?', 56);
+        window.textItems[0].updateHitbox();
+        window.textItems[0].x = (window.width * 0.5) - (window.textItems[0].width * 0.5);
+    
         //the scrolling art
         artBackground = new SpriteScrollOption(10, 60, 'images/menu/memory/strip', false, 3.0);
         artBackground.arrowsByText = true;
@@ -614,7 +664,7 @@ class SongSelectSubMenu extends FlxSpriteGroup
         //for first select
         artBackground.setTextColor(FlxColor.YELLOW);
         artBackground.position(20, 120);
-        artBackground.positionText(Std.int(window.width * 0.5), Std.int(yOff + artBackground.sprite.y + 50), true);
+        artBackground.positionText(Std.int(window.width * 0.5), Std.int(yOff + artBackground.sprite.y + 70), true);
         artBackground.positionArrows();
 
         //icons
@@ -624,7 +674,7 @@ class SongSelectSubMenu extends FlxSpriteGroup
             setIcons();
         }
             
-        start = new ForeverSprite(280, 405, 'images/menu/memory/start');
+        start = new ForeverSprite(283, 404, 'images/menu/memory/start'); //the x and y pos are precise here
         start.frames = AssetHelper.getAsset('images/menu/memory/start', ATLAS);
         start.animation.addByPrefix('deselect', 'deselect', 4, true);
         start.animation.addByPrefix('select', 'select', 4, true);
@@ -646,7 +696,8 @@ class SongSelectSubMenu extends FlxSpriteGroup
     //icons arent updating, fix that
     public function setIcons(iconO:String = "flowey", iconP:String = "clover")
     {
-        iconOpp = new ForeverSprite(100, 190);
+        if(iconOpp == null)
+            iconOpp = new ForeverSprite(100, 190);
         var file1:FlxGraphic = AssetHelper.getAsset('images/icons/${iconO}', IMAGE);
         var frm1 = AssetHelper.getAsset('images/icons/${iconO}', ATLAS);
         iconOpp.loadGraphic(file1);
@@ -656,7 +707,8 @@ class SongSelectSubMenu extends FlxSpriteGroup
         iconOpp.scale.set(3.0, 3.0);
         iconOpp.antialiasing = false;
 
-        iconPlayer = new ForeverSprite(500, iconOpp.y);
+        if(iconPlayer == null)
+            iconPlayer = new ForeverSprite(500, iconOpp.y);
         var file2:FlxGraphic = AssetHelper.getAsset('images/icons/${iconP}', IMAGE);
         var frm2 = AssetHelper.getAsset('images/icons/${iconP}', ATLAS);
         iconPlayer.loadGraphic(file2);
@@ -677,8 +729,13 @@ class SongSelectSubMenu extends FlxSpriteGroup
             index = 0;
         setIcons(songData[index].iconO, songData[index].iconP);
         artBackground.updateSelection(index);
-        artBackground.positionText(Std.int(xOff + window.width * 0.5), Std.int(yOff + artBackground.sprite.y + 50), true);
+        artBackground.positionText(Std.int(xOff + window.width * 0.5), Std.int(yOff + artBackground.sprite.y + 70), true);
         artBackground.positionArrows();
+    }
+
+    public function getSelectedSong():SongData
+    {
+        return songData[artBackground.selection];
     }
 
     public function setSongsData(songs:Array<String>, ?folder:String):Array<SongData> {
@@ -715,7 +772,7 @@ class SongSelectSubMenu extends FlxSpriteGroup
     {
         //movement is integerized, preventing jittering
         scrollX += 10 * elapsed;
-        if(scrollX > 200) {
+        if(scrollX > 400) {
             scrollX = 0;
         }
         bgRect.x = Std.int(scrollX);

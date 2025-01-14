@@ -1,7 +1,8 @@
 function start()
 {
     Overworld.current.setLockAllInput(true);
-    new FlxTimer().start(0.8, emerge);
+    Overworld.current.soundMngr.tweenMusicVolume(0.0, 2.0);
+    new FlxTimer().start(1.0, emerge);
 }
 
 function emerge()
