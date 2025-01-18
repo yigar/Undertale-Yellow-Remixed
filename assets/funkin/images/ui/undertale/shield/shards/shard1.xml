@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="shard1.png">
+  <!-- Generated using Aseprite .json to FNF .xml: https://github.com/Lethrial/Aseprite-.json-to-FNF-.xml -->
+  <SubTexture name="anim0000" x="0" y="0" width="75" height="85"/>
+  <SubTexture name="anim0001" x="75" y="0" width="75" height="85"/>
+  <SubTexture name="anim0002" x="150" y="0" width="75" height="85"/>
+  <SubTexture name="anim0003" x="225" y="0" width="75" height="85"/>
+  <SubTexture name="anim0004" x="300" y="0" width="75" height="85"/>
+  <SubTexture name="anim0005" x="0" y="85" width="75" height="85"/>
+  <SubTexture name="anim0006" x="75" y="85" width="75" height="85"/>
+  <SubTexture name="anim0007" x="150" y="85" width="75" height="85"/>
+  <SubTexture name="anim0008" x="225" y="85" width="75" height="85"/>
+  <SubTexture name="anim0009" x="300" y="85" width="75" height="85"/>
+  <SubTexture name="anim0010" x="0" y="170" width="75" height="85"/>
+  <SubTexture name="anim0011" x="75" y="170" width="75" height="85"/>
+  <SubTexture name="anim0012" x="150" y="170" width="75" height="85"/>
+  <SubTexture name="anim0013" x="225" y="170" width="75" height="85"/>
+  <SubTexture name="anim0014" x="300" y="170" width="75" height="85"/>
+  <SubTexture name="anim0015" x="0" y="255" width="75" height="85"/>
+  <SubTexture name="anim0016" x="75" y="255" width="75" height="85"/>
+  <SubTexture name="anim0017" x="150" y="255" width="75" height="85"/>
+  <SubTexture name="anim0018" x="225" y="255" width="75" height="85"/>
+  <SubTexture name="anim0019" x="300" y="255" width="75" height="85"/>
+</TextureAtlas>

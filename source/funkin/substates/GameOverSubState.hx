@@ -21,6 +21,7 @@ import uty.components.DialogueParser;
 import uty.components.SoundManager;
 import uty.states.Overworld;
 import uty.components.StoryData;
+import uty.objects.DirectionParticle;
 
 @:structInit class GameOverData {
     /** Character that died. This alters the soul that appears (in case monsters become playable characters... wink wink) **/
@@ -236,45 +237,19 @@ class GameOverSubState extends FlxSubState {
     }
 }
 
-class SoulShard extends ForeverSprite
+class SoulShard extends DirectionParticle
 {
     //this'll just make it easier to track the tweens, trust me
 
-    public var moveX:Float = 0.0;
-    public var moveY:Float = 0.0;
-    private final gravity:Float = 0.15;
-
     public function new(x:Int, y:Int, character:String = 'clover')
     {
-        super(x, y);
-        loadGraphic(Paths.image('gameOver/soulShard_${character}'));
-        frames = Paths.getSparrowAtlas('gameOver/soulShard_${character}');
-        addAtlasAnim("shatter", "shatter", 6, true);
-        playAnim('shatter');
+        super(x, y, 'gameOver/soulShard_${character}', 'shatter', 4);
         antialiasing = false;
         scale.set(1.5, 1.5);
         updateHitbox();
 
+        setXBounds(8.0, 8.0);
+        setYBounds(-12.0, 3.0);
         getRandomMomentum();
-    }
-
-    private function getRandomMomentum()
-    {
-        moveX = FlxG.random.float(-8.0, 8.0);
-        moveY = FlxG.random.float(-12.0, 3.0);
-    }
-
-    override function update(elapsed:Float)
-    {
-        super.update(elapsed);
-        this.x += moveX;
-        this.y += moveY;
-        moveY += gravity;
-
-        if(this.x < -100 || this.x > FlxG.width + 100 || this.y > FlxG.height + 100) //if the shard is off-screen
-        {
-            visible = false;
-            this.destroy();
-        }
     }
 }

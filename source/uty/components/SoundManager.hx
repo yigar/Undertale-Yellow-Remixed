@@ -3,6 +3,7 @@ package uty.components;
 import flixel.FlxG;
 import flixel.sound.FlxSound;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxTimer;
 
 class SoundManager
 {
@@ -128,5 +129,12 @@ class SoundManager
         lastAmb = "none";
         if(ambience != null)
             ambience.stop();
+    }
+
+    public static function playSound(sound:String, ?vol:Float = 1.0, ?delay:Float = 0.0)
+    {
+        new FlxTimer().start(delay, function(tmr:FlxTimer){
+            FlxG.sound.play(AssetHelper.getAsset('audio/sfx/${sound}', SOUND), vol);
+        });
     }
 }

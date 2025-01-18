@@ -28,6 +28,9 @@ import uty.components.Opponents;
 import uty.states.Overworld;
 import uty.states.menus.MemoryLogMenu;
 import uty.scripts.UTScript;
+import funkin.ui.CerobaShield;
+import funkin.objects.play.Ally;
+import uty.components.SoundManager;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -89,6 +92,12 @@ class PlayState extends FNFState {
 	public var resetTimer:Float = 0.0; //this has to be separate from the invTimer, otherwise resetting could be abused for i-frames
 	public var gameOvered:Bool = false;
 	public var suicideClock:Float = 0.0; //for a fun little reset button effect
+		//shield stuff
+	public var shieldEnabled:Bool = true; //do not confuse these two
+	public var shieldCharged:Bool = false;
+	public var shieldPercent:Float = 0.0;
+	public var absorbThisHit:Bool = false; //for the shield mechanic; allows for the hurt code to be intercepted
+	public var ally:Ally;
 
 	/**
 	 * Constructs the Gameplay State
@@ -171,6 +180,7 @@ class PlayState extends FNFState {
 
 		// -- PREPARE CHARACTERS -- //
 		add(crowd = new Character(stage.crowdPosition.x, stage.crowdPosition.y, Chart.current.gameInfo.chars[2], false)); //TEMP FIX: \/
+		crowd.visible = false;
 		add(player = new Character(stage.playerPosition.x, stage.playerPosition.y, Chart.current.gameInfo.chars[0], true)); player.visible = false;
 		add(enemy = new Character(stage.enemyPosition.x, stage.enemyPosition.y, Chart.current.gameInfo.chars[1], false));
 		//setting up enemy data here as well
@@ -240,6 +250,7 @@ class PlayState extends FNFState {
 
 	override function update(elapsed:Float):Void {
 		super.update(elapsed);
+		updateDebug(); //remove later
 
 		invTimer -= elapsed;
 		resetTimer -= elapsed;
@@ -272,6 +283,11 @@ class PlayState extends FNFState {
 			
 		#end
 		callFunPack("postUpdate", [elapsed]);
+
+		//ceroba shield mechanic
+		if(shieldEnabled) {
+			cerobaShieldOnUpdate(elapsed);
+		}
 	}
 
 	//cool function that manages the reset key.
@@ -342,7 +358,6 @@ class PlayState extends FNFState {
 			var params = Tools.getEnumParams(judgement);
 
 			Timings.score += params[1];
-			healPlayer();
 			if (Timings.combo < 0)
 				Timings.combo = 0;
 			Timings.combo += 1;
@@ -350,6 +365,11 @@ class PlayState extends FNFState {
 			Timings.totalNotesHit += 1;
 			Timings.accuracyWindow += Math.max(0, params[2]);
 			Timings.increaseJudgeHits(params[0]);
+
+			//gameplay behavior
+			healPlayer();
+			if(shieldEnabled)
+				cerobaShieldOnHit();
 
 			if (params[3] || note.splash)
 				note.parent.createSplash(note.data);
@@ -384,8 +404,18 @@ class PlayState extends FNFState {
 			Timings.combo--;
 		Timings.score -= 250;
 
-		damagePlayer();
 		Timings.misses += 1;
+
+		//behavior
+		if(!isInv())
+		{
+			//if the shield is enabled and that function returns false, it will not deal damage
+			//this is because the shield gets broken instead
+			if(!shieldEnabled || cerobaShieldOnMiss()) {
+			gameCamera.shake(0.01, 0.2); //base this on the shield stuff
+			damagePlayer();
+			}
+		}
 
 		if (player.animationContext != 3)
 			player.playAnim(player.singingSteps[dir] + "miss", true);
@@ -474,6 +504,75 @@ class PlayState extends FNFState {
 		if(!ignoreInv)
 			invTimer = Timings.inv;
 		deathCheck(player);
+	}
+
+	//enables ceroba's shield. this is called when she's in the Ally slot.
+	public function enableCerobaShield()
+	{
+		shieldEnabled = true;
+		if(playField != null)
+			playField.cerobaShield.visible = true;
+	}
+
+	public function cerobaShieldOnUpdate(elapsed:Float)
+	{
+		cerobaShieldChargeCheck();
+		//visual stuff
+		playField.cerobaShield.percent = shieldPercent;
+	}
+
+	function cerobaShieldOnHit()
+	{
+		var addChrg = CerobaShield.chargePerHit + Math.abs(CerobaShield.chargeComboBonus * Timings.combo);
+		if(addChrg > CerobaShield.chargeCap)
+			addChrg == CerobaShield.chargeCap;
+
+		shieldPercent += addChrg;
+		trace("SHIELD " + shieldPercent * 100);
+	}
+
+	function cerobaShieldOnMiss():Bool //returns if damage should be done
+	{
+		//lose some charge if not charged; absorb the hit if charged
+		if(!shieldCharged) {
+			shieldPercent -= CerobaShield.chargeLostOnMiss;
+			if(shieldPercent < 0)
+				shieldPercent = 0;
+			return true;
+		}
+		else {
+			breakCerobaShield();
+			return false;
+		}
+	}
+
+	function cerobaShieldChargeCheck()
+	{
+		if(shieldPercent >= 1.0 && !shieldCharged)
+		{
+			chargeCerobaShield();
+		}
+	}
+	
+	function chargeCerobaShield() 
+	{
+		shieldCharged = true;
+		invTimer += CerobaShield.startupTime; //sort of like the yoshi shield parry in smash bros melee
+		playField.cerobaShield.chargeShieldFX();
+		SoundManager.playSound('snd_ceroba_trap', 0.7);
+		SoundManager.playSound('snd_shop_purchase', 0.5, 0.5);
+	}
+
+	function breakCerobaShield() {
+		//play sound, animation, set shit to zero, etc.
+		shieldCharged = false;
+		shieldPercent = 0.0;
+		invTimer = CerobaShield.invTime;
+
+		playField.cerobaShield.breakShieldFX();
+		gameCamera.shake(0.03, 0.5);
+		SoundManager.playSound('snd_mirrorbreak', 0.7);
+		SoundManager.playSound('snd_mo_jacket_explosion', 0.7);
 	}
 
 	/** Enables the Golden Judgements & Combo Popups when having a perfect combo. **/
@@ -831,5 +930,15 @@ class PlayState extends FNFState {
 		if (sprites[tick] != null && Tools.fileExists(AssetHelper.getPath('images/ui/${playField.skin}/${sprites[tick]}', IMAGE)))
 			return new ForeverSprite(0, 0, 'images/ui/${playField.skin}/${sprites[tick]}', {"scale.x": 0.9, "scale.y": 0.9});
 		return null;
+	}
+
+	function updateDebug()
+	{
+		if(FlxG.keys.pressed.O && shieldEnabled) {
+			shieldPercent += 0.10;
+		}
+		if(FlxG.keys.justPressed.P && shieldEnabled) {
+			breakCerobaShield();
+		}
 	}
 }

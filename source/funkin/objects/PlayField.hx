@@ -14,6 +14,7 @@ import funkin.objects.play.*;
 import funkin.states.PlayState;
 import funkin.ui.HealthBar;
 import funkin.ui.UTIcon;
+import funkin.ui.CerobaShield;
 
 import haxe.ds.Vector;
 
@@ -48,12 +49,17 @@ class PlayField extends FlxGroup {
 	public var iconP1:UTIcon;
 	public var iconP2:UTIcon;
 
+	public var cerobaShield:CerobaShield;
+
 	public var rpcText:String;
 
 	public var missCount:MissCounter;
 	public var gradeSprite:GradeSprite;
 
 	public var splashGroup:RecycledSpriteGroup<NoteSplash>;
+
+	//ui options
+	public var cerobaShieldActive:Bool = false;
 
 	public function new():Void {
 		super();
@@ -75,6 +81,8 @@ class PlayField extends FlxGroup {
 		add(noteGroup = new FlxTypedSpriteGroup<Note>());
 		add(splashGroup = new RecycledSpriteGroup<NoteSplash>());
 
+		add(cerobaShield = new CerobaShield(0, 0));
+
 		final hbY:Float = Settings.downScroll ? FlxG.height * 0.1 : FlxG.height * 0.875;
 
         var hbPath:String = 'images/ui/${skin}/healthBar';
@@ -85,10 +93,14 @@ class PlayField extends FlxGroup {
 
 		add(iconP1 = new UTIcon(PlayState.current?.player?.icon ?? "face", true));
 		add(iconP2 = new UTIcon(PlayState.current?.enemy?.icon ?? "face", false));
+
 		for (i in [iconP1, iconP2]) i.y = healthBar.y - (i.height * 0.5);
 		
 		iconP1.x = FlxG.width - 150 - (iconP1.width * 0.50);
 		iconP2.x = 150 - (iconP2.width * 0.50);
+
+		cerobaShield.x = iconP1.x - (iconP1.width);
+		cerobaShield.y = iconP1.y - (iconP1.height);
 
 		// [${play.songMeta.difficulty.toUpperCase()}] -'
 		//improve this song display later
