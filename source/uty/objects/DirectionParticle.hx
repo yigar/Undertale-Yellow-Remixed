@@ -60,8 +60,8 @@ class DirectionParticle extends ForeverSprite
     private function checkOffscreen()
     {
         //if(this.isOnScreen(PlayState.current.gameCamera))
-        if(this.x < -100 || this.x > FlxG.width + PlayState.current.gameCamera.x + 100 || 
-            this.y > FlxG.height + PlayState.current.gameCamera.y + 100) //if the shard is off-screen
+        if(this.x < -100 || this.x > FlxG.width + PlayState.current.hudCamera.x + 100 || 
+            this.y > FlxG.height + PlayState.current.hudCamera.y + 100) //if the shard is off-screen
         {
             if(dontDestroy) {
                 if(enabled)

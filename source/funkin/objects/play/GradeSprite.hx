@@ -61,7 +61,7 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
     private function loadText()
     {
         accText = new UTText(0, 0, 0, "");
-        accText.setFont(MARS, 24);
+        accText.setFont(MARS, 20);
         accText.setBorder();
     }
 
@@ -71,7 +71,13 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
 
         letter.setPosition(centerPoint.x - (letter.width / 2), centerPoint.y - (letter.height / 2));
         sign.setPosition(letter.x + letter.width + 25, letter.y + 10);
-        accText.setPosition(centerPoint.x - (accText.width / 2) + 130, centerPoint.y);
+        accText.setPosition(centerPoint.x - (letter.width / 2), centerPoint.y + (letter.height));
+    }
+
+    private function updateAccPosition()
+    {
+        accText.updateHitbox();
+        accText.setPosition(centerPoint.x - (letter.width / 2), centerPoint.y + (letter.height));
     }
 
     public function updateGrade(accuracy:Float, rank:String)
