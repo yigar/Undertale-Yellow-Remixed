@@ -6,6 +6,7 @@ import forever.display.ForeverSprite;
 import funkin.states.PlayState;
 import haxe.ds.IntMap;
 import funkin.components.Timings;
+import flixel.util.FlxColor;
 
 class UTIcon extends ChildSprite {
 	public var initialWidth:Float = 0.0;
@@ -16,10 +17,14 @@ class UTIcon extends ChildSprite {
 
 	// -- CUSTOMIZATION -- //
 	public var autoPosition:Bool = false;
-	public var autoBop:Bool = true;
+	public var autoBop:Bool = false;
+	public var lowHealthFlash:Bool = true;
 	public var comboReq:Int = 50; //enemy's losing anim will play once combo is this big
 	public var lowHealthPercent:Float = 20; //player's losing anim will play below this %
 	public var resize:Float = 3.0;
+	public var lowHealthFlashColor:FlxColor = 0xFFE60331;
+
+	var isLosing:Bool = false;
 
 	public function new(character:String = "clover", isPlayer:Bool = false, parent:FlxSprite = null):Void {
 		super();
@@ -59,6 +64,9 @@ class UTIcon extends ChildSprite {
 
 			antialiasing = false; //!char.endsWith("-pixel");
 			character = char;
+
+			scale.set(resize, resize);
+			updateHitbox();
 		}
 
 		return char;
@@ -70,6 +78,8 @@ class UTIcon extends ChildSprite {
 		var hp:HealthBar = PlayState.current != null ? PlayState.current.playField.healthBar : null;
 		if (hp == null) return;
 
+		updateStatus(hp.bar.percent, Timings.combo);
+
 		if (autoPosition == true) {
 			var iconOffset:Int = 25;
 			if (!isPlayer) iconOffset = cast(width - iconOffset);
@@ -78,30 +88,40 @@ class UTIcon extends ChildSprite {
 
 		if (autoBop == true && scale.x != resize) {
 			final weight:Float = 1.0 - 1.0 / Math.exp(5.0 * elapsed);
+			//this merely eases the icon size. it doesn't do the bopping.
 			scale.set(FlxMath.lerp(scale.x, resize, weight), FlxMath.lerp(scale.y, resize, weight));
-			// updateHitbox();
+			updateHitbox();
 			offset.y = 0;
 		}
 
-		updateAnim(hp.bar.percent, Timings.combo);
+		//flash red at low health
+		if(lowHealthFlash && hp.bar.percent < lowHealthPercent)
+		{
+			var weight:Float = 1.0 - 1.0 / Math.exp(4.0 * elapsed);
+			color = FlxColor.interpolate(color, FlxColor.WHITE, weight);
+		}
+		else if(color != FlxColor.WHITE)
+			color = FlxColor.WHITE;
+		
+		updateAnim();
 	}
 
-	public function updateAnim(hpPercent:Float, combo:Int)
+	public function updateStatus(hpPercent:Float, combo:Int)
 	{
-		if(isPlayer)
-		{
-			if(hpPercent < lowHealthPercent)
-				transAnim('lose');
-			else
-				transAnim('default');
+		if(isPlayer) {
+			isLosing = (hpPercent <= lowHealthPercent);
 		}
+		else {
+			isLosing = (hpPercent >= 100 && combo >= comboReq);
+		}
+	}
+
+	public function updateAnim()
+	{
+		if(isLosing)
+			transAnim('lose');
 		else
-		{
-			if(hpPercent >= 100 && combo >= comboReq)
-				transAnim('lose');
-			else
-				transAnim('default');
-		}
+			transAnim('default');
 	}
 
 	public function transAnim(anim:String)
@@ -118,5 +138,11 @@ class UTIcon extends ChildSprite {
 		if (autoBop != true) return;
 		scale.set(1.08 * resize, 1.08 * resize);
 		// updateHitbox();
+	}
+
+	public function dangerFlash(beat:Int):Void
+	{
+		if(lowHealthFlash != true || !isLosing) return;
+		color = lowHealthFlashColor;
 	}
 }

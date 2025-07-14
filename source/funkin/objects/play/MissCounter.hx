@@ -11,6 +11,7 @@ class MissCounter extends FlxTypedGroup<FlxObject>
 {
     //objects
     public var heart:ForeverSprite;
+    public var missNum:UTText;
     public var missText:UTText;
 
     //state
@@ -20,6 +21,7 @@ class MissCounter extends FlxTypedGroup<FlxObject>
     public var maxMissWidth:Float;
     public var maxMissHeight:Float;
     public var centerPoint:FlxPoint;
+    public var missString:String = "MISSED";
 
     //finals
     public final _missFont:String = "mars-needs-cunnilingus";
@@ -30,6 +32,7 @@ class MissCounter extends FlxTypedGroup<FlxObject>
         loadSprite();
         loadText();
         add(heart);
+        add(missNum);
         add(missText);
         position(x, y);
 
@@ -49,17 +52,43 @@ class MissCounter extends FlxTypedGroup<FlxObject>
 
     private function loadText()
     {
-        missText = new UTText(0, 0, heart.width * .60, "");
-        missText.setFont(MARS, 32);
-        missText.setBorder();
+        missNum = new UTText(0, 0, heart.width * .60, "");
+        missNum.setFont(MARS, 32);
+        missNum.setBorder();
+
+        missText = new UTText(0, 0, heart.width * .80, "");
+        missText.setFont(MARS, 16);
+        missText.setBorder(2);
     }
 
-    private function position(?x:Float, y:Float)
+    private function position(?x:Float = 0, y:Float = 0)
     {
-        if(x != null) centerPoint = new FlxPoint(x, y);
+        if(centerPoint == null) 
+            centerPoint = new FlxPoint(x, y);
 
         heart.setPosition(centerPoint.x - (heart.width / 2), centerPoint.y - (heart.height / 2));
-        missText.setPosition(centerPoint.x - (missText.width / 2), centerPoint.y - (missText.height / 2) - 10);
+        missNum.setPosition(centerPoint.x - (missNum.width / 2), centerPoint.y - (missNum.height / 2) - 10);
+        missText.setPosition(centerPoint.x - (missText.width / 2), centerPoint.y - (missNum.height / 2) + 40);
+    }
+
+    public function updateHUDPreset(data:Dynamic)
+    {
+        heart.alpha = data.sprite.alpha;
+        heart.scale.set(data.sprite.scale, data.sprite.scale);
+        missNum.alpha = data.number.alpha;
+        missNum.scale.set(data.number.scale, data.number.scale);
+        missNum.setBorder(data.number.border);
+        missText.alpha = data.text.alpha;
+        missText.scale.set(data.text.scale, data.text.scale);
+        missText.setBorder(data.text.border);
+
+        position();
+        heart.x += data.sprite.xOffset;
+        heart.y += data.sprite.yOffset;
+        missNum.x += data.number.xOffset;
+        missNum.y += data.number.yOffset;
+        missText.x += data.text.xOffset;
+        missText.y += data.text.yOffset;
     }
 
     public function updateMisses(misses:Int)
@@ -74,12 +103,14 @@ class MissCounter extends FlxTypedGroup<FlxObject>
 
         if(misses == 0)
         {
+            missNum.text = "";
             missText.text = "";
         }
         else
         {
             breakFC();
-            missText.text = "" + misses;
+            missNum.text = "" + misses;
+            missText.text = missString;
         }
     }
 
@@ -89,7 +120,7 @@ class MissCounter extends FlxTypedGroup<FlxObject>
         {
             fc = false;
             heart.animation.play("miss");
-            missText.visible = true;
+            missNum.visible = true;
         }
     }
 

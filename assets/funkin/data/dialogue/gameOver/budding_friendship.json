@@ -2,7 +2,7 @@
     "dialogueGroups":
     [
         {
-            "name": "Flowey Game Over 1",
+            "name": "Budding Friendship Game Over 1",
             "parameters":
             {
                 "defaultDialogue": false,
@@ -11,7 +11,7 @@
             "dialogue": [
                 {
                     "character": "Flowey",
-                    "string": "Wow, how did you lose to ME?"
+                    "string": "Wow. Really?"
                 },
                 {
                     "character": "Flowey",
@@ -20,7 +20,7 @@
             ]
         },
         {
-            "name": "Flowey Game Over 2",
+            "name": "Budding Friendship Game Over 2",
             "parameters":
             {
                 "defaultDialogue": true,
@@ -38,7 +38,7 @@
             ]
         },
         {
-            "name": "Flowey Game Over 3",
+            "name": "Budding Friendship Game Over 3",
             "parameters":
             {
                 "defaultDialogue": false,
@@ -47,20 +47,20 @@
             "dialogue": [
                 {
                     "character": "Flowey",
-                    "string": "Okay... I get it."
+                    "string": "What's your deal, pal?"
                 },
                 {
                     "character": "Flowey",
-                    "string": "Are you losing just to see what happens?"
+                    "string": "Are you that much of a masochist?"
                 },
                 {
                     "character": "Flowey",
-                    "string": "Heh... you're just like I was."
+                    "string": "Or are you just trying to mess with me?"
                 }
             ]
         },
         {
-            "name": "Flowey Game Over 4",
+            "name": "Budding Friendship Game Over 4",
             "parameters":
             {
                 "defaultDialogue": false,

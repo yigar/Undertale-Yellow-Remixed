@@ -94,6 +94,12 @@ class Settings {
 	/** Defines if the antialiasing filter affects all graphics. **/
 	public static var globalAntialias:Bool = true;
 
+
+	/*  CUSTOM UTY SETTINGS  */
+
+	//remembers your preferred/last HUD preset.
+	public static var hudPreset:String = "default";
+
 	// -- FUNCTIONS -- //
 
 	/**

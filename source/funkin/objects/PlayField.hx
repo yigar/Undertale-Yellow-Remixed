@@ -3,6 +3,7 @@ package funkin.objects;
 import flixel.group.FlxGroup;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import flixel.math.FlxMath;
+import flixel.math.FlxPoint;
 
 import forever.display.ForeverText;
 import forever.display.RecycledSpriteGroup;
@@ -15,6 +16,7 @@ import funkin.states.PlayState;
 import funkin.ui.HealthBar;
 import funkin.ui.UTIcon;
 import funkin.ui.CerobaShield;
+import funkin.ui.SongTitle;
 
 import haxe.ds.Vector;
 
@@ -25,6 +27,15 @@ import uty.objects.UTText;
  * Play Field contains basic objects to handle gameplay
  * Note Fields, Notes, etc.
 **/
+
+//lets the player choose a preferred HUD layout preset
+//to some extent this should be hard-coded and not whatever's in the folder.
+enum abstract HUDPreset(String)from String to String{
+	var DEFAULT:String = "default";
+	var MINIMAL:String = "minimal";
+	var OFF:String = "off";
+}
+
 class PlayField extends FlxGroup {
 	private var play(get, never):PlayState;
 	public var skin(get, never):String;
@@ -43,11 +54,12 @@ class PlayField extends FlxGroup {
 
 	// -- UI NODES -- //
 
-	public var centerMark:UTText;
+	public var songTitle:SongTitle;
 
 	public var healthBar:HealthBar;
 	public var iconP1:UTIcon;
 	public var iconP2:UTIcon;
+	public var iconStartY:Int;
 
 	public var cerobaShield:CerobaShield;
 
@@ -58,8 +70,11 @@ class PlayField extends FlxGroup {
 
 	public var splashGroup:RecycledSpriteGroup<NoteSplash>;
 
-	//ui options
-	public var cerobaShieldActive:Bool = false;
+	//HUD PRESETS
+	//in case of exclusive boss huds, the list of hud presets for normal songs is hardcoded here.
+	public final baseHudPresets:Array<HUDPreset> = [DEFAULT, MINIMAL, OFF];
+	public var curHudPreset:Int = 0; //for looping
+	public var hudPresetData:Array<Dynamic>;
 
 	public function new():Void {
 		super();
@@ -81,8 +96,6 @@ class PlayField extends FlxGroup {
 		add(noteGroup = new FlxTypedSpriteGroup<Note>());
 		add(splashGroup = new RecycledSpriteGroup<NoteSplash>());
 
-		add(cerobaShield = new CerobaShield(0, 0));
-
 		final hbY:Float = Settings.downScroll ? FlxG.height * 0.1 : FlxG.height * 0.875;
 
         var hbPath:String = 'images/ui/${skin}/healthBar';
@@ -93,23 +106,31 @@ class PlayField extends FlxGroup {
 
 		add(iconP1 = new UTIcon(PlayState.current?.player?.icon ?? "face", true));
 		add(iconP2 = new UTIcon(PlayState.current?.enemy?.icon ?? "face", false));
+		iconP2.lowHealthFlash = false;
 
 		for (i in [iconP1, iconP2]) i.y = healthBar.y - (i.height * 0.5);
 		
-		iconP1.x = FlxG.width - 150 - (iconP1.width * 0.50);
-		iconP2.x = 150 - (iconP2.width * 0.50);
+		centerIconX();
+
+		iconStartY = Std.int(iconP1.y);
+
+		//ceroba shield, deactivate 
+		add(cerobaShield = new CerobaShield(0, 0));
 
 		cerobaShield.x = iconP1.x - (iconP1.width);
 		cerobaShield.y = iconP1.y - (iconP1.height);
 
+		//hide the shield if it's not active for this song.
+		//does not affect the mechanics; shield mechanics are in the playstate and cerobashield object
+		if(!PlayState.current.shieldEnabled) {
+			cerobaShield.visible = false;
+		}
+
 		// [${play.songMeta.difficulty.toUpperCase()}] -'
 		//improve this song display later
 		var songString:String = play.songMeta.name.toUpperCase();
-		centerMark = new UTText(0, (Settings.downScroll ? FlxG.height - 40 : 15), 0, '- ${songString} -', 24);
-		centerMark.borderSize = 2.0;
-		centerMark.screenCenter(X);
-		centerMark.setBorder(3, 0x88000000);
-		add(centerMark);
+		songTitle = new SongTitle(6, 6, songString);
+		add(songTitle);
 
 		missCount = new MissCounter(Settings.centerStrums ? FlxG.width - 100 : plrStrums.x - 100, 90);
 		add(missCount);
@@ -118,6 +139,10 @@ class PlayField extends FlxGroup {
 		add(gradeSprite);
 
 		updateScore();
+
+		//all the hud stuff is done; now update it from the preset settings
+		initializeHUDPresetData();
+		updateHUDPreset();
 
 		noteList = new Vector<NoteData>(Chart.current.notes.length);
 
@@ -177,6 +202,12 @@ class PlayField extends FlxGroup {
 
 	public var divider:String = " • ";
 
+	private function centerIconX(?gap:Int = 150)
+	{
+		iconP1.x = FlxG.width - gap - (iconP1.width * 0.50);
+		iconP2.x = gap - (iconP2.width * 0.50);
+	}
+
 	public dynamic function updateScore():Void {
 
 		missCount.updateMisses(Timings.rank == "N/A" ? -1 : Timings.comboBreaks);
@@ -190,10 +221,66 @@ class PlayField extends FlxGroup {
 		#end
 	}
 
+	private function initializeHUDPresetData()
+	{
+		hudPresetData = new Array<Dynamic>();
+		//retrieves hud presets defined in baseHudPresets, pushes to the data array
+		for(i in 0...baseHudPresets.length)
+		{
+			var data = AssetHelper.parseAsset('data/ui/hud/${baseHudPresets[i]}', YAML);
+			hudPresetData.push(data);
+		}
+		//add null checks on initialization
+	}
+
+	public function incrementHUDPreset()
+	{
+		curHudPreset++;
+		if(curHudPreset >= baseHudPresets.length)
+			curHudPreset = 0;
+
+		updateHUDPreset();
+	}
+
+	public function updateHUDPreset()
+	{
+		//trace('PRESET: ${hudPresetData[curHudPreset].hud.name}');
+		gradeSprite.updateHUDPreset(hudPresetData[curHudPreset].hud.grade);
+		healthBar.updateHUDPreset(hudPresetData[curHudPreset].hud.healthbar);
+		missCount.updateHUDPreset(hudPresetData[curHudPreset].hud.misses);
+		updateHUDPresetIcons(hudPresetData[curHudPreset].hud.icons);
+		//save the current HUD preset in the settings
+		Settings.hudPreset = baseHudPresets[curHudPreset];
+		Settings.flush();
+	}
+
+	private function updateHUDPresetIcons(data:Dynamic)
+	{
+		iconP1.visible = data.iconP1.visible;
+		iconP1.scale.set(data.iconP1.scale, data.iconP1.scale);
+		iconP2.visible = data.iconP2.visible;
+		iconP2.scale.set(data.iconP2.scale, data.iconP2.scale);
+		
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
+
+		centerIconX(data.gap);
+
+		iconP1.x += data.iconP1.xOffset;
+		iconP2.x += data.iconP2.xOffset;
+		iconP1.y = iconStartY + data.iconP1.yOffset;
+		iconP2.y = iconStartY + data.iconP2.yOffset;
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
+	}
+
 	public function onBeat(beat:Int):Void 
 	{
 		for (icon in [iconP1, iconP2])
+		{
 			icon.doBump(beat);
+			icon.dangerFlash(beat);
+		}
 
 		if(beat % 4 == 0)
 			missCount.heartPulse();
@@ -206,7 +293,10 @@ class PlayField extends FlxGroup {
 		healthBar,
 		iconP1, 
 		iconP2, 
-		centerMark];
+		songTitle];
+
+	public inline function getHUDPresetData():Dynamic 
+		return hudPresetData[curHudPreset].hud;
 
 	inline function get_play():PlayState return PlayState.current;
 	inline function get_skin():String return Chart.current.gameInfo.skin ?? "normal";

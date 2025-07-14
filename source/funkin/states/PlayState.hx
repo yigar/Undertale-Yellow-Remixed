@@ -31,6 +31,7 @@ import uty.scripts.UTScript;
 import funkin.ui.CerobaShield;
 import funkin.objects.play.Ally;
 import uty.components.SoundManager;
+import uty.objects.UTText;
 
 enum abstract GameplayMode(Int) to Int {
 	var STORY = 0;
@@ -60,6 +61,9 @@ class PlayState extends FNFState {
 
 	public var bg:ForeverSprite;
 	public var playField:PlayField;
+
+	public var shortcutMsg:UTText; //gives shortcut key feedback
+	public var shortcutFadeTimer:FlxTimer;
 
 	public var camLead:FlxObject;
 
@@ -92,9 +96,9 @@ class PlayState extends FNFState {
 	public var resetTimer:Float = 0.0; //this has to be separate from the invTimer, otherwise resetting could be abused for i-frames
 	public var gameOvered:Bool = false;
 	public var suicideClock:Float = 0.0; //for a fun little reset button effect
-		//shield stuff
-	public var shieldEnabled:Bool = true; //do not confuse these two
-	public var shieldCharged:Bool = false;
+	//shield stuff
+	public var shieldEnabled:Bool = false; //do not confuse these two; enabled activates the mechanic
+	public var shieldCharged:Bool = false; //this determines if the shield can be used or not
 	public var shieldPercent:Float = 0.0;
 	public var absorbThisHit:Bool = false; //for the shield mechanic; allows for the hurt code to be intercepted
 	public var ally:Ally;
@@ -200,6 +204,14 @@ class PlayState extends FNFState {
 		if (Settings.fixedJudgements)
 			comboGroup.camera = hudCamera;
 
+		// custom: prepare function feedback //
+		add(shortcutMsg = new UTText(10, 500, 0, "shortcut txt"));
+		shortcutMsg.setFont(PIXELA, 24);
+		shortcutMsg.setBorder(2);
+		shortcutMsg.alpha = 0.0;
+
+		shortcutMsg.camera = hudCamera;
+
 		// -- PREPARE CHART AND NOTEFIELDS -- //
 		Conductor.bpm = Chart.current.songInfo.beatsPerMinute;
 
@@ -270,7 +282,14 @@ class PlayState extends FNFState {
 		//idk how to override this so i'm deleting this metadata for now
 		if (FlxG.keys.justPressed.SEVEN) openChartEditor();
 		if (Controls.PAUSE) openPauseMenu();
-		//cool rapid-damage suicide effect
+
+		//SHORTCUT FUNCTIONS
+		shortcutKeyCheck();
+	
+
+		//DEBUG
+		if(FlxG.keys.justPressed.F2)
+			playField.updateHUDPreset();
 
 
 		#if sys
@@ -940,5 +959,35 @@ class PlayState extends FNFState {
 		if(FlxG.keys.justPressed.P && shieldEnabled) {
 			breakCerobaShield();
 		}
+	}
+	
+	//checks all setting shortcut keys, calls their functions, displays feedback.
+	function shortcutKeyCheck()
+	{
+		var feedbackMessage:String = "";
+
+		//changes HUD preset
+		if(FlxG.keys.justPressed.F1) {
+			playField.incrementHUDPreset();
+			feedbackMessage = "F1 - Change HUD (" + playField.getHUDPresetData().name + ")";
+		}
+
+		if(feedbackMessage.length > 0)
+			displayShortcutFeedback(feedbackMessage, 2.5);
+	}
+
+	//gives feedback on shortcut keys, preventing confusion
+	function displayShortcutFeedback(message:String, time:Float)
+	{
+		FlxTween.cancelTweensOf(shortcutMsg, ["alpha"]);
+		shortcutMsg.alpha = 1.0;
+		shortcutMsg.text = message;
+
+		if(shortcutFadeTimer != null)
+			shortcutFadeTimer.cancel();
+		shortcutFadeTimer = new FlxTimer().start(time * 0.80, function(tmr:FlxTimer):Void{
+			FlxTween.tween(shortcutMsg, {alpha: 0.0}, time * 0.20);
+		});
+		
 	}
 }

@@ -160,7 +160,10 @@ class GameOverSubState extends FlxSubState {
     private function setupDialogue()
     {
         //name the dialogue files based on the songs.
-        var parser:DialogueParser = new DialogueParser(PlayState.current.songMeta.name, "gameOver/");
+        var songName = PlayState.current.songMeta.name.toLowerCase();
+        songName = StringTools.replace(songName, " ", "_");
+        var parser:DialogueParser = new DialogueParser(songName, "gameOver");
+
         var diaGrp:DialogueGroup = parser.getDialogueFromParameter("deathCount", StoryUtil.getDeaths(PlayState.current.songMeta.name), true);
         diaBox = new DialogueBox(0, 0, diaGrp);
         add(diaBox);
@@ -248,7 +251,7 @@ class SoulShard extends DirectionParticle
         scale.set(1.5, 1.5);
         updateHitbox();
 
-        setXBounds(8.0, 8.0);
+        setXBounds(-8.0, 8.0);
         setYBounds(-12.0, 3.0);
         getRandomMomentum();
     }

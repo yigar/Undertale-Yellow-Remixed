@@ -46,7 +46,7 @@ class NoteSkin {
 		}
 
 		var dum:Dynamic = dummy();
-		var yamlData = AssetHelper.parseAsset('data/ui/${name}', YAML);
+		var yamlData = AssetHelper.parseAsset('data/ui/notes/${name}', YAML);
 
 		if (yamlData == null) {
 			trace("[NoteSkin:new()]: Unexpected error when loading skin data -> Null Object Reference");

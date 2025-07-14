@@ -1,0 +1,91 @@
+hud:
+  name: "Off"
+  healthbar:
+    bar: 
+      alpha: 0.0
+      thickMult: 1.0
+      lengthMult: 1.0
+      fillColor: 0xFFFFFF00
+      emptyColor: 0xFFFF0000
+      xOffset: 0
+      yOffset: 0
+      border: 0
+
+    hpText:
+      alpha: 0.0
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+      border: 3
+      divider: " / "
+
+    hpSprite:
+      alpha: 0.0
+      sprite: 'ui/undertale/hp'
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+
+    loveText:
+      alpha: 0.0
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+      border: 3
+
+  icons:
+    gap: 0
+    iconP1:
+      visible: false
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+
+    iconP2:
+      visible: false
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+
+  grade:
+    letter:
+      alpha: 0.0
+      scale: 0.8
+      xOffset: 0
+      yOffset: 0
+
+    sign:
+      alpha: 0.0
+      scale: 0.8
+      xOffset: 0
+      yOffset: 0
+    
+    accuracy:
+      alpha: 0.0
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+      border: 3
+
+  misses:
+    sprite:
+      alpha: 0.0
+      scale: 0.8
+      xOffset: 0
+      yOffset: 0
+      
+    number:
+      alpha: 0.0
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+      border: 3
+
+    text:
+      alpha: 0.0
+      scale: 1.0
+      xOffset: 0
+      yOffset: 0
+      border: 2
+
+

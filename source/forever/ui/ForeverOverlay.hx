@@ -53,8 +53,8 @@ class ForeverOverlay extends TextField {
 	public function new():Void {
 		super();
 
-		x = 10;
-		y = 10;
+		x = 5;
+		y = 5;
 
 		defaultTextFormat = new TextFormat("assets/funkin/fonts/crypt-of-tomorrow.ttf", 10, 0x68FFFFFF);
 		mouseEnabled = selectable = false;

@@ -215,6 +215,6 @@ class CerobaShieldShard extends DirectionParticle
     override function disable()
     {
         super.disable();
-        trace('DISABLED ${type}');
+        //trace('DISABLED ${type}');
     }
 }

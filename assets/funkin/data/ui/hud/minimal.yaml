@@ -1,0 +1,90 @@
+hud:
+  name: "Minimal"
+  healthbar:
+    bar: 
+      alpha: 1.0
+      thickMult: 0.8
+      lengthMult: 0.7
+      fillColor: 0xFFFFFFFF
+      emptyColor: 0x55FFFFFF
+      xOffset: 0
+      yOffset: 75
+      border: 0
+
+    hpText:
+      alpha: 1.0
+      scale: 0.5
+      xOffset: 6
+      yOffset: 10
+      border: 4
+      divider: " | "
+
+    hpSprite:
+      alpha: 0.0
+      sprite: 'ui/undertale/hp'
+      scale: 0.5
+      xOffset: 0
+      yOffset: 0
+
+    loveText:
+      alpha: 0.0
+      scale: 0.5
+      xOffset: 0
+      yOffset: 0
+      border: 3
+
+  icons:
+    gap: 400
+    iconP1:
+      visible: true
+      scale: 1.5
+      xOffset: 0
+      yOffset: 100
+
+    iconP2:
+      visible: true
+      scale: 1.5
+      xOffset: 0
+      yOffset: 100
+
+  grade:
+    letter:
+      alpha: 1.0
+      scale: 0.5
+      xOffset: -30
+      yOffset: -30
+
+    sign:
+      alpha: 1.0
+      scale: 0.5
+      xOffset: -62
+      yOffset: -24
+    
+    accuracy:
+      alpha: 1.0
+      scale: 0.6
+      xOffset: 90
+      yOffset: -86
+      border: 3
+
+  misses:
+    sprite:
+      alpha: 1.0
+      scale: 0.5
+      xOffset: -160
+      yOffset: -36
+      
+    number:
+      alpha: 1.0
+      scale: 0.6
+      xOffset: -160
+      yOffset: -30
+      border: 3
+
+    text:
+      alpha: 1.0
+      scale: 0.75
+      xOffset: -80
+      yOffset: -73
+      border: 2
+

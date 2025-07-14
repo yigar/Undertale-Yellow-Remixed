@@ -28,13 +28,16 @@ class HealthBar extends FlxSpriteGroup
 
     public var lvData:Dynamic;
 
-    public var compactMode:Bool = false;
     public var barThickness:Int = 32;
+    public var barLength:Int;
     public var borderThickness:Int = 5;
     public final minLength:Int = 120;
     public final maxLength:Int = 500;
 
+    public var centerPoint:FlxPoint;
+
     public final _font:String = "mars-needs-cunnilingus";
+    public var dividerString:String = " / ";
 
     public function new(x:Float, y:Float, love:Int = 1)
     {
@@ -44,16 +47,10 @@ class HealthBar extends FlxSpriteGroup
         var lv1Data:Dynamic = PlayerData.loveValues.get(1);
         var lv20Data:Dynamic = PlayerData.loveValues.get(20);
 
-        var barLength:Int = Std.int(FlxMath.lerp(minLength, maxLength, (Timings.maxHealth - lv1Data[0]) / (lv20Data[0] - lv1Data[0])));
+        barLength = Std.int(FlxMath.lerp(minLength, maxLength, (Timings.maxHealth - lv1Data[0]) / (lv20Data[0] - lv1Data[0])));
 
         //bar should be minLength at LV 1, maxLength at LV 20, and interped in between if any other level.
-        bar = new FlxBar(0, 0, RIGHT_TO_LEFT, barLength,
-            Std.int(compactMode ? barThickness / 2 : barThickness));
-        bar.createFilledBar(FlxColor.RED, FlxColor.YELLOW);
-        //suck my cock FlxBar. fuck you. i hate you
-        //why in mother fuck would you IGNORE float inputs instead of compile erroring or just converting them
-
-        border = new FlxSprite().makeGraphic(Std.int(bar.width + (borderThickness * 2)), Std.int(bar.height + (borderThickness * 2)), FlxColor.BLACK);
+        createBar(barLength, barThickness, FlxColor.YELLOW, FlxColor.RED, borderThickness);
 
         loveText = new UTText();
         loveText.setFont(MARS, 24);
@@ -79,20 +76,72 @@ class HealthBar extends FlxSpriteGroup
         position(x, y);
     }
 
-    public function position(x:Float, y:Float)
+    private function createBar(length:Int, thickness:Int, fill:FlxColor, empty:FlxColor, bord:Int)
     {
-        bar.setPosition(x - (bar.width / 2), y - (bar.height / 2));
+        bar = new FlxBar(0, 0, LEFT_TO_RIGHT, length, barThickness);
+        bar.createFilledBar(empty, fill);
+
+        border = new FlxSprite().makeGraphic(Std.int(bar.width + (bord * 2)), Std.int(bar.height + (bord * 2)), FlxColor.BLACK);
+        if(bord <= 0)
+            border = new FlxSprite().makeGraphic(0,0, FlxColor.BLACK);
+    }
+
+    public function position(?x:Float = 0, y:Float = 0)
+    {
+        if(centerPoint == null) 
+            centerPoint = new FlxPoint(x, y);
+
+        bar.setPosition(centerPoint.x - (bar.width / 2), centerPoint.y - (bar.height / 2));
         border.setPosition(bar.x - borderThickness, bar.y - borderThickness);
-        hpText.setPosition(x - (hpText.width / 2), y + (border.height) - hpText.height + 30);
-        loveText.setPosition(hpText.x - loveText.width - 40, y + (border.height) - loveText.height + 30);
-        hpSprite.setPosition(hpText.x + hpText.width + 32, y + (border.height) - hpSprite.height + 30);
+        hpText.setPosition(centerPoint.x - (hpText.width / 2), centerPoint.y + (border.height) - hpText.height + 30);
+        loveText.setPosition(hpText.x - loveText.width - 40, centerPoint.y + (border.height) - loveText.height + 30);
+        hpSprite.setPosition(hpText.x + hpText.width + 32, centerPoint.y + (border.height) - hpSprite.height + 30);
     }
 
     public function updateBar(playerHealth:Int)
     {
-        hpText.text = '${playerHealth} / ${Timings.maxHealth}';
+        hpText.text = playerHealth + dividerString + Timings.maxHealth;
         hpText.updateHitbox();
 
         bar.percent = (playerHealth / Timings.maxHealth * 100);
+    }
+
+    public function updateHUDPreset(data:Dynamic)
+    {
+        dividerString = data.hpText.divider;
+        bar.alpha = data.bar.alpha;
+        bar.scale.set(data.bar.lengthMult, data.bar.thickMult);
+        bar.updateHitbox();
+
+        border.visible = (data.bar.border > 0);
+        
+        hpText.alpha = data.hpText.alpha;
+        hpText.scale.set(data.hpText.scale, data.hpText.scale);
+        hpText.setBorder(data.hpText.border);
+        hpSprite.alpha = data.hpSprite.alpha;
+        hpSprite.scale.set(data.hpSprite.scale, data.hpSprite.scale);
+        loveText.alpha = data.loveText.alpha;
+        loveText.scale.set(data.loveText.scale, data.loveText.scale);
+        loveText.setBorder(data.loveText.border);
+
+        position();
+        bar.x += data.bar.xOffset;
+        bar.y += data.bar.yOffset;
+        border.x += data.bar.xOffset;
+        border.y += data.bar.yOffset;
+        hpText.x += data.hpText.xOffset;
+        hpText.y += data.hpText.yOffset;
+        hpSprite.x += data.hpSprite.xOffset;
+        hpSprite.y += data.hpSprite.yOffset;
+        loveText.x += data.loveText.xOffset;
+        loveText.y += data.loveText.yOffset;
+        updateHitboxes();
+    }
+
+    private inline function updateHitboxes(){
+        hpText.updateHitbox();
+        hpSprite.updateHitbox();
+        loveText.updateHitbox();
+        bar.updateHitbox();
     }
 }

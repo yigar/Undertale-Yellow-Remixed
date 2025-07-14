@@ -198,9 +198,11 @@ class StoryUtil
     public static function getDeaths(song:String):Int
     {
         var d = null;
-        d = _getStorySong(song).deaths;
-        if(d == null) d = 0;
-        return d;
+        d = _getStorySong(song);
+        if(d == null) 
+            return 0;
+        else 
+            return d.deaths ?? 0;
     }
 
     public static function addFollower(follower:String)
@@ -266,10 +268,16 @@ class StoryUtil
     {
         var save:StorySave = StoryData.getActiveData();
         var oldSS:StorySongSave = _getStorySong(song);
+        if(oldSS == null)
+            oldSS = {
+                played: false,
+                beaten: false,
+                deaths: 0
+            };
         var newSS:StorySongSave = {
             played: values.played ?? oldSS.played,
             beaten: values.beaten ?? oldSS.beaten,
-            deaths: values.deaths ?? oldSS.deaths,
+            deaths: values.deaths ?? oldSS.deaths
         }
         save.songs.set(song, newSS);
         StoryData.setActiveData(save);

@@ -29,6 +29,7 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
         super();
         loadSprite();
         loadText();
+        updateHitboxes();
         add(letter);
         add(sign);
         add(accText);
@@ -53,9 +54,6 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
         sign.frames = Paths.getSparrowAtlas('ui/undertale/grade');
         sign.addAtlasAnim("plus", "plus", 0, false);
         sign.addAtlasAnim("minus", "minus", 0, false);
-
-        letter.scale.set(0.80, 0.80);
-        sign.scale.set(0.80, 0.80);
     }
 
     private function loadText()
@@ -65,9 +63,10 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
         accText.setBorder();
     }
 
-    private function position(?x:Float, y:Float)
+    private function position(?x:Float = 0, y:Float = 0)
     {
-        if(x != null) centerPoint = new FlxPoint(x, y);
+        if(centerPoint == null) 
+            centerPoint = new FlxPoint(x, y);
 
         letter.setPosition(centerPoint.x - (letter.width / 2), centerPoint.y - (letter.height / 2));
         sign.setPosition(letter.x + letter.width + 25, letter.y + 10);
@@ -129,5 +128,34 @@ class GradeSprite extends FlxTypedGroup<FlxObject>
         letter.visible = vis;
         sign.visible = vis;
         accText.visible = vis;
+    }
+
+    public function updateHUDPreset(data:Dynamic)
+    {
+        //trace('BEFORE: ${letter.width}');
+        letter.alpha = data.letter.alpha;
+        letter.scale.set(data.letter.scale, data.letter.scale);
+        sign.alpha = data.sign.alpha;
+        sign.scale.set(data.sign.scale, data.sign.scale);
+        accText.alpha = data.accuracy.alpha;
+        accText.scale.set(data.accuracy.scale, data.accuracy.scale);
+        accText.setBorder(data.accuracy.border);
+
+        //trace('AFTER: ${letter.width}');
+
+        position();
+        letter.x += data.letter.xOffset;
+        letter.y += data.letter.yOffset;
+        sign.x += data.sign.xOffset;
+        sign.y += data.sign.yOffset;
+        accText.x += data.accuracy.xOffset;
+        accText.y += data.accuracy.yOffset;
+        //updateHitboxes();
+    }
+
+    private inline function updateHitboxes() {
+        letter.updateHitbox();
+        sign.updateHitbox();
+        accText.updateHitbox();
     }
 }
