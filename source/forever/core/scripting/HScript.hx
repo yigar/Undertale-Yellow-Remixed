@@ -13,7 +13,7 @@ class HScript #if SCRIPTING extends Iris #end {
 	var localPath:String = null;
 
 	public function new(file:String, ?localPath:String = null):Void {
-		super(Tools.getText(file), {name: file.substr(0, file.lastIndexOf(".")), autoRun: true, preset: true});
+		super(Tools.getText(file), {name: file.substr(0, file.lastIndexOf(".")), autoRun: true, autoPreset: true});
 		this.localPath = localPath;
 	}
 

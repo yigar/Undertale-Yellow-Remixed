@@ -15,12 +15,12 @@ class DiscordWrapper {
 	 * @param clientID			your app's ClientID, from Discord Developer Portal.
 	**/
 	static function initialize(clientID:String):Void {
-		var evHandler:DiscordEventHandlers = DiscordEventHandlers.create();
+		var evHandler:DiscordEventHandlers = new DiscordEventHandlers();
 		evHandler.ready = cpp.Function.fromStaticFunction(_onReady);
 		evHandler.disconnected = cpp.Function.fromStaticFunction(_onDc);
 		evHandler.errored = cpp.Function.fromStaticFunction(_onErr);
 
-		Discord.Initialize(Std.string(clientID), cpp.RawPointer.addressOf(evHandler), 1, null);
+		Discord.Initialize(Std.string(clientID), cpp.RawPointer.addressOf(evHandler), true, null);
 
 		// Daemon Thread
 		sys.thread.Thread.create(function():Void {
@@ -34,7 +34,7 @@ class DiscordWrapper {
 			}
 		});
 
-		presence = DiscordRichPresence.create();
+		presence = new DiscordRichPresence();
 		openfl.Lib.application.onExit.add((exitCode:Int) -> Discord.Shutdown());
 	}
 

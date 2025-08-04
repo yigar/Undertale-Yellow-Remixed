@@ -62,7 +62,7 @@ class ScriptableState extends FlxTransitionableState {
 		var ret:Dynamic = null;
 		
 		for (script in scriptPack) {
-			var val:Dynamic = script.call(method, args).methodVal;
+			var val:Dynamic = script.call(method, args).signature; //changed this from methodVal, i'm assuming updated code?
 			if (val != null) // we do not need to set the value to null if the method is a void
 				ret = val;
 		}
